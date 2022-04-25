@@ -19,7 +19,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 | @angular/cli | ^13 |
 | firebase-tools | ^10.7.1 |
 
-If you have not installed `@angular/cli` globally, you may use `npm run ng --` instead of `ng` commands below. 
+If you have not installed `@angular/cli` globally, you may use `npx ng` instead of `ng` commands below.
 
 ### For VSCode users
 
@@ -35,7 +35,7 @@ npm install
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` or `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -43,7 +43,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Coding Style
 
-Refer https://angular.io/guide/styleguide for coding style. Run `ng lint` for linting.
+Refer https://angular.io/guide/styleguide for coding style. Run `ng lint` or `npm run lint` for linting.
 
 ## Commit prefix
 
@@ -54,24 +54,25 @@ Adding commit prefix is optional but recommended as it helps review process. Cho
 - fix: Fix bugs and issues.
 - doc: Documentation updates.
 - dep: Updating dependencies.
+- chore: Other changes that don't modify source files.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-c production` flag for a production build.
+Run `ng build` or `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-c production` flag or run `npm run build:prod` for a production build.
 
 ## Deploy
 
 This application is hosted on Firebase hosting. Merging any pull requests into `master` branch will trigger an automatic deployment.
 
-Manual deployment is also available for approved firebase project members only, via `ng deploy` command.
+Manual deployment is also available for approved firebase project members only, via `ng deploy` or `npm run deploy` (requires global firebase-tools installation) command.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `ng test` or `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `ng e2e` or `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Further help
 
