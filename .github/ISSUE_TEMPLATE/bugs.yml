@@ -1,0 +1,25 @@
+name: バグレポート
+description: 不具合が起こったとき
+labels: [ bug ]
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: 概要
+    validations:
+      required: true
+  - type: textarea
+    id: recreation
+    attributes:
+      label: 再現手順
+      value: "1. "
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: 期待される動作
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: スクリーンショット
