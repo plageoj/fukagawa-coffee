@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
 import { Item, ItemDialogData } from 'src/models/item.model';
 import { AddItemComponent } from '../add-item/add-item.component';
@@ -12,7 +11,7 @@ import { AddItemComponent } from '../add-item/add-item.component';
   templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.scss'],
 })
-export class ItemDetailComponent implements OnInit, OnDestroy {
+export class ItemDetailComponent implements OnDestroy {
   item: Item = {
     id: '',
     name: '読み込み中',
@@ -36,8 +35,6 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
       this.item = item as Item;
     });
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     if (this.isUpdated) this.is.store(this.item);

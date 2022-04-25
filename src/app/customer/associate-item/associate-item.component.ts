@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Item } from 'src/models/item.model';
 
@@ -7,10 +7,8 @@ import { Item } from 'src/models/item.model';
   templateUrl: './associate-item.component.html',
   styleUrls: ['./associate-item.component.scss'],
 })
-export class AssociateItemComponent implements OnInit {
+export class AssociateItemComponent {
   constructor(private ref: MatDialogRef<AssociateItemComponent>) {}
-
-  ngOnInit(): void {}
 
   associateItem(item: Item) {
     this.ref.close(item);

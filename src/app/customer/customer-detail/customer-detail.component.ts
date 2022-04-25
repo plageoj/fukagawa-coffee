@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { AssociateItemComponent } from '../associate-item/associate-item.compone
   templateUrl: './customer-detail.component.html',
   styleUrls: ['./customer-detail.component.scss'],
 })
-export class CustomerDetailComponent implements OnInit, OnDestroy {
+export class CustomerDetailComponent implements OnDestroy {
   customer: Customer | undefined;
   items: Item[] = [];
   private isUpdated = false;
@@ -41,8 +41,6 @@ export class CustomerDetailComponent implements OnInit, OnDestroy {
         }
       });
   }
-
-  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     if (!this.customer || !this.isUpdated) return;

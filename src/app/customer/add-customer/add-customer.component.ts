@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerDialogData } from 'src/models/customer.model';
@@ -8,7 +8,7 @@ import { CustomerDialogData } from 'src/models/customer.model';
   templateUrl: './add-customer.component.html',
   styleUrls: ['./add-customer.component.scss'],
 })
-export class AddCustomerComponent implements OnInit {
+export class AddCustomerComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CustomerDialogData,
     private cs: CustomerService
@@ -22,6 +22,4 @@ export class AddCustomerComponent implements OnInit {
       };
     }
   }
-
-  ngOnInit(): void {}
 }
