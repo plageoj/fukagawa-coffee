@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ItemService } from 'src/app/services/item.service';
 import { ItemDialogData } from 'src/models/item.model';
@@ -9,7 +9,7 @@ import { StorageList } from 'src/models/store.model';
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.scss'],
 })
-export class AddItemComponent implements OnInit {
+export class AddItemComponent {
   storeList = StorageList;
 
   constructor(
@@ -27,6 +27,4 @@ export class AddItemComponent implements OnInit {
       };
     }
   }
-
-  ngOnInit(): void {}
 }

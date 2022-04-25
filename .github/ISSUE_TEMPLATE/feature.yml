@@ -1,0 +1,39 @@
+name: 機能追加リクエスト
+description: サービスに新機能を追加したいとき
+labels: [ enhancement ]
+body:
+  - type: textarea
+    id: reason
+    attributes:
+      label: 経緯・理由
+      description: なぜこの内容を追加しようと思ったか？どんな話があったか？
+      placeholder: 誰でもページ内容が確認できると、秘密情報を入れられない
+  - type: textarea
+    id: content
+    attributes:
+      label: 追加内容詳細
+      description: どんな機能を追加したいか?
+      placeholder: メールアドレスでのログイン
+    validations:
+      required: true
+  - type: textarea
+    id: requisites
+    attributes:
+      label: 完了要件
+      description: どのような状態になったらこの issue が完了になるか？
+      placeholder: |
+        例：
+        - ユーザーがメールアドレスとパスワードを使ってログインできる。
+        - ログインしていないユーザーはログインページにリダイレクトする。
+    validations:
+      required: true
+  - type: textarea
+    id: method
+    attributes:
+      label: 手順・方法
+      description: 実装手順のアイデア
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: その他の解決方法
+      description: 提案した手順以外に、より良い方法があるか考えてみるエリア

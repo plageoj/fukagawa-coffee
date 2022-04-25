@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   Auth,
   ConfirmationResult,
@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   phoneNumber = '';
   confirmationCode = '';
   isSent = false;
@@ -21,8 +21,6 @@ export class LoginComponent implements OnInit {
   private authResult?: ConfirmationResult;
 
   constructor(private auth: Auth, private sb: MatSnackBar) {}
-
-  ngOnInit(): void {}
 
   sendConfirmation() {
     const verifier = new RecaptchaVerifier(
@@ -53,7 +51,7 @@ export class LoginComponent implements OnInit {
 
         this.authResult = result;
       },
-      (err) => {
+      () => {
         this.isSent = false;
         verifier.clear();
         this.sb.open(
