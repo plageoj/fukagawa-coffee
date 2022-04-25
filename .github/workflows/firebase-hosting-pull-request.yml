@@ -1,8 +1,12 @@
 name: Deploy to Firebase Hosting on PR
-on: pull_request
+on:
+  pull_request:
+  pull_request_review:
+    types: [submitted]
 jobs:
   build_and_preview:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'plageoj' || github.event.review.state == 'approved'
     steps:
       - uses: actions/checkout@v2
 
@@ -10,7 +14,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles("**/package-lock.json") }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - name: Cache build assets
         uses: actions/cache@v2
