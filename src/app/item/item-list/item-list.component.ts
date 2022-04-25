@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
@@ -10,14 +10,12 @@ import { AddItemComponent } from '../add-item/add-item.component';
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.scss'],
 })
-export class ItemListComponent implements OnInit {
+export class ItemListComponent {
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private is: ItemService
   ) {}
-
-  ngOnInit(): void {}
 
   addItem() {
     this.dialog

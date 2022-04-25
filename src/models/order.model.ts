@@ -1,6 +1,6 @@
 import { Customer } from './customer.model';
 import { Item } from './item.model';
-import { FieldValue, Timestamp } from 'firebase/firestore';
+import { Timestamp } from 'firebase/firestore';
 
 export type ItemListItem = {
   id: Item['id'];

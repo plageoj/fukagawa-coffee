@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { where } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
@@ -11,7 +11,7 @@ import { Order } from 'src/models/order.model';
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss'],
 })
-export class OrderDetailComponent implements OnInit {
+export class OrderDetailComponent {
   order: Order | undefined;
   itemList: { [key: string]: Item } = {};
 
@@ -35,8 +35,6 @@ export class OrderDetailComponent implements OnInit {
           });
       });
   }
-
-  ngOnInit(): void {}
 
   markAsDone() {
     if (!this.order) return;

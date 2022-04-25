@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import {
-  Firestore,
   serverTimestamp,
   where,
   WithFieldValue,
@@ -19,7 +18,7 @@ import { Order } from 'src/models/order.model';
   templateUrl: './new-order.component.html',
   styleUrls: ['./new-order.component.scss'],
 })
-export class NewOrderComponent implements OnInit {
+export class NewOrderComponent {
   customer: Customer | undefined;
   items: Partial<Item & { orderedCount: number }>[] = [];
   order: WithFieldValue<Omit<Order, 'id'>> = {
@@ -37,7 +36,6 @@ export class NewOrderComponent implements OnInit {
     private cs: CustomerService,
     private is: ItemService,
     private os: OrderService,
-    private fire: Firestore,
     private sb: MatSnackBar
   ) {
     this.cs
@@ -56,8 +54,6 @@ export class NewOrderComponent implements OnInit {
         }
       });
   }
-
-  ngOnInit(): void {}
 
   addItem() {
     this.items.push({

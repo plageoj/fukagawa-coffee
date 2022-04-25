@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -10,14 +10,12 @@ import { AddCustomerComponent } from '../add-customer/add-customer.component';
   templateUrl: './customer-list.component.html',
   styleUrls: ['./customer-list.component.scss'],
 })
-export class CustomerListComponent implements OnInit {
+export class CustomerListComponent {
   customers: Observable<Customer[]>;
 
   constructor(private cs: CustomerService, private dialog: MatDialog) {
     this.customers = this.cs.list();
   }
-
-  ngOnInit(): void {}
 
   addCustomer() {
     this.dialog
