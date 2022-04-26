@@ -1,7 +1,9 @@
 mat-toolbar {
-    span {
-        margin-left: .5em;
-    }
+  display: flex;
+  span {
+    margin-left: 0.5em;
+    flex-grow: 1;
+  }
 }
 
 mat-sidenav-container {
