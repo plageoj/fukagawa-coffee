@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 export class AppComponent {
   user: User | null = null;
 
-  constructor(private auth: Auth) {
+  constructor(private auth: Auth, private router: Router) {
     onAuthStateChanged(this.auth, (user) => {
       this.user = user;
     });
@@ -17,5 +18,6 @@ export class AppComponent {
 
   logout() {
     this.auth.signOut();
+    this.router.navigateByUrl('/login');
   }
 }
