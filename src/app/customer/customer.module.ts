@@ -1,21 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { CustomerRoutingModule } from './customer-routing.module';
-import { CustomerListComponent } from './customer-list/customer-list.component';
-import { AddCustomerComponent } from './add-customer/add-customer.component';
-import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
-import { AssociateItemComponent } from './associate-item/associate-item.component';
-import { OrderSheetComponent } from './order-sheet/order-sheet.component';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatListModule } from '@angular/material/list';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { ItemSelectorModule } from '../components/item-selector/item-selector.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ItemSelectorModule } from '../components/item-selector/item-selector.module';
+import { AddCustomerComponent } from './add-customer/add-customer.component';
+import { AssociateItemComponent } from './associate-item/associate-item.component';
+import { CustomerDetailComponent } from './customer-detail/customer-detail.component';
+import { CustomerListComponent } from './customer-list/customer-list.component';
+import { CustomerRoutingModule } from './customer-routing.module';
+import { OrderSheetComponent } from './order-sheet/order-sheet.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +30,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CustomerRoutingModule,
     FormsModule,
     ItemSelectorModule,
-    MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatListModule,
-    MatTooltipModule,
     MatDialogModule,
     MatFormFieldModule,
+    MatIconModule,
+    MatListModule,
+    MatSnackBarModule,
+    MatTooltipModule,
   ],
 })
 export class CustomerModule {}
