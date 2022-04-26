@@ -11,6 +11,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ItemSelectorModule } from '../components/item-selector/item-selector.module';
 import { AddItemComponent } from './add-item/add-item.component';
@@ -37,6 +38,7 @@ import { ItemRoutingModule } from './item-routing.module';
     MatOptionModule,
     MatTooltipModule,
     MatSelectModule,
+    MatSnackBarModule,
   ],
 })
 export class ItemModule {}
