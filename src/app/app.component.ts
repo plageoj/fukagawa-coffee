@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
+import { Auth, onAuthStateChanged, signOut, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,8 +16,8 @@ export class AppComponent {
     });
   }
 
-  logout() {
-    this.auth.signOut();
+  async logout() {
+    await signOut(this.auth);
     this.router.navigateByUrl('/login');
   }
 }
