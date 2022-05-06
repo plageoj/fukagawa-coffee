@@ -12,8 +12,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import {
+  provideFirestore,
+  getFirestore,
+  connectFirestoreEmulator,
+} from '@angular/fire/firestore';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
@@ -21,8 +25,24 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     BrowserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth()),
+    provideFirestore(() => {
+      const fire = getFirestore();
+      if (environment.firebaseEmulator?.firestorePort) {
+        connectFirestoreEmulator(
+          fire,
+          'localhost',
+          environment.firebaseEmulator.firestorePort
+        );
+      }
+      return fire;
+    }),
+    provideAuth(() => {
+      const auth = getAuth();
+      if (environment.firebaseEmulator?.authUrl) {
+        connectAuthEmulator(auth, environment.firebaseEmulator.authUrl);
+      }
+      return auth;
+    }),
     AppRoutingModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {

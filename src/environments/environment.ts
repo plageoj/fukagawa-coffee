@@ -13,6 +13,10 @@ export const environment = {
     appId: '1:181401267491:web:056876b247f14bd7d47096',
     measurementId: 'G-STXP3NJ5QY',
   },
+  firebaseEmulator: {
+    authUrl: 'http://localhost:9099',
+    firestorePort: 8080,
+  },
 };
 
 /*
@@ -22,4 +26,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+import 'zone.js/dist/zone-error'; // Included with Angular CLI.
