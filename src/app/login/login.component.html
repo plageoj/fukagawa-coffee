@@ -2,7 +2,10 @@
   <mat-card-title>ログイン</mat-card-title>
 
   <mat-card-content>
-    <mat-tab-group>
+    <mat-tab-group
+      #tabGroup
+      (selectedIndexChange)="setLastLoginMethodIndex($event)"
+    >
       <mat-tab label="電話番号">
         <app-login-by-phone></app-login-by-phone>
       </mat-tab>
