@@ -1,51 +1,14 @@
-<mat-card *ngIf="!codeReady">
-  <mat-card-title> ログイン </mat-card-title>
+<mat-card>
+  <mat-card-title>ログイン</mat-card-title>
 
   <mat-card-content>
-    <mat-form-field appearance="fill">
-      <mat-label> 電話番号 </mat-label>
-      <input type="tel" matInput [(ngModel)]="phoneNumber" name="phone" />
-    </mat-form-field>
+    <mat-tab-group>
+      <mat-tab label="電話番号">
+        <app-login-by-phone></app-login-by-phone>
+      </mat-tab>
+      <mat-tab label="メールアドレス">
+        <app-login-by-email></app-login-by-email>
+      </mat-tab>
+    </mat-tab-group>
   </mat-card-content>
-
-  <mat-card-actions>
-    <button
-      mat-raised-button
-      color="primary"
-      id="send-confirmation"
-      (click)="sendConfirmation()"
-      [disabled]="isSent"
-    >
-      <mat-icon>textsms</mat-icon>
-      確認コードを送信
-    </button>
-  </mat-card-actions>
-</mat-card>
-
-<mat-card *ngIf="codeReady">
-  <mat-card-title> 確認コードを入力 </mat-card-title>
-
-  <mat-card-content>
-    <mat-form-field appearance="fill">
-      <mat-label> 確認コード </mat-label>
-      <input
-        type="number"
-        matInput
-        [(ngModel)]="confirmationCode"
-        name="confcode"
-      />
-    </mat-form-field>
-  </mat-card-content>
-
-  <mat-card-actions>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="confirmCode()"
-      [disabled]="isSent"
-    >
-      <mat-icon>login</mat-icon>
-      ログイン
-    </button>
-  </mat-card-actions>
 </mat-card>
