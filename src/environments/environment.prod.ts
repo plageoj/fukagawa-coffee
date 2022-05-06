@@ -9,4 +9,8 @@ export const environment = {
     appId: '1:181401267491:web:056876b247f14bd7d47096',
     measurementId: 'G-STXP3NJ5QY',
   },
+  firebaseEmulator: {
+    firestorePort: 8080,
+    authUrl: 'http://localhost:9099',
+  },
 };

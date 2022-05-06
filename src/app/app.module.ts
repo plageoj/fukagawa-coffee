@@ -27,7 +27,10 @@ import { MatButtonModule } from '@angular/material/button';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => {
       const fire = getFirestore();
-      if (environment.firebaseEmulator?.firestorePort) {
+      if (
+        !environment.production &&
+        environment.firebaseEmulator.firestorePort
+      ) {
         connectFirestoreEmulator(
           fire,
           'localhost',
@@ -38,7 +41,7 @@ import { MatButtonModule } from '@angular/material/button';
     }),
     provideAuth(() => {
       const auth = getAuth();
-      if (environment.firebaseEmulator?.authUrl) {
+      if (!environment.production && environment.firebaseEmulator.authUrl) {
         connectAuthEmulator(auth, environment.firebaseEmulator.authUrl);
       }
       return auth;
