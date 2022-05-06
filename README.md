@@ -35,7 +35,9 @@ npm install
 
 ## Development server
 
-Run `ng serve` or `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a dev server with Firebase local emulator suite. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+If you need to connect to the production environment, run `npm run serve:prod`.
 
 ## Code scaffolding
 
