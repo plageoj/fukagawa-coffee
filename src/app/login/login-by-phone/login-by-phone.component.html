@@ -1,0 +1,53 @@
+<ng-container *ngIf="!codeReady">
+  <mat-form-field>
+    <mat-label> 電話番号 </mat-label>
+    <input
+      type="tel"
+      matInput
+      [(ngModel)]="phoneNumber"
+      name="phone"
+      required
+    />
+  </mat-form-field>
+
+  <div class="actions">
+    <button
+      mat-flat-button
+      color="primary"
+      id="send-confirmation"
+      (click)="sendConfirmation()"
+      [disabled]="isSent"
+    >
+      <mat-icon>textsms</mat-icon>
+      確認コードを送信
+    </button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="codeReady">
+  <mat-form-field>
+    <mat-label> 確認コード </mat-label>
+    <input
+      type="number"
+      matInput
+      [(ngModel)]="confirmationCode"
+      name="confcode"
+      required
+    />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-stroked-button color="primary" (click)="codeReady = false">
+      キャンセル
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="confirmCode()"
+      [disabled]="isSent"
+    >
+      <mat-icon>login</mat-icon>
+      ログイン
+    </button>
+  </div>
+</ng-container>

@@ -19,6 +19,7 @@ import {
 } from '@angular/fire/firestore';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -56,6 +57,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
+    NgxWebstorageModule.forRoot({
+      prefix: 'fukagawa-coffee',
+      separator: '.',
+      caseSensitive: false,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

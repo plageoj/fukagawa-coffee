@@ -1,0 +1,71 @@
+<form *ngIf="!register" [formGroup]="credentials" (ngSubmit)="login()">
+  <mat-form-field>
+    <mat-label> メールアドレス </mat-label>
+    <input
+      type="email"
+      name="email"
+      autocomplete="email"
+      matInput
+      required
+      formControlName="email"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>パスワード</mat-label>
+    <input
+      type="password"
+      name="password"
+      autocomplete="current-password"
+      matInput
+      required
+      formControlName="password"
+    />
+  </mat-form-field>
+
+  <div class="actions">
+    <button color="primary" mat-button (click)="register = true" type="button">
+      新規登録
+    </button>
+    <button color="primary" mat-flat-button type="submit">
+      <mat-icon>login</mat-icon>
+      ログイン
+    </button>
+  </div>
+</form>
+
+<form *ngIf="register" [formGroup]="credentials" (ngSubmit)="createAccount()">
+  <mat-form-field>
+    <mat-label> メールアドレス </mat-label>
+    <input
+      type="email"
+      name="email"
+      autocomplete="email"
+      matInput
+      required
+      formControlName="email"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>パスワード</mat-label>
+    <input
+      type="password"
+      name="password"
+      autocomplete="new-password"
+      matInput
+      required
+      formControlName="password"
+    />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-button color="primary" (click)="register = false" type="button">
+      キャンセル
+    </button>
+    <button color="primary" mat-flat-button type="submit">
+      <mat-icon>how_to_reg</mat-icon>
+      新規登録
+    </button>
+  </div>
+</form>

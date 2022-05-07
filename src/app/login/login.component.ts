@@ -1,85 +1,28 @@
-import { Component } from '@angular/core';
-import {
-  Auth,
-  ConfirmationResult,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from '@angular/fire/auth';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatTabGroup } from '@angular/material/tabs';
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-  phoneNumber = '';
-  confirmationCode = '';
-  isSent = false;
-  codeReady = false;
+export class LoginComponent implements AfterViewInit {
+  private lastLoginMethodIndexKey = 'login.lastLoginMethodIndex';
+  @ViewChild('tabGroup') tabGroup?: MatTabGroup;
 
-  private authResult?: ConfirmationResult;
+  constructor(private storage: LocalStorageService) {}
 
-  constructor(private auth: Auth, private sb: MatSnackBar) {}
+  ngAfterViewInit(): void {
+    if (!this.tabGroup) return;
 
-  sendConfirmation() {
-    const verifier = new RecaptchaVerifier(
-      'send-confirmation',
-      {
-        size: 'invisible',
-      },
-      this.auth
+    const index = Number(
+      this.storage.retrieve(this.lastLoginMethodIndexKey) ?? 0
     );
-
-    this.isSent = true;
-    const phoneNumber = this.phoneNumber.startsWith('+')
-      ? this.phoneNumber
-      : '+81' + this.phoneNumber;
-
-    signInWithPhoneNumber(this.auth, phoneNumber, verifier).then(
-      (result) => {
-        this.codeReady = true;
-
-        this.sb
-          .open('確認コードを送信しました。', undefined, {
-            duration: 2000,
-          })
-          .afterDismissed()
-          .subscribe(() => {
-            this.isSent = false;
-          });
-
-        this.authResult = result;
-      },
-      () => {
-        this.isSent = false;
-        verifier.clear();
-        this.sb.open(
-          '確認コードを送信できませんでした。電話番号を確認してください。',
-          undefined,
-          {
-            duration: 2000,
-          }
-        );
-      }
-    );
+    this.tabGroup.selectedIndex = index;
   }
 
-  confirmCode() {
-    if (this.authResult) {
-      this.isSent = true;
-      this.authResult.confirm(this.confirmationCode.toString()).then(
-        () => {
-          location.reload();
-        },
-        () => {
-          this.isSent = false;
-          this.codeReady = false;
-          this.sb.open('ログインに失敗しました。', undefined, {
-            duration: 2000,
-          });
-        }
-      );
-    }
+  setLastLoginMethodIndex(index: number) {
+    this.storage.store(this.lastLoginMethodIndexKey, index);
   }
 }
