@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import {
   Auth,
+  AuthErrorCodes,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from '@angular/fire/auth';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { FirebaseError } from 'firebase/app';
 
 @Component({
   selector: 'app-login-by-email',
@@ -14,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-by-email.component.scss'],
 })
 export class LoginByEmailComponent {
-  register = false;
+  mode: 'register' | 'login' | 'reset-password' = 'login';
   credentials;
 
   constructor(
@@ -31,23 +34,74 @@ export class LoginByEmailComponent {
 
   async createAccount() {
     const { email, password } = this.credentials.value;
+    this.credentials.disable();
     try {
       await createUserWithEmailAndPassword(this.auth, email, password);
-      this.router.navigateByUrl('/');
+      await this.router.navigateByUrl('/');
     } catch (e) {
       console.error(e);
-      this.snack.open('新規登録ができませんでした');
+      this.credentials.enable();
+      if (!(e instanceof FirebaseError)) return;
+      switch (e.code as typeof AuthErrorCodes[keyof typeof AuthErrorCodes]) {
+        case 'auth/email-already-in-use':
+          this.snack.open('新規登録ができませんでした');
+          break;
+        case 'auth/invalid-email':
+          this.snack.open('メールアドレスが不正です');
+          break;
+        case 'auth/too-many-requests':
+          this.snack.open(
+            '新規登録は制限されています。しばらく待ってから再度行ってください'
+          );
+          break;
+        default:
+          this.snack.open('新規登録ができませんでした');
+      }
     }
   }
 
   async login() {
     const { email, password } = this.credentials.value;
+    this.credentials.disable();
     try {
       await signInWithEmailAndPassword(this.auth, email, password);
-      this.router.navigateByUrl('/');
+      await this.router.navigateByUrl('/');
     } catch (e) {
       console.error(e);
-      this.snack.open('ログインに失敗しました');
+      this.credentials.enable();
+      if (!(e instanceof FirebaseError)) return;
+      switch (e.code as typeof AuthErrorCodes[keyof typeof AuthErrorCodes]) {
+        case 'auth/user-not-found':
+          this.snack.open('メールアドレスまたはパスワードが間違っています');
+          break;
+        case 'auth/wrong-password':
+          this.snack.open('メールアドレスまたはパスワードが間違っています');
+          break;
+        case 'auth/too-many-requests':
+          this.snack.open(
+            'ログインは制限されています。しばらく待ってから再度行ってください'
+          );
+          break;
+        case 'auth/user-disabled':
+          this.snack.open('アカウントは凍結されています');
+          break;
+        default:
+          this.snack.open('ログインに失敗しました');
+      }
     }
+  }
+
+  async resetPassword() {
+    const { email } = this.credentials.value;
+    this.credentials.disable();
+    try {
+      await sendPasswordResetEmail(this.auth, email);
+      this.snack.open('パスワードリセットメールを送信しました');
+      this.mode = 'login';
+    } catch (e) {
+      console.error(e);
+      if (!(e instanceof FirebaseError)) return;
+    }
+    this.credentials.enable();
   }
 }
