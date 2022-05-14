@@ -51,7 +51,6 @@
     "@typescript-eslint/parser": "5.23.0",
     "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
-    "firebase-tools": "^10.9.2",
     "inquirer": "^8.2.4",
     "inquirer-autocomplete-prompt": "^2.0.0",
     "jasmine-core": "~4.1.1",
