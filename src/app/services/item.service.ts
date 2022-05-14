@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
 import {
   addDoc,
   collection,
   CollectionReference,
   Firestore,
   serverTimestamp,
+  WithFieldValue,
 } from '@angular/fire/firestore';
-import { Item } from 'src/models/item.model';
+import { Item, ItemWithoutTimestamp } from 'src/models/item.model';
 import { History } from '../../models/history.model';
-
-import { Auth } from '@angular/fire/auth';
 import { FirestoreBase } from './firestoreBase';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -19,7 +20,7 @@ export class ItemService extends FirestoreBase<Item> {
     super(db, 'items');
   }
 
-  async store(item: Item) {
+  async store(item: WithFieldValue<ItemWithoutTimestamp> & { id: Item['id'] }) {
     const history = collection(
       this.db,
       'histories'
@@ -28,9 +29,9 @@ export class ItemService extends FirestoreBase<Item> {
       uid: this.auth.currentUser?.uid || '',
       date: serverTimestamp(),
       itemId: item.id,
-      item: item,
+      item: { ...item, updatedAt: serverTimestamp() },
     });
 
-    return super.store(item);
+    return super.store({ ...item, updatedAt: serverTimestamp() });
   }
 }

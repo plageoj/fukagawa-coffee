@@ -1,0 +1,35 @@
+<mat-list *ngIf="storages | async">
+  <mat-list-item *ngFor="let storage of storages | async">
+    <mat-icon mat-list-icon>storage</mat-icon>
+    <h4 mat-line>{{ storage.name }}</h4>
+    <p mat-line>{{ storage.description }}</p>
+    <button
+      mat-icon-button
+      color="primary"
+      matTooltip="編集"
+      (click)="editStorage(storage)"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="warn"
+      matTooltip="削除"
+      (click)="deleteStorage(storage)"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<div id="no-storage" *ngIf="(storages | async)?.length === 0">
+  <h3>倉庫は登録されていません</h3>
+  <p>
+    <mat-icon inline>add</mat-icon>
+    ボタンから倉庫を追加してください。
+  </p>
+</div>
+
+<button mat-fab matTooltip="倉庫を追加" (click)="editStorage()">
+  <mat-icon>add</mat-icon>
+</button>

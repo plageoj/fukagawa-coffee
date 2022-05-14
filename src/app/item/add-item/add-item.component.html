@@ -1,45 +1,36 @@
 <h1 mat-dialog-title>品目を{{ data.type }}</h1>
-<div mat-dialog-content>
-  <mat-form-field appearance="fill">
+<form mat-dialog-content [formGroup]="item">
+  <mat-form-field>
     <mat-label> 品目名 </mat-label>
     <input
       type="text"
       required
       matInput
       placeholder="瓶アイスコーヒー"
-      [(ngModel)]="data.item.name"
+      formControlName="name"
       name="item-name"
     />
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label> 在庫店舗 </mat-label>
-    <mat-select required [(ngModel)]="data.item.storage">
-      <mat-option *ngFor="let store of storeList" [value]="store">
-        {{ store }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
+  <mat-form-field>
     <mat-label>これより少なくなったら色を変える</mat-label>
     <input
       type="number"
       matInput
       min="0"
-      [(ngModel)]="data.item.notifyCount"
+      formControlName="notifyCount"
       name="item-notify-count"
     />
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field>
     <mat-label> 備考 </mat-label>
-    <textarea matInput cols="30" [(ngModel)]="data.item.notes"></textarea>
+    <textarea matInput cols="30" formControlName="notes"></textarea>
   </mat-form-field>
-</div>
+</form>
 
 <div mat-dialog-actions>
-  <button mat-raised-button [mat-dialog-close]="data.item" color="primary">
+  <button mat-raised-button [mat-dialog-close]="item.value" color="primary">
     OK
   </button>
   <button mat-raised-button mat-dialog-close>キャンセル</button>

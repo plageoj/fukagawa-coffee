@@ -7,11 +7,12 @@
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav mode="side" [opened]="!!user" position="end">
+  <mat-sidenav mode="side" [opened]="!!user">
     <mat-nav-list>
       <a mat-list-item routerLink="/item"> 品目 </a>
       <a mat-list-item routerLink="/customer"> 取引先 </a>
       <a mat-list-item routerLink="/order"> 注文 </a>
+      <a mat-list-item routerLink="/storage"> 倉庫 </a>
       <a mat-list-item routerLink="/member"> メンバー </a>
     </mat-nav-list>
   </mat-sidenav>

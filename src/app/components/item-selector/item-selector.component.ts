@@ -9,7 +9,7 @@ import { Item } from 'src/models/item.model';
   styleUrls: ['./item-selector.component.scss'],
 })
 export class ItemSelectorComponent {
-  columns = Math.floor(window.innerWidth / 200).toString();
+  columns = Math.floor(window.innerWidth / 170).toString();
   items: Observable<Item[]>;
 
   @Output() choose = new EventEmitter<Item>();

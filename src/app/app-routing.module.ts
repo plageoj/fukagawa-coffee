@@ -28,7 +28,13 @@ const routes: Routes = [
       },
       {
         path: 'order',
-        loadChildren: () => import('./order/order.module').then((m) => m.OrderModule),
+        loadChildren: () =>
+          import('./order/order.module').then((m) => m.OrderModule),
+      },
+      {
+        path: 'storage',
+        loadChildren: () =>
+          import('./storage/storage.module').then((m) => m.StorageModule),
       },
       {
         path: 'member',

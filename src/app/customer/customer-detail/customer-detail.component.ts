@@ -84,9 +84,7 @@ export class CustomerDetailComponent implements OnDestroy {
     if (!this.customer) return;
     this.isUpdated = false;
     this.snack
-      .open(`${this.customer.name}を削除しました`, '取り消し', {
-        duration: 3000,
-      })
+      .open(`${this.customer.name}を削除しました`, '取り消し')
       .afterDismissed()
       .subscribe(({ dismissedByAction }) => {
         if (!dismissedByAction && this.customer) {
