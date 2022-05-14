@@ -1,15 +1,18 @@
 import { Component, OnDestroy } from '@angular/core';
+import { Timestamp } from '@angular/fire/firestore';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
+import { StorageService } from 'src/app/services/storage.service';
 import {
   Item,
   ItemDialogData,
   ItemWithoutTimestamp,
 } from 'src/models/item.model';
+import { Storage } from 'src/models/storage.model';
 import { AddItemComponent } from '../add-item/add-item.component';
-import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-item-detail',
@@ -27,30 +30,55 @@ export class ItemDetailComponent implements OnDestroy {
     createdAt: Timestamp.fromDate(new Date()),
   };
 
-  private isUpdated = false;
+  storedCount = new FormGroup({});
+  storages: Storage[] = [];
 
   constructor(
     private is: ItemService,
     private sb: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private ss: StorageService,
+    private fb: FormBuilder
   ) {
     const id = this.route.snapshot.paramMap.get('id') || '_';
     this.is.load(id).subscribe((item) => {
-      this.item = item as Item;
+      this.item = item;
+
+      this.ss.list().subscribe((storages) => {
+        this.storages = storages;
+        this.storedCount = this.fb.group(
+          Object.fromEntries(
+            storages.map((s) => [s.id, [item.storedCount[s.id] || 0]])
+          )
+        );
+      });
     });
   }
 
-  ngOnDestroy(): void {
-    if (this.isUpdated) this.is.store(this.item);
+  storageName(id: Storage['id']) {
+    return this.storages.find((s) => s.id === id)?.name || '';
   }
 
-  changeValue(diff: number) {
-    if (this.item.total + diff > 0) {
-      this.item.total += diff;
-      this.isUpdated = true;
-    }
+  ngOnDestroy(): void {
+    this.countTotal();
+    this.is.store(this.item);
+  }
+
+  manipurate(id: Storage['id'], diff: number) {
+    const control = this.storedCount.controls[id];
+    if (control.value <= 0) return;
+    this.item.total += diff;
+    control.setValue(control.value + diff);
+  }
+
+  countTotal() {
+    this.item.storedCount = this.storedCount.value;
+    this.item.total = Object.values(this.item.storedCount).reduce(
+      (acc, cur) => acc + cur,
+      0
+    );
   }
 
   editItem() {
@@ -64,7 +92,7 @@ export class ItemDetailComponent implements OnDestroy {
       .afterClosed()
       .subscribe((item) => {
         if (item) {
-          this.isUpdated = true;
+          this.item = item;
         }
       });
   }

@@ -1,4 +1,4 @@
-<mat-grid-list [cols]="columns" rowHeight="9em">
+<mat-grid-list [cols]="columns" rowHeight="9em" *ngIf="(items | async)?.length">
   <mat-grid-tile
     *ngFor="let item of items | async"
     [ngClass]="{ low: item.total < item.notifyCount }"
@@ -7,9 +7,14 @@
     <p>
       <strong class="item-name"> {{ item.name }} </strong>
       <span class="item-left"> {{ item.total }} </span>
-      <span class="item-stock">
-        {{ item.storedCount | json }} ・ {{ item.notes }}
+      <span class="item-notes">
+        {{ item.notes }}
       </span>
     </p>
   </mat-grid-tile>
 </mat-grid-list>
+
+<div id="no-item" *ngIf="(items | async)?.length === 0">
+  <h3>品目が登録されていません</h3>
+  <p><mat-icon inline>add</mat-icon>ボタンから品目を追加してください。</p>
+</div>

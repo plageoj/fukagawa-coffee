@@ -1,25 +1,35 @@
 mat-grid-tile {
-    background: #aed8e6;
-    text-align: center;
-    line-height: 1.2;
-    cursor: pointer;
-  
-    &.low {
-      background: #f0e68c;
-    }
-  
-    p {
-      margin: 0;
-    }
+  background: #aed8e6;
+  text-align: center;
+  line-height: 1.2;
+  cursor: pointer;
+
+  &.low {
+    background: #f0e68c;
   }
-  
-  .item-name {
-    font-size: 1.3em;
-    display: block;
+
+  p {
+    margin: 0;
   }
-  
-  .item-left {
-    font-size: 2em;
-    display: block;
-  }
-  
+}
+
+.item-name {
+  font-size: 1.3em;
+  display: block;
+}
+
+.item-left {
+  font-size: 2em;
+  display: block;
+}
+
+.item-notes {
+  max-height: 3rem;
+  display: inline-block;
+  overflow: hidden;
+}
+
+#no-item {
+  text-align: center;
+  margin-top: 20vh;
+}
