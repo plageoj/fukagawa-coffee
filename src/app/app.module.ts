@@ -20,6 +20,8 @@ import {
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -63,7 +65,20 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
       caseSensitive: false,
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        appearance: 'fill',
+      },
+    },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {
+        duration: 3000,
+      },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

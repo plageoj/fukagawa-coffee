@@ -11,7 +11,7 @@
             {{ item.name }}
           </span>
 
-          <mat-form-field appearance="fill" *ngIf="!item.id">
+          <mat-form-field *ngIf="!item.id">
             <mat-label> 品名 </mat-label>
             <input
               type="text"
@@ -24,7 +24,7 @@
 
           <span></span>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field>
             <mat-label> 数量 </mat-label>
             <input
               type="number"
@@ -50,7 +50,7 @@
       </mat-list-item>
     </mat-list>
 
-    <mat-form-field appearance="fill" class="notes">
+    <mat-form-field class="notes">
       <mat-label>備考</mat-label>
       <textarea
         name="notes"

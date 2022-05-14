@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import {
   serverTimestamp,
   where,
@@ -74,9 +74,7 @@ export class NewOrderComponent {
       .filter((item) => item.orderedCount);
     this.os.store(Object.assign({ id: this.os.id }, this.order)).then(
       () => {
-        this.sb.open('注文を送信しました', undefined, {
-          duration: 3000,
-        });
+        this.sb.open('注文を送信しました');
       },
       () => {
         this.sending = false;

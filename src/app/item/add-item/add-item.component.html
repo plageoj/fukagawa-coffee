@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>品目を{{ data.type }}</h1>
 <form mat-dialog-content [formGroup]="item">
-  <mat-form-field appearance="fill">
+  <mat-form-field>
     <mat-label> 品目名 </mat-label>
     <input
       type="text"
@@ -12,7 +12,7 @@
     />
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field>
     <mat-label>これより少なくなったら色を変える</mat-label>
     <input
       type="number"
@@ -23,7 +23,7 @@
     />
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field>
     <mat-label> 備考 </mat-label>
     <textarea matInput cols="30" formControlName="notes"></textarea>
   </mat-form-field>

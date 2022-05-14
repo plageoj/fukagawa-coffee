@@ -71,9 +71,7 @@ export class ItemDetailComponent implements OnDestroy {
 
   deleteItem() {
     this.sb
-      .open('削除しました', '取り消し', {
-        duration: 3000,
-      })
+      .open('削除しました', '取り消し')
       .afterDismissed()
       .subscribe(({ dismissedByAction }) => {
         if (!dismissedByAction) {

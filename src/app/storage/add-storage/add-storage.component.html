@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>倉庫を{{ data ? "編集" : "追加" }}</h2>
+
+<form
+  mat-dialog-content
+  [formGroup]="storage"
+  id="storage-form"
+  (ngSubmit)="save()"
+>
+  <mat-form-field>
+    <mat-label>名前</mat-label>
+    <input type="text" matInput required formControlName="name" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>詳細</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+</form>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" type="submit" form="storage-form">
+    <mat-icon>check</mat-icon>
+    {{ data ? "更新" : "追加" }}
+  </button>
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+    キャンセル
+  </button>
+</div>
