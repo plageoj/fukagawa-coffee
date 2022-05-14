@@ -3,8 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
-import { Item, ItemDialogData } from 'src/models/item.model';
+import {
+  Item,
+  ItemDialogData,
+  ItemWithoutTimestamp,
+} from 'src/models/item.model';
 import { AddItemComponent } from '../add-item/add-item.component';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-item-detail',
@@ -12,13 +17,14 @@ import { AddItemComponent } from '../add-item/add-item.component';
   styleUrls: ['./item-detail.component.scss'],
 })
 export class ItemDetailComponent implements OnDestroy {
-  item: Item = {
+  item: ItemWithoutTimestamp = {
     id: '',
     name: '読み込み中',
-    count: 0,
+    total: 0,
+    storedCount: {},
     notifyCount: 0,
-    storage: '',
     notes: '',
+    createdAt: Timestamp.fromDate(new Date()),
   };
 
   private isUpdated = false;
@@ -41,8 +47,8 @@ export class ItemDetailComponent implements OnDestroy {
   }
 
   changeValue(diff: number) {
-    if (this.item.count + diff > 0) {
-      this.item.count += diff;
+    if (this.item.total + diff > 0) {
+      this.item.total += diff;
       this.isUpdated = true;
     }
   }

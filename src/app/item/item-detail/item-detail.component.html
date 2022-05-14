@@ -2,7 +2,6 @@
   <mat-card-title>
     {{ item.name }}
   </mat-card-title>
-  <mat-card-subtitle> {{ item.storage }}在庫 </mat-card-subtitle>
 
   <mat-card-content>
     {{ item.notes }}
@@ -25,7 +24,7 @@
   <mat-card-content>
     <mat-form-field appearance="fill">
       <mat-label>残り数</mat-label>
-      <input type="number" required matInput min="0" [value]="item.count" />
+      <input type="number" required matInput min="0" [value]="item.total" />
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>

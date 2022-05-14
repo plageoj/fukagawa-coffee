@@ -1,13 +1,15 @@
 <mat-grid-list [cols]="columns" rowHeight="9em">
   <mat-grid-tile
     *ngFor="let item of items | async"
-    [ngClass]="{ low: item.count < item.notifyCount }"
+    [ngClass]="{ low: item.total < item.notifyCount }"
     (click)="selectItem(item)"
   >
     <p>
       <strong class="item-name"> {{ item.name }} </strong>
-      <span class="item-left"> {{ item.count }} </span>
-      <span class="item-stock"> {{ item.storage }} ・ {{ item.notes }} </span>
+      <span class="item-left"> {{ item.total }} </span>
+      <span class="item-stock">
+        {{ item.storedCount | json }} ・ {{ item.notes }}
+      </span>
     </p>
   </mat-grid-tile>
 </mat-grid-list>
