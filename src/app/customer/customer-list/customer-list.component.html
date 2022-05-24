@@ -8,6 +8,12 @@
   </a>
 </mat-nav-list>
 
+<div id="no-customer" *ngIf="(customers | async)?.length === 0">
+  <h3>取引先が登録されていません</h3>
+  <p><mat-icon inline>add</mat-icon>ボタンから取引先を追加してください。</p>
+</div>
+
+
 <button mat-fab matTooltip="取引先を追加" (click)="addCustomer()">
   <mat-icon>add</mat-icon>
 </button>
