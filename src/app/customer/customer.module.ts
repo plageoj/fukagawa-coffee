@@ -6,7 +6,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ItemSelectorModule } from '../components/item-selector/item-selector.module';
@@ -38,6 +40,7 @@ import { OrderSheetComponent } from './order-sheet/order-sheet.component';
     MatListModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatInputModule,
   ],
 })
 export class CustomerModule {}
