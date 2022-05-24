@@ -13,3 +13,7 @@
     </date>
   </a>
 </mat-nav-list>
+
+<div id="no-orders" *ngIf="(orders | async)?.length === 0">
+  <h3>未完了の注文はありません</h3>
+</div>

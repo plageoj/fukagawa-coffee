@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import {
   AuthGuard,
   redirectLoggedInTo,
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
-import { NewOrderComponent } from './order/new-order/new-order.component';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -27,11 +26,6 @@ const routes: Routes = [
           import('./customer/customer.module').then((m) => m.CustomerModule),
       },
       {
-        path: 'order',
-        loadChildren: () =>
-          import('./order/order.module').then((m) => m.OrderModule),
-      },
-      {
         path: 'storage',
         loadChildren: () =>
           import('./storage/storage.module').then((m) => m.StorageModule),
@@ -47,12 +41,11 @@ const routes: Routes = [
       authGuardPipe: () => redirectUnauthorizedTo('/login'),
     },
   },
-
   {
-    path: 'order/:id/new',
-    component: NewOrderComponent,
+    path: 'order',
+    loadChildren: () =>
+      import('./order/order.module').then((m) => m.OrderModule),
   },
-
   {
     path: 'login',
     loadChildren: () =>

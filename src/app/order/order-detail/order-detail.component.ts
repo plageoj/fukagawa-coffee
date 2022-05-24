@@ -40,6 +40,6 @@ export class OrderDetailComponent {
     if (!this.order) return;
     this.order.isDone = true;
     this.os.store(this.order);
-    this.router.navigateByUrl('../');
+    this.router.navigateByUrl('/order');
   }
 }
