@@ -1,8 +1,25 @@
+@import "../../styles/media.scss";
+
 mat-card {
   margin: 1em;
 }
 
-p a[mat-raised-button] {
-  margin: 1em;
-  width: calc(100% - 2em);
+[mat-button] {
+  width: 100%;
+}
+
+#actions {
+  margin: 0 0 0 1rem;
+
+  a[mat-raised-button],
+  a[mat-stroked-button] {
+    margin: 0 1rem 1rem 0;
+    display: block;
+  }
+}
+
+@include sp {
+  #actions a[mat-stroked-button] {
+    display: inline-block;
+  }
 }

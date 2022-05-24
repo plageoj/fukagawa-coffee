@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [OrderListComponent, OrderDetailComponent, NewOrderComponent],
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     MatCardModule,
     MatInputModule,
+    MatSnackBarModule,
   ],
 })
 export class OrderModule {}

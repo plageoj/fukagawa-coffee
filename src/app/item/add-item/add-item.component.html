@@ -31,7 +31,11 @@
 
 <div mat-dialog-actions>
   <button mat-raised-button [mat-dialog-close]="item.value" color="primary">
+    <mat-icon>check</mat-icon>
     OK
   </button>
-  <button mat-raised-button mat-dialog-close>キャンセル</button>
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+    キャンセル
+  </button>
 </div>

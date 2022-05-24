@@ -7,48 +7,51 @@
   </mat-card-subtitle>
 
   <mat-card-actions>
-    <button mat-raised-button color="warn" (click)="deleteCustomer()">
-      <mat-icon>delete</mat-icon>
-      削除
-    </button>
-    <button mat-raised-button (click)="editCustomer()">
+    <button mat-stroked-button (click)="editCustomer()">
       <mat-icon>edit</mat-icon>
       編集
     </button>
-    <a mat-raised-button color="primary" routerLink="./order-sheet">
-      <mat-icon>description</mat-icon>
-      注文書を発行
-    </a>
-    <a
-      mat-raised-button
-      [disabled]="!customer"
-      routerLink="/order/{{ customer?.id }}/new"
-    >
-      <mat-icon>receipt</mat-icon>
-      注文入力
-    </a>
+    <button mat-stroked-button color="warn" (click)="deleteCustomer()">
+      <mat-icon>delete</mat-icon>
+      削除
+    </button>
   </mat-card-actions>
-
-  <mat-card-content>
-    <mat-action-list>
-      <button mat-list-item (click)="associateItem()">
-        <mat-icon>add</mat-icon>
-        品目を追加する
-      </button>
-      <button
-        mat-list-item
-        matTooltip="「{{ item.name }}」を削除"
-        *ngFor="let item of items"
-        (click)="deleteItem(item.id)"
-      >
-        <mat-icon matListIcon>remove</mat-icon>
-        {{ item.name }} ・ {{ item.notes }}
-      </button>
-    </mat-action-list>
-  </mat-card-content>
 </mat-card>
 
-<p>
+<mat-card>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let item of items">
+        <p matLine>{{ item.name }} ・ {{ item.notes }}</p>
+        <button mat-icon-button color="warn" (click)="deleteItem(item.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="associateItem()">
+      <mat-icon>add</mat-icon>
+      品目を追加する
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<p id="actions">
+  <a
+    mat-stroked-button
+    [disabled]="!customer"
+    routerLink="/order/{{ customer?.id }}/new"
+  >
+    <mat-icon>receipt</mat-icon>
+    注文入力
+  </a>
+
+  <a mat-stroked-button routerLink="./order-sheet">
+    <mat-icon>description</mat-icon>
+    注文書を出力
+  </a>
+
   <a mat-raised-button color="primary" routerLink="/customer">
     <mat-icon>arrow_back</mat-icon>
     保存して戻る

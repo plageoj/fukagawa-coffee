@@ -68,7 +68,7 @@ export class ItemDetailComponent implements OnDestroy {
 
   manipurate(id: Storage['id'], diff: number) {
     const control = this.storedCount.controls[id];
-    if (control.value <= 0) return;
+    if (control.value < 0) return;
     this.item.total += diff;
     control.setValue(control.value + diff);
   }
