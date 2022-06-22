@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Storage } from 'src/models/storage.model';
 
@@ -12,7 +12,7 @@ export class AddStorageComponent {
   storage;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ref: MatDialogRef<AddStorageComponent>,
     @Inject(MAT_DIALOG_DATA) public data?: Storage
   ) {
