@@ -6,7 +6,7 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from '@angular/fire/auth';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FirebaseError } from 'firebase/app';
@@ -22,7 +22,7 @@ export class LoginByEmailComponent {
 
   constructor(
     private auth: Auth,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snack: MatSnackBar,
     private router: Router
   ) {

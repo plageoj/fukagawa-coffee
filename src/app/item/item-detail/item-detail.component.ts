@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,7 +30,7 @@ export class ItemDetailComponent implements OnDestroy {
     createdAt: Timestamp.fromDate(new Date()),
   };
 
-  storedCount = new FormGroup({});
+  storedCount = new UntypedFormGroup({});
   storages: Storage[] = [];
 
   constructor(
@@ -40,7 +40,7 @@ export class ItemDetailComponent implements OnDestroy {
     private router: Router,
     private dialog: MatDialog,
     private ss: StorageService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     const id = this.route.snapshot.paramMap.get('id') || '_';
     this.is.load(id).subscribe((item) => {
