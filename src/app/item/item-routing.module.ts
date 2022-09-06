@@ -7,6 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: ItemListComponent,
+    title: '品目',
   },
   {
     path: ':id',
