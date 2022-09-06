@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-icon>coffee</mat-icon>
-  <span> 深川珈琲 在庫管理 </span>
+  <span>{{ siteName }}</span>
   <button *ngIf="!!user" mat-icon-button title="ログアウト" (click)="logout()">
     <mat-icon>logout</mat-icon>
   </button>
