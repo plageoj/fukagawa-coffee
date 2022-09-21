@@ -15,13 +15,13 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TitleStrategy } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-
+import { PageTitleStrategy } from './strategies/title-strategy';
 
 @NgModule({
   declarations: [AppComponent],
@@ -77,6 +77,10 @@ import { AppComponent } from './app.component';
       useValue: {
         duration: 3000,
       },
+    },
+    {
+      provide: TitleStrategy,
+      useClass: PageTitleStrategy,
     },
   ],
   bootstrap: [AppComponent],

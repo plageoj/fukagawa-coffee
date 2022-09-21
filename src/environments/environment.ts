@@ -17,6 +17,7 @@ export const environment = {
     authUrl: 'http://localhost:9099',
     firestorePort: 8080,
   },
+  siteName: '深川珈琲 在庫管理',
 };
 
 /*

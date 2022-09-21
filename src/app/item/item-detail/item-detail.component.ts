@@ -4,8 +4,10 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { TitleService } from 'src/app/services/title.service';
 import {
   Item,
   ItemDialogData,
@@ -34,27 +36,35 @@ export class ItemDetailComponent implements OnDestroy {
   storages: Storage[] = [];
 
   constructor(
+    private dialog: MatDialog,
+    private fb: UntypedFormBuilder,
     private is: ItemService,
-    private sb: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: MatDialog,
+    private sb: MatSnackBar,
     private ss: StorageService,
-    private fb: UntypedFormBuilder
+    private title: TitleService
   ) {
     const id = this.route.snapshot.paramMap.get('id') || '_';
-    this.is.load(id).subscribe((item) => {
-      this.item = item;
+    this.is
+      .load(id)
+      .pipe(take(1))
+      .subscribe((item) => {
+        this.item = item;
+        this.title.setTitle(this.item.name, '品目');
 
-      this.ss.list().subscribe((storages) => {
-        this.storages = storages;
-        this.storedCount = this.fb.group(
-          Object.fromEntries(
-            storages.map((s) => [s.id, [item.storedCount[s.id] || 0]])
-          )
-        );
+        this.ss
+          .list()
+          .pipe(take(1))
+          .subscribe((storages) => {
+            this.storages = storages;
+            this.storedCount = this.fb.group(
+              Object.fromEntries(
+                storages.map((s) => [s.id, [item.storedCount[s.id] || 0]])
+              )
+            );
+          });
       });
-    });
   }
 
   storageName(id: Storage['id']) {
@@ -66,7 +76,7 @@ export class ItemDetailComponent implements OnDestroy {
     this.is.store(this.item);
   }
 
-  manipurate(id: Storage['id'], diff: number) {
+  manipulate(id: Storage['id'], diff: number) {
     const control = this.storedCount.controls[id];
     if (control.value < 0) return;
     this.item.total += diff;
