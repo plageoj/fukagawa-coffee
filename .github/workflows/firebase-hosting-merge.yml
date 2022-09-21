@@ -21,7 +21,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: .angular
-          key: ${{ runner.os }}-ng
+          key: ${{ runner.os }}-ng-${{ hashFiles('src/**') }}
+        restore-keys: |
+          ${{ runner.os }}-ng-
 
       - run: npm ci && npm run build:prod
 
