@@ -8,14 +8,17 @@ const routes: Routes = [
   {
     path: '',
     component: CustomerListComponent,
+    title: '取引先',
   },
   {
     path: ':id',
     component: CustomerDetailComponent,
+    title: '取引先',
   },
   {
     path: ':id/order-sheet',
     component: OrderSheetComponent,
+    title: '発注書',
   },
 ];
 

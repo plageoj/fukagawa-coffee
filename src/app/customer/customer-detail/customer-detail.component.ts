@@ -3,8 +3,10 @@ import { where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ItemService } from 'src/app/services/item.service';
+import { TitleService } from 'src/app/services/title.service';
 import { Customer, CustomerDialogData } from 'src/models/customer.model';
 import { Item } from 'src/models/item.model';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
@@ -22,16 +24,19 @@ export class CustomerDetailComponent implements OnDestroy {
 
   constructor(
     private cs: CustomerService,
+    private dialog: MatDialog,
     private is: ItemService,
-    private snack: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: MatDialog
+    private snack: MatSnackBar,
+    private title: TitleService
   ) {
     this.cs
       .load(this.route.snapshot.paramMap.get('id') || '_')
+      .pipe(take(1))
       .subscribe((customer) => {
         this.customer = customer;
+        this.title.setTitle(customer.name, '取引先');
 
         const items = Object.keys(customer?.items || {});
         if (customer && items.length) {

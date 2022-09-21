@@ -13,6 +13,7 @@ const routes: Routes = [
     data: {
       authGuardPipe: () => redirectUnauthorizedTo('/login'),
     },
+    title: '注文',
   },
   {
     path: ':id',
@@ -21,10 +22,12 @@ const routes: Routes = [
     data: {
       authGuardPipe: () => redirectUnauthorizedTo('/login'),
     },
+    title: '注文',
   },
   {
     path: ':id/new',
     component: NewOrderComponent,
+    title: '注文入力',
   },
 ];
 
