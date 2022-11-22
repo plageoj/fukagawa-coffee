@@ -7,7 +7,7 @@ import {
   signInWithEmailAndPassword,
 } from '@angular/fire/auth';
 import { UntypedFormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { Router } from '@angular/router';
 import { FirebaseError } from 'firebase/app';
 
