@@ -1,8 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
