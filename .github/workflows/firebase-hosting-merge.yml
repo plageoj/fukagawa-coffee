@@ -7,10 +7,10 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
@@ -18,7 +18,7 @@ jobs:
             ${{ runner.os }}-npm-
 
       - name: Cache build assets
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: .angular
           key: ${{ runner.os }}-ng-${{ hashFiles('src/**') }}

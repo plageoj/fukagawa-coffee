@@ -5,7 +5,7 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
 } from '@angular/fire/auth';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 
 @Component({
   selector: 'app-login-by-phone',

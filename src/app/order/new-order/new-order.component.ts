@@ -4,7 +4,7 @@ import {
   where,
   WithFieldValue,
 } from '@angular/fire/firestore';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ItemService } from 'src/app/services/item.service';
