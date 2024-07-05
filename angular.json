@@ -24,11 +24,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/fukagawa-coffee",
+            "outputPath": {
+              "base": "dist/fukagawa-coffee"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
             "polyfills": [
               "src/polyfills.ts",
               "zone.js"
@@ -44,7 +45,8 @@
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "browser": "src/main.ts"
           },
           "defaultConfiguration": "development",
           "configurations": {
@@ -53,10 +55,7 @@
               "sourceMap": true,
               "namedChunks": true,
               "extractLicenses": false,
-              "vendorChunk": true,
-              "buildOptimizer": false,
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
+              "serviceWorker": "ngsw-config.json"
             },
             "production": {
               "fileReplacements": [
@@ -70,8 +69,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -84,8 +81,7 @@
                   "maximumError": "4kb"
                 }
               ],
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
+              "serviceWorker": "ngsw-config.json"
             }
           }
         },
