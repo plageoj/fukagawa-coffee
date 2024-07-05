@@ -1,8 +1,8 @@
-import { Component, Injectable, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
@@ -45,7 +45,7 @@ export class ItemDetailComponent implements OnDestroy {
     private ss: StorageService,
     private title: TitleService
   ) {
-    const id = this.route.snapshot.paramMap.get('id') || '_';
+    const id = this.route.snapshot.paramMap.get('id') ?? '_';
     this.is
       .load(id)
       .pipe(take(1))
@@ -70,7 +70,7 @@ export class ItemDetailComponent implements OnDestroy {
   }
 
   storageName(id: Storage['id']) {
-    return this.storages.find((s) => s.id === id)?.name || '';
+    return this.storages.find((s) => s.id === id)?.name ?? '';
   }
 
   ngOnDestroy(): void {

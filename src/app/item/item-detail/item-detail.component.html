@@ -24,7 +24,7 @@
   <form mat-card-content [formGroup]="storedCount">
     <ul>
       <li *ngFor="let storage of storages">
-        <mat-form-field appearance="standard">
+        <mat-form-field>
           <mat-label>{{ storage.name }}</mat-label>
           <input
             type="number"

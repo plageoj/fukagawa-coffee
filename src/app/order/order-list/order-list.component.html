@@ -4,11 +4,11 @@
     routerLink="./{{ order.id }}"
     *ngFor="let order of orders | async"
   >
-    <p matLine>
+    <p matListItemLine>
       {{ order.customerName }}
       ({{ order.items.length }}品目)
     </p>
-    <date matLine>
+    <date matListItemLine>
       {{ order.orderedAt.toDate() | date: "y/M/d　h:mm" }}
     </date>
   </a>
