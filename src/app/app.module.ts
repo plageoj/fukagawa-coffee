@@ -17,7 +17,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TitleStrategy } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { NgxWebstorageModule } from 'ngx-webstorage';
+import {
+  provideNgxWebstorage,
+  withLocalStorage,
+  withNgxWebstorageConfig,
+  withSessionStorage,
+} from 'ngx-webstorage';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,13 +42,17 @@ import { PageTitleStrategy } from './strategies/title-strategy';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
-    NgxWebstorageModule.forRoot({
-      prefix: 'fukagawa-coffee',
-      separator: '.',
-      caseSensitive: false,
-    }),
   ],
   providers: [
+    provideNgxWebstorage(
+      withNgxWebstorageConfig({
+        prefix: 'fukagawa-coffee',
+        separator: '.',
+        caseSensitive: true,
+      }),
+      withLocalStorage(),
+      withSessionStorage()
+    ),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => {
       const fire = getFirestore();
