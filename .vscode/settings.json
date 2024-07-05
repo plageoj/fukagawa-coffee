@@ -1,4 +1,12 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": ["firestore", "fukagawa", "webstorage"]
+  "cSpell.words": [
+    "firestore",
+    "fukagawa",
+    "webstorage"
+  ],
+  "sonarlint.connectedMode.project": {
+    "connectionId": "plageoj",
+    "projectKey": "plageoj_fukagawa-coffee"
+  }
 }
