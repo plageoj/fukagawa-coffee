@@ -23,13 +23,9 @@ export class LoginByPhoneComponent {
   constructor(private auth: Auth, private sb: MatSnackBar) {}
 
   sendConfirmation() {
-    const verifier = new RecaptchaVerifier(
-      'send-confirmation',
-      {
-        size: 'invisible',
-      },
-      this.auth
-    );
+    const verifier = new RecaptchaVerifier(this.auth, 'send-confirmation', {
+      size: 'invisible',
+    });
 
     this.isSent = true;
     const phoneNumber = this.phoneNumber.startsWith('+')

@@ -11,6 +11,7 @@ import {
 import { Item, ItemWithoutTimestamp } from 'src/models/item.model';
 import { History } from '../../models/history.model';
 import { FirestoreBase } from './firestoreBase';
+import { DocumentData } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class ItemService extends FirestoreBase<Item> {
       this.db,
       'histories'
     ) as CollectionReference<History>;
-    await addDoc<History>(history, {
+    await addDoc<History, DocumentData>(history, {
       uid: this.auth.currentUser?.uid || '',
       date: serverTimestamp(),
       itemId: item.id,

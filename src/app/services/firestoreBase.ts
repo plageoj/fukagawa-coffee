@@ -10,6 +10,7 @@ import {
 } from '@angular/fire/firestore';
 import {
   CollectionReference,
+  DocumentData,
   DocumentReference,
   QueryConstraint,
   WithFieldValue,
@@ -22,7 +23,9 @@ export class FirestoreBase<T> {
   private col = collection(this.db, this.path) as CollectionReference<T>;
 
   list(where?: QueryConstraint): Observable<T[]> {
-    return collectionData<T>(where ? query<T>(this.col, where) : this.col);
+    return collectionData<T>(
+      where ? query<T, DocumentData>(this.col, where) : this.col
+    );
   }
 
   private ref(id: string) {
