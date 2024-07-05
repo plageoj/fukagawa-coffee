@@ -29,7 +29,10 @@
             "outputPath": "dist/fukagawa-coffee",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts",
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
@@ -89,28 +92,31 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "fukagawa-coffee:build"
+            "buildTarget": "fukagawa-coffee:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "fukagawa-coffee:build:production"
+              "buildTarget": "fukagawa-coffee:build:production"
             },
             "development": {
-              "browserTarget": "fukagawa-coffee:build:development"
+              "buildTarget": "fukagawa-coffee:build:development"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fukagawa-coffee:build"
+            "buildTarget": "fukagawa-coffee:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "src/polyfills.ts",
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [

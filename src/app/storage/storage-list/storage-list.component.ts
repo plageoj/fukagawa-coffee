@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { StorageService } from 'src/app/services/storage.service';
 import { Storage } from 'src/models/storage.model';
 import { AddStorageComponent } from '../add-storage/add-storage.component';
