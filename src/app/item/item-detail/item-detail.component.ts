@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Injectable, OnDestroy } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
@@ -50,6 +50,7 @@ export class ItemDetailComponent implements OnDestroy {
       .load(id)
       .pipe(take(1))
       .subscribe((item) => {
+        if (!item) return;
         this.item = item;
         this.title.setTitle(this.item.name, '品目');
 
@@ -57,6 +58,7 @@ export class ItemDetailComponent implements OnDestroy {
           .list()
           .pipe(take(1))
           .subscribe((storages) => {
+            if (!storages) return;
             this.storages = storages;
             this.storedCount = this.fb.group(
               Object.fromEntries(

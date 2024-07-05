@@ -32,6 +32,7 @@ export class OrderSheetComponent implements OnInit {
       .load(this.route.snapshot.paramMap.get('id') || '_')
       .pipe(take(1))
       .subscribe((customer) => {
+        if (!customer) return;
         this.customer = customer;
         this.title.setTitle(customer.name, '発注書');
 

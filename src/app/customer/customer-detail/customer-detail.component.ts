@@ -35,6 +35,7 @@ export class CustomerDetailComponent implements OnDestroy {
       .load(this.route.snapshot.paramMap.get('id') || '_')
       .pipe(take(1))
       .subscribe((customer) => {
+        if (!customer) return;
         this.customer = customer;
         this.title.setTitle(customer.name, '取引先');
 
