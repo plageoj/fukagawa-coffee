@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StorageListComponent } from './storage-list.component';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 
 describe('StorageListComponent', () => {
   let component: StorageListComponent;
@@ -8,9 +9,8 @@ describe('StorageListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [StorageListComponent]
-})
-    .compileComponents();
+      imports: [StorageListComponent, FirebaseTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

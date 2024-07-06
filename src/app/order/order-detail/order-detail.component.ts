@@ -44,13 +44,13 @@ export class OrderDetailComponent {
     private router: Router
   ) {
     this.os
-      .load(this.route.snapshot.paramMap.get('id') || '_')
+      .load(this.route.snapshot.paramMap.get('id') ?? '_')
       .pipe(take(1))
       .subscribe((order) => {
         this.order = order;
 
         this.is
-          .list(where('id', 'in', order?.items.map((item) => item.id) || []))
+          .list(where('id', 'in', order?.items.map((item) => item.id) ?? []))
           .pipe(take(1))
           .subscribe((items) => {
             for (const item of items) {
