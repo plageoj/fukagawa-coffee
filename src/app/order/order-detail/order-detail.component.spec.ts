@@ -9,9 +9,8 @@ describe('OrderDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [OrderDetailComponent],
-      imports: [FirebaseTestingModule],
-    }).compileComponents();
+    imports: [FirebaseTestingModule, OrderDetailComponent],
+}).compileComponents();
   });
 
   beforeEach(() => {

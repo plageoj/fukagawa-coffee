@@ -5,8 +5,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [ItemSelectorComponent],
-  imports: [CommonModule, MatGridListModule, MatIconModule],
-  exports: [ItemSelectorComponent],
+    imports: [CommonModule, MatGridListModule, MatIconModule, ItemSelectorComponent],
+    exports: [ItemSelectorComponent],
 })
 export class ItemSelectorModule {}

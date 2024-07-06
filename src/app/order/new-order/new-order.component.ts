@@ -12,11 +12,42 @@ import { OrderService } from 'src/app/services/order.service';
 import { Customer } from 'src/models/customer.model';
 import { Item } from 'src/models/item.model';
 import { Order } from 'src/models/order.model';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { NgFor, NgIf } from '@angular/common';
+import { MatList, MatListItem } from '@angular/material/list';
+import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions } from '@angular/material/card';
 
 @Component({
-  selector: 'app-new-order',
-  templateUrl: './new-order.component.html',
-  styleUrls: ['./new-order.component.scss'],
+    selector: 'app-new-order',
+    templateUrl: './new-order.component.html',
+    styleUrls: ['./new-order.component.scss'],
+    standalone: true,
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardSubtitle,
+        MatCardContent,
+        MatList,
+        NgFor,
+        MatListItem,
+        NgIf,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ReactiveFormsModule,
+        FormsModule,
+        MatTooltip,
+        MatDivider,
+        MatButton,
+        MatIcon,
+        MatCardActions,
+    ],
 })
 export class NewOrderComponent {
   customer: Customer | undefined;

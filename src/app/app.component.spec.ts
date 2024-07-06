@@ -5,10 +5,10 @@ import { FirebaseTestingModule } from './firebase-testing.module';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FirebaseTestingModule],
-      providers: [],
-      declarations: [AppComponent],
-    }).compileComponents();
+    imports: [FirebaseTestingModule],
+    providers: [],
+    declarations: [AppComponent],
+}).compileComponents();
   });
 
   it('should create the app', () => {

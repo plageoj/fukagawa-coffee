@@ -9,9 +9,8 @@ describe('AddCustomerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddCustomerComponent],
-      imports: [MatDialogModule],
-    }).compileComponents();
+    imports: [MatDialogModule, AddCustomerComponent],
+}).compileComponents();
   });
 
   beforeEach(() => {

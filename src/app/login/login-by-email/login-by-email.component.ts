@@ -6,15 +6,30 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from '@angular/fire/auth';
-import { UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FirebaseError } from 'firebase/app';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-login-by-email',
-  templateUrl: './login-by-email.component.html',
-  styleUrls: ['./login-by-email.component.scss'],
+    selector: 'app-login-by-email',
+    templateUrl: './login-by-email.component.html',
+    styleUrls: ['./login-by-email.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatButton,
+        MatIcon,
+    ],
 })
 export class LoginByEmailComponent {
   mode: 'register' | 'login' | 'reset-password' = 'login';

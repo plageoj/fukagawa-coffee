@@ -9,9 +9,8 @@ describe('LoginByEmailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoginByEmailComponent],
-      imports: [FirebaseTestingModule],
-    }).compileComponents();
+    imports: [FirebaseTestingModule, LoginByEmailComponent],
+}).compileComponents();
   });
 
   beforeEach(() => {

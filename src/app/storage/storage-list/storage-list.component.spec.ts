@@ -8,8 +8,8 @@ describe('StorageListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StorageListComponent ]
-    })
+    imports: [StorageListComponent]
+})
     .compileComponents();
   });
 
