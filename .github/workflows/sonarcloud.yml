@@ -20,9 +20,11 @@ jobs:
           cache: "npm"
       - uses: browser-actions/setup-chrome@v1
       - name: Install dependencies
-        run: npm i
+        run: npm i && npm i -g firebase-tools
       - name: Test and coverage
-        run: npx ng test --no-watch --code-coverage
+        run: firebase emulators:exec --project fukagawa-coffee "npx ng test --no-watch --code-coverage"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
