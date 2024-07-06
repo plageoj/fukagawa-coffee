@@ -1,7 +1,8 @@
-import { TitleStrategy } from './title-strategy';
+import { Title } from '@angular/platform-browser';
+import { PageTitleStrategy } from './title-strategy';
 
 describe('TitleStrategy', () => {
   it('should create an instance', () => {
-    expect(new TitleStrategy()).toBeTruthy();
+    expect(new PageTitleStrategy(new Title(''))).toBeTruthy();
   });
 });

@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'fukagawa-coffee'`, () => {
+  it(`should have as site name '深川珈琲 在庫管理'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('fukagawa-coffee');
+    expect(app.siteName).toEqual('深川珈琲 在庫管理');
   });
 
   it('should render title', () => {
