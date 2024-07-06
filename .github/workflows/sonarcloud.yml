@@ -24,7 +24,7 @@ jobs:
       - name: Test and coverage
         run: firebase emulators:exec --project fukagawa-coffee "npx ng test --no-watch --code-coverage"
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_FUKAGAWA_COFFEE }}
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
