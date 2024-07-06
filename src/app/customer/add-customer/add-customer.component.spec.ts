@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatDialogModule } from '@angular/material/dialog';
 import { AddCustomerComponent } from './add-customer.component';
 
 describe('AddCustomerComponent', () => {
@@ -8,9 +9,9 @@ describe('AddCustomerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddCustomerComponent ]
-    })
-    .compileComponents();
+      declarations: [AddCustomerComponent],
+      imports: [MatDialogModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

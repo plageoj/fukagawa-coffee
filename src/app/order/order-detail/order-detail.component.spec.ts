@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrderDetailComponent } from './order-detail.component';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 
 describe('OrderDetailComponent', () => {
   let component: OrderDetailComponent;
@@ -8,9 +9,9 @@ describe('OrderDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrderDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [OrderDetailComponent],
+      imports: [FirebaseTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

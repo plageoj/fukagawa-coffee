@@ -8,10 +8,10 @@ import {
   serverTimestamp,
   WithFieldValue,
 } from '@angular/fire/firestore';
+import { DocumentData } from 'firebase/firestore';
 import { Item, ItemWithoutTimestamp } from 'src/models/item.model';
 import { History } from '../../models/history.model';
 import { FirestoreBase } from './firestoreBase';
-import { DocumentData } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',

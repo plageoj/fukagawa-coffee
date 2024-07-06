@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { StickerService } from './sticker.service';
+import { FirebaseTestingModule } from '../firebase-testing.module';
 
 describe('StickerService', () => {
   let service: StickerService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [FirebaseTestingModule],
+    });
     service = TestBed.inject(StickerService);
   });
 
