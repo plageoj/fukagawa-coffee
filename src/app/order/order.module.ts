@@ -15,19 +15,19 @@ import { OrderListComponent } from './order-list/order-list.component';
 import { OrderRoutingModule } from './order-routing.module';
 
 @NgModule({
-  declarations: [OrderListComponent, OrderDetailComponent, NewOrderComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    OrderRoutingModule,
-    MatListModule,
-    MatIconModule,
-    MatCardModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatTooltipModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        OrderRoutingModule,
+        MatListModule,
+        MatIconModule,
+        MatCardModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatTooltipModule,
+        OrderListComponent, OrderDetailComponent, NewOrderComponent,
+    ],
 })
 export class OrderModule {}

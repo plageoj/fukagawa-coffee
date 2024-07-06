@@ -19,27 +19,25 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { OrderSheetComponent } from './order-sheet/order-sheet.component';
 
 @NgModule({
-  declarations: [
-    CustomerListComponent,
-    AddCustomerComponent,
-    CustomerDetailComponent,
-    AssociateItemComponent,
-    OrderSheetComponent,
-  ],
-  imports: [
-    CommonModule,
-    CustomerRoutingModule,
-    FormsModule,
-    ItemSelectorModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatListModule,
-    MatSnackBarModule,
-    MatTooltipModule,
-    MatInputModule,
-  ],
+    imports: [
+        CommonModule,
+        CustomerRoutingModule,
+        FormsModule,
+        ItemSelectorModule,
+        MatButtonModule,
+        MatCardModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatListModule,
+        MatSnackBarModule,
+        MatTooltipModule,
+        MatInputModule,
+        CustomerListComponent,
+        AddCustomerComponent,
+        CustomerDetailComponent,
+        AssociateItemComponent,
+        OrderSheetComponent,
+    ],
 })
 export class CustomerModule {}

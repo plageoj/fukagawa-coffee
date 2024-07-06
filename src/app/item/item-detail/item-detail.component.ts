@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Timestamp } from '@angular/fire/firestore';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -15,11 +15,34 @@ import {
 } from 'src/models/item.model';
 import { Storage } from 'src/models/storage.model';
 import { AddItemComponent } from '../add-item/add-item.component';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { NgFor } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton, MatAnchor } from '@angular/material/button';
+import { MatCard, MatCardTitle, MatCardContent, MatCardActions, MatCardSubtitle } from '@angular/material/card';
 
 @Component({
-  selector: 'app-item-detail',
-  templateUrl: './item-detail.component.html',
-  styleUrls: ['./item-detail.component.scss'],
+    selector: 'app-item-detail',
+    templateUrl: './item-detail.component.html',
+    styleUrls: ['./item-detail.component.scss'],
+    standalone: true,
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardContent,
+        MatCardActions,
+        MatButton,
+        MatIcon,
+        MatCardSubtitle,
+        ReactiveFormsModule,
+        NgFor,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatAnchor,
+        RouterLink,
+    ],
 })
 export class ItemDetailComponent implements OnDestroy {
   item: ItemWithoutTimestamp = {

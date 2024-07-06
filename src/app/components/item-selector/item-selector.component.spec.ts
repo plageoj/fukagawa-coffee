@@ -8,8 +8,8 @@ describe('ItemSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemSelectorComponent ]
-    })
+    imports: [ItemSelectorComponent]
+})
     .compileComponents();
   });
 

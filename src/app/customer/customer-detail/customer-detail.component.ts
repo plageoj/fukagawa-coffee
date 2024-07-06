@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { where } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ItemService } from 'src/app/services/item.service';
@@ -11,11 +11,32 @@ import { Customer, CustomerDialogData } from 'src/models/customer.model';
 import { Item } from 'src/models/item.model';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
 import { AssociateItemComponent } from '../associate-item/associate-item.component';
+import { NgFor } from '@angular/common';
+import { MatList, MatListItem } from '@angular/material/list';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton, MatIconButton, MatAnchor } from '@angular/material/button';
+import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions, MatCardContent } from '@angular/material/card';
 
 @Component({
-  selector: 'app-customer-detail',
-  templateUrl: './customer-detail.component.html',
-  styleUrls: ['./customer-detail.component.scss'],
+    selector: 'app-customer-detail',
+    templateUrl: './customer-detail.component.html',
+    styleUrls: ['./customer-detail.component.scss'],
+    standalone: true,
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardSubtitle,
+        MatCardActions,
+        MatButton,
+        MatIcon,
+        MatCardContent,
+        MatList,
+        NgFor,
+        MatListItem,
+        MatIconButton,
+        MatAnchor,
+        RouterLink,
+    ],
 })
 export class CustomerDetailComponent implements OnDestroy {
   customer: Customer | undefined;

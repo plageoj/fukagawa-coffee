@@ -9,9 +9,8 @@ describe('CustomerDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CustomerDetailComponent],
-      imports: [FirebaseTestingModule],
-    }).compileComponents();
+    imports: [FirebaseTestingModule, CustomerDetailComponent],
+}).compileComponents();
   });
 
   beforeEach(() => {
