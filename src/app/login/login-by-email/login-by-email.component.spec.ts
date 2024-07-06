@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginByEmailComponent } from './login-by-email.component';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 
 describe('LoginByEmailComponent', () => {
   let component: LoginByEmailComponent;
@@ -8,9 +9,9 @@ describe('LoginByEmailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginByEmailComponent ]
-    })
-    .compileComponents();
+      declarations: [LoginByEmailComponent],
+      imports: [FirebaseTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

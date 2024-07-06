@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomerDetailComponent } from './customer-detail.component';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 
 describe('CustomerDetailComponent', () => {
   let component: CustomerDetailComponent;
@@ -8,9 +9,9 @@ describe('CustomerDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomerDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [CustomerDetailComponent],
+      imports: [FirebaseTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {
