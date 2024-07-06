@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 import { AssociateItemComponent } from './associate-item.component';
 
 describe('AssociateItemComponent', () => {
@@ -8,9 +10,9 @@ describe('AssociateItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [AssociateItemComponent]
-})
-    .compileComponents();
+      imports: [AssociateItemComponent, MatDialogModule, FirebaseTestingModule],
+      providers: [{ provide: MatDialogRef, useValue: {} }],
+    }).compileComponents();
   });
 
   beforeEach(() => {

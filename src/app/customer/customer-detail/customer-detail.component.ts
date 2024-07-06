@@ -53,14 +53,14 @@ export class CustomerDetailComponent implements OnDestroy {
     private title: TitleService
   ) {
     this.cs
-      .load(this.route.snapshot.paramMap.get('id') || '_')
+      .load(this.route.snapshot.paramMap.get('id') ?? '_')
       .pipe(take(1))
       .subscribe((customer) => {
         if (!customer) return;
         this.customer = customer;
         this.title.setTitle(customer.name, '取引先');
 
-        const items = Object.keys(customer?.items || {});
+        const items = Object.keys(customer?.items ?? {});
         if (customer && items.length) {
           this.is.list(where('id', 'in', items)).subscribe((items) => {
             this.items = items;

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomerListComponent } from './customer-list.component';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 
 describe('CustomerListComponent', () => {
   let component: CustomerListComponent;
@@ -8,9 +9,8 @@ describe('CustomerListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [CustomerListComponent]
-})
-    .compileComponents();
+      imports: [CustomerListComponent, FirebaseTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

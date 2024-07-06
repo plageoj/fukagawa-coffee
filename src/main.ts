@@ -16,7 +16,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { TitleStrategy } from '@angular/router';
+import {
+  provideRouter,
+  TitleStrategy,
+  withComponentInputBinding,
+} from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {
   provideNgxWebstorage,
@@ -24,10 +28,10 @@ import {
   withNgxWebstorageConfig,
   withSessionStorage,
 } from 'ngx-webstorage';
-import { AppRoutingModule } from './app/app-routing.module';
 import { AppComponent } from './app/app.component';
 import { PageTitleStrategy } from './app/strategies/title-strategy';
 import { environment } from './environments/environment';
+import { routes } from './app/app-routing';
 
 if (environment.production) {
   enableProdMode();
@@ -37,7 +41,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
       BrowserModule,
-      AppRoutingModule,
       ServiceWorkerModule.register('ngsw-worker.js', {
         enabled: environment.production,
       }),
@@ -95,5 +98,6 @@ bootstrapApplication(AppComponent, {
       useClass: PageTitleStrategy,
     },
     provideAnimations(),
+    provideRouter(routes, withComponentInputBinding()),
   ],
 }).catch((err) => console.error(err));

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrderSheetComponent } from './order-sheet.component';
+import { provideRouter } from '@angular/router';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 
 describe('OrderSheetComponent', () => {
   let component: OrderSheetComponent;
@@ -8,9 +10,9 @@ describe('OrderSheetComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [OrderSheetComponent]
-})
-    .compileComponents();
+      providers: [provideRouter([])],
+      imports: [OrderSheetComponent, FirebaseTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

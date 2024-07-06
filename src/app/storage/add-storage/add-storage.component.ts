@@ -37,8 +37,8 @@ export class AddStorageComponent {
   ) {
     this.storage = this.fb.group({
       id: [data?.id],
-      name: [data?.name || ''],
-      description: [data?.description || ''],
+      name: [data?.name ?? ''],
+      description: [data?.description ?? ''],
     });
   }
 

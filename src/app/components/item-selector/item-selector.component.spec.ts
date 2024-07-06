@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemSelectorComponent } from './item-selector.component';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 
 describe('ItemSelectorComponent', () => {
   let component: ItemSelectorComponent;
@@ -8,9 +9,8 @@ describe('ItemSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [ItemSelectorComponent]
-})
-    .compileComponents();
+      imports: [ItemSelectorComponent, FirebaseTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {
