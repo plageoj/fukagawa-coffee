@@ -24,11 +24,6 @@ describe('LoginService', () => {
       imports: [FirebaseTestingModule],
     });
     service = TestBed.inject(LoginService);
-    console.log('testbed ready');
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
   });
 
   describe('create user', () => {
@@ -63,8 +58,7 @@ describe('LoginService', () => {
   });
 
   describe('login', () => {
-    beforeAll(async () => {
-      console.log('account create');
+    beforeEach(async () => {
       await deleteAllUsers();
       await service.createAccountByEmail('test@example.com', 'test password');
     });
@@ -92,6 +86,22 @@ describe('LoginService', () => {
 
     afterAll(async () => {
       await deleteAllUsers();
+    });
+  });
+
+  describe('password reset', () => {
+    it('resets password', async () => {
+      await service.createAccountByEmail('test@example.com', 'test password');
+      expect(await service.resetPassword('test@example.com')).toBe(
+        'パスワードリセットメールを送信しました',
+      );
+      await deleteAllUsers();
+    });
+
+    it('resets password (no user)', async () => {
+      expect(await service.resetPassword('test@example.com')).toBe(
+        'パスワードリセットメールを送信しました',
+      );
     });
   });
 });
