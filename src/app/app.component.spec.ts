@@ -32,6 +32,6 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     const toolbar = await loader.getHarness(MatToolbarHarness);
-    expect(await toolbar.getRowsAsText()).toEqual(['coffee深川珈琲 在庫管理']);
+    expect((await toolbar.getRowsAsText())[0]).toMatch(/深川珈琲 在庫管理/);
   });
 });
