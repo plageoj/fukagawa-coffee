@@ -19,6 +19,7 @@ describe('LoginByEmailComponent', () => {
     const login = jasmine.createSpyObj('LoginService', [
       'createAccountByEmail',
       'loginByEmail',
+      'resetPassword',
     ]);
 
     await TestBed.configureTestingModule({
@@ -43,37 +44,73 @@ describe('LoginByEmailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create an account', async () => {
-    component.mode = 'register';
-    const inputs = await loader.getAllHarnesses(MatInputHarness);
-    await inputs[0].setValue('test@example.com');
-    await inputs[1].setValue('test password');
-    fixture.detectChanges();
-    const registerButton = await loader.getHarness(
-      MatButtonHarness.with({ text: /新規登録/ }),
-    );
-    await registerButton.click();
+  describe('create account', () => {
+    it('should create an account', async () => {
+      component.mode = 'register';
+      const inputs = await loader.getAllHarnesses(MatInputHarness);
+      await inputs[0].setValue('test@example.com');
+      await inputs[1].setValue('test password');
+      fixture.detectChanges();
+      const registerButton = await loader.getHarness(
+        MatButtonHarness.with({ text: /新規登録/ }),
+      );
+      await registerButton.click();
 
-    expect(loginSrv.createAccountByEmail).toHaveBeenCalledOnceWith(
-      'test@example.com',
-      'test password',
-    );
+      expect(loginSrv.createAccountByEmail).toHaveBeenCalledOnceWith(
+        'test@example.com',
+        'test password',
+      );
+    });
+
+    it('should re-enable form if error when creating user', async () => {
+      loginSrv.createAccountByEmail.and.resolveTo('string');
+      await component.createAccount();
+      expect(component.credentials.enabled).toBeTrue();
+    });
+
+    it('should re-enable form if exception when creating user', async () => {
+      loginSrv.createAccountByEmail.and.throwError('exception');
+      await component.createAccount();
+      expect(component.credentials.enabled).toBeTrue();
+    });
   });
 
-  it('should login the user', async () => {
-    component.mode = 'login';
-    const inputs = await loader.getAllHarnesses(MatInputHarness);
-    await inputs[0].setValue('test@example.com');
-    await inputs[1].setValue('test password');
-    fixture.detectChanges();
-    const registerButton = await loader.getHarness(
-      MatButtonHarness.with({ text: /ログイン/ }),
-    );
-    await registerButton.click();
+  describe('login', () => {
+    it('should login the user', async () => {
+      component.mode = 'login';
+      const inputs = await loader.getAllHarnesses(MatInputHarness);
+      await inputs[0].setValue('test@example.com');
+      await inputs[1].setValue('test password');
+      fixture.detectChanges();
+      const registerButton = await loader.getHarness(
+        MatButtonHarness.with({ text: /ログイン/ }),
+      );
+      await registerButton.click();
 
-    expect(loginSrv.loginByEmail).toHaveBeenCalledOnceWith(
-      'test@example.com',
-      'test password',
-    );
+      expect(loginSrv.loginByEmail).toHaveBeenCalledOnceWith(
+        'test@example.com',
+        'test password',
+      );
+    });
+  });
+
+  describe('reset password', () => {
+    it('should reset password', async () => {
+      component.mode = 'reset-password';
+      const input = await loader.getHarness(
+        MatInputHarness.with({ selector: '[name="email"]' }),
+      );
+      await input.setValue('test@example.com');
+      fixture.detectChanges();
+
+      const resetButton = await loader.getHarness(
+        MatButtonHarness.with({ text: /パスワード再設定メールを送信/ }),
+      );
+      await resetButton.click();
+
+      expect(loginSrv.resetPassword).toHaveBeenCalledOnceWith(
+        'test@example.com',
+      );
+    });
   });
 });

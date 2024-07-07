@@ -47,7 +47,6 @@ export class LoginService {
     try {
       return await signInWithEmailAndPassword(this.auth, email, password);
     } catch (e) {
-      console.error(e);
       if (!(e instanceof FirebaseError)) throw e;
       switch (e.code as ErrorCodes) {
         case 'auth/user-not-found':
