@@ -1,16 +1,16 @@
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { MatToolbarHarness } from '@angular/material/toolbar/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
+import { FirebaseTestingModule } from './firebase-testing.module';
+import { provideRouter } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [FirebaseTestingModule, AppComponent, NoopAnimationsModule],
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 
@@ -20,16 +20,18 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'fukagawa-coffee'`, () => {
+  it(`should have as site name '深川珈琲 在庫管理'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('fukagawa-coffee');
+    expect(app.siteName).toEqual('深川珈琲 在庫管理');
   });
 
-  it('should render title', () => {
+  it('should render title', async () => {
     const fixture = TestBed.createComponent(AppComponent);
+    const loader = TestbedHarnessEnvironment.loader(fixture);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('fukagawa-coffee app is running!');
+
+    const toolbar = await loader.getHarness(MatToolbarHarness);
+    expect((await toolbar.getRowsAsText())[0]).toMatch(/深川珈琲 在庫管理/);
   });
 });

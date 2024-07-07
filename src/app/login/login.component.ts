@@ -1,11 +1,24 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatTabGroup } from '@angular/material/tabs';
+import { MatTabGroup, MatTab } from '@angular/material/tabs';
 import { LocalStorageService } from 'ngx-webstorage';
+import { LoginByEmailComponent } from './login-by-email/login-by-email.component';
+import { LoginByPhoneComponent } from './login-by-phone/login-by-phone.component';
+import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: true,
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardContent,
+        MatTabGroup,
+        MatTab,
+        LoginByPhoneComponent,
+        LoginByEmailComponent,
+    ],
 })
 export class LoginComponent implements AfterViewInit {
   private lastLoginMethodIndexKey = 'login.lastLoginMethodIndex';

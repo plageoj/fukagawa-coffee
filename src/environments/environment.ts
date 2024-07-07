@@ -14,7 +14,7 @@ export const environment = {
     measurementId: 'G-STXP3NJ5QY',
   },
   firebaseEmulator: {
-    authUrl: 'http://localhost:9099',
+    authUrl: 'http://127.0.0.1:9099',
     firestorePort: 8080,
   },
   siteName: '深川珈琲 在庫管理',

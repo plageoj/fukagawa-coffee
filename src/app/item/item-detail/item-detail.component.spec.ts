@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemDetailComponent } from './item-detail.component';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
+import { provideRouter } from '@angular/router';
 
 describe('ItemDetailComponent', () => {
   let component: ItemDetailComponent;
@@ -8,9 +10,9 @@ describe('ItemDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ItemDetailComponent ]
-    })
-    .compileComponents();
+      imports: [FirebaseTestingModule, ItemDetailComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
   });
 
   beforeEach(() => {

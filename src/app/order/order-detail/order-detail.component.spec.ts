@@ -1,6 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrderDetailComponent } from './order-detail.component';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+  provideRouter,
+} from '@angular/router';
 
 describe('OrderDetailComponent', () => {
   let component: OrderDetailComponent;
@@ -8,9 +14,15 @@ describe('OrderDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrderDetailComponent ]
-    })
-    .compileComponents();
+      imports: [FirebaseTestingModule, OrderDetailComponent],
+      providers: [
+        provideRouter([]),
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { paramMap: convertToParamMap({}) } },
+        },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

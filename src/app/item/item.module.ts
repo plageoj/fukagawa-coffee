@@ -13,19 +13,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ItemSelectorModule } from '../components/item-selector/item-selector.module';
+
 import { AddItemComponent } from './add-item/add-item.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemRoutingModule } from './item-routing.module';
 
 @NgModule({
-  declarations: [ItemListComponent, AddItemComponent, ItemDetailComponent],
-  imports: [
+    imports: [
     CommonModule,
     ReactiveFormsModule,
     ItemRoutingModule,
-    ItemSelectorModule,
     MatButtonModule,
     MatButtonModule,
     MatCardModule,
@@ -39,6 +37,7 @@ import { ItemRoutingModule } from './item-routing.module';
     MatTooltipModule,
     MatSelectModule,
     MatSnackBarModule,
-  ],
+    ItemListComponent, AddItemComponent, ItemDetailComponent,
+],
 })
 export class ItemModule {}

@@ -6,11 +6,28 @@ import {
   signInWithPhoneNumber,
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-login-by-phone',
-  templateUrl: './login-by-phone.component.html',
-  styleUrls: ['./login-by-phone.component.scss'],
+    selector: 'app-login-by-phone',
+    templateUrl: './login-by-phone.component.html',
+    styleUrls: ['./login-by-phone.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ReactiveFormsModule,
+        FormsModule,
+        MatButton,
+        MatIcon,
+    ],
 })
 export class LoginByPhoneComponent {
   phoneNumber = '';

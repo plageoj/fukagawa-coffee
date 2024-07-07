@@ -13,18 +13,18 @@ import { StorageListComponent } from './storage-list/storage-list.component';
 import { StorageRoutingModule } from './storage-routing.module';
 
 @NgModule({
-  declarations: [StorageListComponent, AddStorageComponent],
-  imports: [
-    CommonModule,
-    StorageRoutingModule,
-    MatListModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        CommonModule,
+        StorageRoutingModule,
+        MatListModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        StorageListComponent, AddStorageComponent,
+    ],
 })
 export class StorageModule {}
