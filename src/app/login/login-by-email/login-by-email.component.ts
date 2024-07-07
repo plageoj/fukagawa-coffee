@@ -71,13 +71,9 @@ export class LoginByEmailComponent {
   async resetPassword() {
     const { email } = this.credentials.value;
     this.credentials.disable();
-    try {
-      const message = await this.loginSv.resetPassword(email);
-      this.snack.open(message);
-      this.mode = 'login';
-    } catch (e) {
-      console.error(e);
-    }
+    const message = await this.loginSv.resetPassword(email);
+    this.snack.open(message);
+    this.mode = 'login';
     this.credentials.enable();
   }
 
