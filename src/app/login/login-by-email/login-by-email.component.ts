@@ -51,7 +51,6 @@ export class LoginByEmailComponent {
       );
       this.checkResult(createResult);
     } catch (e) {
-      console.error(e);
       this.credentials.enable();
     }
   }
@@ -63,7 +62,6 @@ export class LoginByEmailComponent {
       const loginResult = await this.loginSv.loginByEmail(email, password);
       this.checkResult(loginResult);
     } catch (e) {
-      console.error(e);
       this.credentials.enable();
     }
   }
