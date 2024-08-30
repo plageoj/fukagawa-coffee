@@ -5,12 +5,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { FirebaseTestingModule } from './firebase-testing.module';
 import { provideRouter } from '@angular/router';
+import { routes } from './app-routing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FirebaseTestingModule, AppComponent, NoopAnimationsModule],
-      providers: [provideRouter([])],
+      providers: [provideRouter(routes)],
     }).compileComponents();
   });
 
