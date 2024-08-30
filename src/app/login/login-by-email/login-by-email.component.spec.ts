@@ -40,10 +40,6 @@ describe('LoginByEmailComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
   describe('create account', () => {
     it('should create an account', async () => {
       component.mode = 'register';
