@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ApplicationVerifier, signInWithPhoneNumber } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { FirebaseTestingModule } from '../firebase-testing.module';
 import { LoginService } from './login.service';
@@ -11,7 +10,7 @@ const deleteAllUsers = async () => {
     {
       method: 'delete',
       headers: {
-        authorization: 'Barer owner',
+        authorization: 'Bearer owner',
       },
     },
   );
