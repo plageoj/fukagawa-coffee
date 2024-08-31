@@ -1,33 +1,29 @@
-import { Component } from '@angular/core';
-import {
-  Auth,
-  ConfirmationResult,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from '@angular/fire/auth';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatInput } from '@angular/material/input';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { ConfirmationResult } from '@angular/fire/auth';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInput } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginService } from '../login.service';
 
 @Component({
-    selector: 'app-login-by-phone',
-    templateUrl: './login-by-phone.component.html',
-    styleUrls: ['./login-by-phone.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        ReactiveFormsModule,
-        FormsModule,
-        MatButton,
-        MatIcon,
-    ],
+  selector: 'app-login-by-phone',
+  templateUrl: './login-by-phone.component.html',
+  styleUrls: ['./login-by-phone.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButton,
+    MatIcon,
+  ],
 })
 export class LoginByPhoneComponent {
   phoneNumber = '';
@@ -37,54 +33,50 @@ export class LoginByPhoneComponent {
 
   private authResult?: ConfirmationResult;
 
-  constructor(private auth: Auth, private sb: MatSnackBar) {}
+  constructor(
+    private login: LoginService,
+    private sb: MatSnackBar,
+  ) {}
 
-  sendConfirmation() {
-    const verifier = new RecaptchaVerifier(this.auth, 'send-confirmation', {
-      size: 'invisible',
-    });
-
+  async sendConfirmation() {
     this.isSent = true;
-    const phoneNumber = this.phoneNumber.startsWith('+')
-      ? this.phoneNumber
-      : '+81' + this.phoneNumber;
+    const verifier = this.login.createVerifier();
 
-    signInWithPhoneNumber(this.auth, phoneNumber, verifier).then(
-      (result) => {
-        this.codeReady = true;
+    try {
+      const result = await this.login.loginByPhone(this.phoneNumber, verifier);
+      this.codeReady = true;
 
-        this.sb
-          .open('確認コードを送信しました。')
-          .afterDismissed()
-          .subscribe(() => {
-            this.isSent = false;
-          });
+      this.sb
+        .open('確認コードを送信しました。')
+        .afterDismissed()
+        .subscribe(() => {
+          this.isSent = false;
+        });
 
-        this.authResult = result;
-      },
-      () => {
-        this.isSent = false;
-        verifier.clear();
-        this.sb.open(
-          '確認コードを送信できませんでした。電話番号を確認してください。'
-        );
+      this.authResult = result;
+    } catch (error) {
+      this.isSent = false;
+      verifier.clear();
+      if (typeof error === 'string') this.sb.open(error);
+      else {
+        this.sb.open('ログインできませんでした。電話番号を確認してください');
+        throw error;
       }
-    );
+    }
   }
 
-  confirmCode() {
-    if (this.authResult) {
-      this.isSent = true;
-      this.authResult.confirm(this.confirmationCode.toString()).then(
-        () => {
-          location.reload();
-        },
-        () => {
-          this.isSent = false;
-          this.codeReady = false;
-          this.sb.open('ログインに失敗しました。');
-        }
-      );
+  async confirmCode() {
+    if (!this.authResult) return;
+
+    this.isSent = true;
+    try {
+      await this.authResult.confirm(this.confirmationCode);
+      location.reload();
+    } catch (error) {
+      this.isSent = false;
+      this.codeReady = false;
+      this.sb.open('ログインに失敗しました。');
+      throw error;
     }
   }
 }

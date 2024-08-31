@@ -32,6 +32,7 @@ const initialized = { firestore: false, auth: false };
     }),
     provideAuth(() => {
       const auth = getAuth();
+      auth.useDeviceLanguage();
       if (
         !environment.production &&
         environment.firebaseEmulator.authUrl &&
@@ -41,6 +42,7 @@ const initialized = { firestore: false, auth: false };
           disableWarnings: true,
         });
         initialized.auth = true;
+        auth.settings.appVerificationDisabledForTesting = true;
       }
       return auth;
     }),
