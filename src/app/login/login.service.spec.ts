@@ -3,6 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import { LoginService } from './login.service';
 import { FirebaseTestingModule } from '../firebase-testing.module';
 import { environment } from 'src/environments/environment';
+import * as auth from '@angular/fire/auth';
+import { FirebaseError } from 'firebase/app';
 
 const deleteAllUsers = async () => {
   await fetch(
