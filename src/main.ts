@@ -1,5 +1,5 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
@@ -28,10 +28,10 @@ import {
   withNgxWebstorageConfig,
   withSessionStorage,
 } from 'ngx-webstorage';
+import { routes } from './app/app-routing';
 import { AppComponent } from './app/app.component';
 import { PageTitleStrategy } from './app/strategies/title-strategy';
 import { environment } from './environments/environment';
-import { routes } from './app/app-routing';
 
 if (environment.production) {
   enableProdMode();
