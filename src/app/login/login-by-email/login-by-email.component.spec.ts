@@ -30,9 +30,7 @@ describe('LoginByEmailComponent', () => {
       ],
       providers: [{ provide: LoginService, useValue: login }],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(LoginByEmailComponent);
     loader = TestbedHarnessEnvironment.loader(fixture);
     component = fixture.componentInstance;
