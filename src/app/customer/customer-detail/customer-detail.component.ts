@@ -15,28 +15,34 @@ import { NgFor } from '@angular/common';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton, MatAnchor } from '@angular/material/button';
-import { MatCard, MatCardTitle, MatCardSubtitle, MatCardActions, MatCardContent } from '@angular/material/card';
+import {
+  MatCard,
+  MatCardTitle,
+  MatCardSubtitle,
+  MatCardActions,
+  MatCardContent,
+} from '@angular/material/card';
 
 @Component({
-    selector: 'app-customer-detail',
-    templateUrl: './customer-detail.component.html',
-    styleUrls: ['./customer-detail.component.scss'],
-    standalone: true,
-    imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardSubtitle,
-        MatCardActions,
-        MatButton,
-        MatIcon,
-        MatCardContent,
-        MatList,
-        NgFor,
-        MatListItem,
-        MatIconButton,
-        MatAnchor,
-        RouterLink,
-    ],
+  selector: 'app-customer-detail',
+  templateUrl: './customer-detail.component.html',
+  styleUrls: ['./customer-detail.component.scss'],
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardActions,
+    MatButton,
+    MatIcon,
+    MatCardContent,
+    MatList,
+    NgFor,
+    MatListItem,
+    MatIconButton,
+    MatAnchor,
+    RouterLink,
+  ],
 })
 export class CustomerDetailComponent implements OnDestroy {
   customer: Customer | undefined;
@@ -50,7 +56,7 @@ export class CustomerDetailComponent implements OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private snack: MatSnackBar,
-    private title: TitleService
+    private title: TitleService,
   ) {
     this.cs
       .load(this.route.snapshot.paramMap.get('id') ?? '_')
@@ -99,7 +105,7 @@ export class CustomerDetailComponent implements OnDestroy {
             type: '編集',
             customer: this.customer,
           },
-        }
+        },
       )
       .afterClosed()
       .subscribe((customer) => {

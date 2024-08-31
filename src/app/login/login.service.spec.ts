@@ -1,10 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LoginService } from './login.service';
-import { FirebaseTestingModule } from '../firebase-testing.module';
+import { ApplicationVerifier, signInWithPhoneNumber } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
-import * as auth from '@angular/fire/auth';
-import { FirebaseError } from 'firebase/app';
+import { FirebaseTestingModule } from '../firebase-testing.module';
+import { LoginService } from './login.service';
 
 const deleteAllUsers = async () => {
   await fetch(
@@ -24,6 +23,7 @@ describe('LoginService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FirebaseTestingModule],
+      providers: [LoginService],
     });
     service = TestBed.inject(LoginService);
   });
@@ -55,11 +55,11 @@ describe('LoginService', () => {
     it('should validate weak password', async () => {
       expect(
         await service.createAccountByEmail('test@example.com', 'weak'),
-      ).toBe('パスワードが簡単すぎます。8文字以上のパスワードにしてください。');
+      ).toBe('パスワードが簡単すぎます。8文字以上のパスワードにしてください');
     });
   });
 
-  describe('login', () => {
+  describe('login by email', () => {
     beforeEach(async () => {
       await deleteAllUsers();
       await service.createAccountByEmail('test@example.com', 'test password');

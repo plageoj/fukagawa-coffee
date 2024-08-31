@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import {
+  ApplicationVerifier,
   Auth,
   AuthErrorCodes,
   createUserWithEmailAndPassword,
+  RecaptchaVerifier,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signInWithPhoneNumber,
   UserCredential,
 } from '@angular/fire/auth';
-
-type ErrorCodes = (typeof AuthErrorCodes)[keyof typeof AuthErrorCodes];
 
 @Injectable({
   providedIn: 'root',
@@ -25,18 +26,7 @@ export class LoginService {
       return await createUserWithEmailAndPassword(this.auth, email, password);
     } catch (e) {
       if (!(e instanceof FirebaseError)) throw e;
-      switch (e.code as ErrorCodes) {
-        case 'auth/email-already-in-use':
-          return '新規登録ができませんでした';
-        case 'auth/invalid-email':
-          return 'メールアドレスが不正です';
-        case 'auth/too-many-requests':
-          return '新規登録は制限されています。しばらく待ってから再度行ってください';
-        case 'auth/weak-password':
-          return 'パスワードが簡単すぎます。8文字以上のパスワードにしてください。';
-        default:
-          return '新規登録ができませんでした';
-      }
+      return this.mapSignUpErrorMessage(e);
     }
   }
 
@@ -48,18 +38,26 @@ export class LoginService {
       return await signInWithEmailAndPassword(this.auth, email, password);
     } catch (e) {
       if (!(e instanceof FirebaseError)) throw e;
-      switch (e.code as ErrorCodes) {
-        case 'auth/user-not-found':
-          return 'メールアドレスまたはパスワードが間違っています';
-        case 'auth/wrong-password':
-          return 'メールアドレスまたはパスワードが間違っています';
-        case 'auth/too-many-requests':
-          return 'ログインは制限されています。しばらく待ってから再度行ってください';
-        case 'auth/user-disabled':
-          return 'アカウントは凍結されています';
-        default:
-          return 'ログインに失敗しました';
-      }
+      return this.mapLoginErrorMessage(e);
+    }
+  }
+
+  createVerifier() {
+    return new RecaptchaVerifier(this.auth, 'send-confirmation', {
+      size: 'invisible',
+    });
+  }
+
+  async loginByPhone(phoneNumber: string, verifier: ApplicationVerifier) {
+    const intlPhoneNumber = phoneNumber.startsWith('+')
+      ? phoneNumber
+      : '+81' + phoneNumber;
+
+    try {
+      return await signInWithPhoneNumber(this.auth, intlPhoneNumber, verifier);
+    } catch (e) {
+      if (!(e instanceof FirebaseError)) throw e;
+      throw this.mapLoginErrorMessage(e);
     }
   }
 
@@ -69,14 +67,49 @@ export class LoginService {
       return 'パスワードリセットメールを送信しました';
     } catch (e) {
       if (!(e instanceof FirebaseError)) throw e;
-      switch (e.code as ErrorCodes) {
-        case 'auth/user-not-found':
-          return 'パスワードリセットメールを送信しました';
-        case 'auth/internal-error':
-          return '送信中にエラーが発生しました';
-        default:
-          return 'パスワードをリセットできませんでした';
-      }
+      return this.mapPasswordResetErrorMessage(e);
+    }
+  }
+
+  private mapSignUpErrorMessage(e: FirebaseError): string {
+    switch (e.code) {
+      case AuthErrorCodes.EMAIL_EXISTS:
+        return '新規登録ができませんでした';
+      case AuthErrorCodes.INVALID_EMAIL:
+        return 'メールアドレスが不正です';
+      case AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER:
+        return '新規登録が制限されています。しばらく待ってから再度行ってください';
+      case AuthErrorCodes.WEAK_PASSWORD:
+        return 'パスワードが簡単すぎます。8文字以上のパスワードにしてください';
+      default:
+        return '新規登録ができませんでした';
+    }
+  }
+
+  private mapLoginErrorMessage(e: FirebaseError): string {
+    switch (e.code) {
+      case AuthErrorCodes.USER_DELETED:
+      case AuthErrorCodes.INVALID_PASSWORD:
+        return 'メールアドレスまたはパスワードが間違っています';
+      case AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER:
+        return 'ログインが制限されています。しばらく待ってから再度行ってください';
+      case AuthErrorCodes.USER_DISABLED:
+        return 'アカウントは凍結されています';
+      default:
+        return 'ログインできませんでした';
+    }
+  }
+
+  private mapPasswordResetErrorMessage(e: FirebaseError): string {
+    switch (e.code) {
+      case AuthErrorCodes.USER_DELETED:
+        return 'パスワードリセットメールを送信しました';
+      case AuthErrorCodes.USER_DISABLED:
+        return 'アカウントは凍結されています';
+      case AuthErrorCodes.INTERNAL_ERROR:
+        return '送信中にエラーが発生しました';
+      default:
+        return 'パスワードをリセットできませんでした';
     }
   }
 }
