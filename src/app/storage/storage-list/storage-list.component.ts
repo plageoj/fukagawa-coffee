@@ -10,26 +10,29 @@ import { MatList, MatListItem } from '@angular/material/list';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-storage-list',
-    templateUrl: './storage-list.component.html',
-    styleUrls: ['./storage-list.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        MatList,
-        NgFor,
-        MatListItem,
-        MatIcon,
-        MatIconButton,
-        MatTooltip,
-        MatFabButton,
-        AsyncPipe,
-    ],
+  selector: 'app-storage-list',
+  templateUrl: './storage-list.component.html',
+  styleUrls: ['./storage-list.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatList,
+    NgFor,
+    MatListItem,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    MatFabButton,
+    AsyncPipe,
+  ],
 })
 export class StorageListComponent {
   storages;
 
-  constructor(private ss: StorageService, private dialog: MatDialog) {
+  constructor(
+    private ss: StorageService,
+    private dialog: MatDialog,
+  ) {
     this.storages = this.ss.list();
   }
 
