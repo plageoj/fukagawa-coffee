@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "fukagawa-coffee",
-      "public": "dist/fukagawa-coffee",
+      "public": "dist/fukagawa-coffee/browser",
       "ignore": [
         "**/.*"
       ],
