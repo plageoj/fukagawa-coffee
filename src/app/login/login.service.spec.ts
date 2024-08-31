@@ -32,7 +32,7 @@ describe('LoginService', () => {
       await deleteAllUsers();
     });
 
-    it('should create user', async () => {
+    it('should create user only once', async () => {
       expect(
         typeof (await service.createAccountByEmail(
           'test@example.com',
