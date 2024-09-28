@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatTabGroup, MatTab } from '@angular/material/tabs';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { LocalStorageService } from 'ngx-webstorage';
 import { LoginByEmailComponent } from './login-by-email/login-by-email.component';
 import { LoginByPhoneComponent } from './login-by-phone/login-by-phone.component';
-import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
 
 @Component({
     selector: 'app-login',
@@ -13,6 +13,7 @@ import { MatCard, MatCardTitle, MatCardContent } from '@angular/material/card';
     imports: [
         MatCard,
         MatCardTitle,
+        MatCardHeader,
         MatCardContent,
         MatTabGroup,
         MatTab,
