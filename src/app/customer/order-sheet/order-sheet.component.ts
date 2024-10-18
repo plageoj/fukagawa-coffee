@@ -1,5 +1,15 @@
+import { CurrencyPipe, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { where } from '@angular/fire/firestore';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAnchor, MatButton } from '@angular/material/button';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardTitle,
+} from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -7,31 +17,26 @@ import { ItemService } from 'src/app/services/item.service';
 import { TitleService } from 'src/app/services/title.service';
 import { Customer } from 'src/models/customer.model';
 import { Item } from 'src/models/item.model';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NgFor, CurrencyPipe } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
-import { MatAnchor, MatButton } from '@angular/material/button';
-import { MatCard, MatCardTitle, MatCardContent, MatCardActions } from '@angular/material/card';
 
 @Component({
-    selector: 'app-order-sheet',
-    templateUrl: './order-sheet.component.html',
-    styleUrls: ['./order-sheet.component.scss'],
-    standalone: true,
-    imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardContent,
-        MatCardActions,
-        MatAnchor,
-        RouterLink,
-        MatIcon,
-        MatButton,
-        NgFor,
-        ReactiveFormsModule,
-        FormsModule,
-        CurrencyPipe,
-    ],
+  selector: 'app-order-sheet',
+  templateUrl: './order-sheet.component.html',
+  styleUrls: ['./order-sheet.component.scss'],
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardTitle,
+    MatCardContent,
+    MatCardActions,
+    MatAnchor,
+    RouterLink,
+    MatIcon,
+    MatButton,
+    NgFor,
+    ReactiveFormsModule,
+    FormsModule,
+    CurrencyPipe,
+  ],
 })
 export class OrderSheetComponent implements OnInit {
   customer: Customer | undefined;
@@ -43,13 +48,13 @@ export class OrderSheetComponent implements OnInit {
   isNotReady = true;
 
   constructor(
-    private route: ActivatedRoute,
-    private cs: CustomerService,
-    private is: ItemService,
-    private title: TitleService
+    private readonly route: ActivatedRoute,
+    private readonly cs: CustomerService,
+    private readonly is: ItemService,
+    private readonly title: TitleService,
   ) {
     this.cs
-      .load(this.route.snapshot.paramMap.get('id') || '_')
+      .load(this.route.snapshot.paramMap.get('id') ?? '_')
       .pipe(take(1))
       .subscribe((customer) => {
         if (!customer) return;

@@ -23,26 +23,26 @@ import { MatButton, MatAnchor } from '@angular/material/button';
 import { MatCard, MatCardTitle, MatCardContent, MatCardActions, MatCardSubtitle } from '@angular/material/card';
 
 @Component({
-    selector: 'app-item-detail',
-    templateUrl: './item-detail.component.html',
-    styleUrls: ['./item-detail.component.scss'],
-    standalone: true,
-    imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardContent,
-        MatCardActions,
-        MatButton,
-        MatIcon,
-        MatCardSubtitle,
-        ReactiveFormsModule,
-        NgFor,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        MatAnchor,
-        RouterLink,
-    ],
+  selector: 'app-item-detail',
+  templateUrl: './item-detail.component.html',
+  styleUrls: ['./item-detail.component.scss'],
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardTitle,
+    MatCardContent,
+    MatCardActions,
+    MatButton,
+    MatIcon,
+    MatCardSubtitle,
+    ReactiveFormsModule,
+    NgFor,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatAnchor,
+    RouterLink,
+  ],
 })
 export class ItemDetailComponent implements OnDestroy {
   item: ItemWithoutTimestamp = {
@@ -59,14 +59,14 @@ export class ItemDetailComponent implements OnDestroy {
   storages: Storage[] = [];
 
   constructor(
-    private dialog: MatDialog,
-    private fb: UntypedFormBuilder,
-    private is: ItemService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private sb: MatSnackBar,
-    private ss: StorageService,
-    private title: TitleService
+    private readonly dialog: MatDialog,
+    private readonly fb: UntypedFormBuilder,
+    private readonly is: ItemService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly sb: MatSnackBar,
+    private readonly ss: StorageService,
+    private readonly title: TitleService,
   ) {
     const id = this.route.snapshot.paramMap.get('id') ?? '_';
     this.is
@@ -85,8 +85,8 @@ export class ItemDetailComponent implements OnDestroy {
             this.storages = storages;
             this.storedCount = this.fb.group(
               Object.fromEntries(
-                storages.map((s) => [s.id, [item.storedCount[s.id] || 0]])
-              )
+                storages.map((s) => [s.id, [item.storedCount[s.id] || 0]]),
+              ),
             );
           });
       });
@@ -112,7 +112,7 @@ export class ItemDetailComponent implements OnDestroy {
     this.item.storedCount = this.storedCount.value;
     this.item.total = Object.values(this.item.storedCount).reduce(
       (acc, cur) => acc + cur,
-      0
+      0,
     );
   }
 

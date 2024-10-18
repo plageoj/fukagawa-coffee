@@ -35,7 +35,7 @@ import { CustomerDialogData } from 'src/models/customer.model';
 export class AddCustomerComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CustomerDialogData,
-    private cs: CustomerService,
+    private readonly cs: CustomerService,
   ) {
     if (typeof data.customer.id === 'undefined') {
       data.customer = {

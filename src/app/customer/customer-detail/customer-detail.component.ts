@@ -1,6 +1,17 @@
+import { NgFor } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { where } from '@angular/fire/firestore';
+import { MatAnchor, MatButton, MatIconButton } from '@angular/material/button';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardSubtitle,
+  MatCardTitle,
+} from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListItem } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
@@ -11,17 +22,6 @@ import { Customer, CustomerDialogData } from 'src/models/customer.model';
 import { Item } from 'src/models/item.model';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
 import { AssociateItemComponent } from '../associate-item/associate-item.component';
-import { NgFor } from '@angular/common';
-import { MatList, MatListItem } from '@angular/material/list';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatIconButton, MatAnchor } from '@angular/material/button';
-import {
-  MatCard,
-  MatCardTitle,
-  MatCardSubtitle,
-  MatCardActions,
-  MatCardContent,
-} from '@angular/material/card';
 
 @Component({
   selector: 'app-customer-detail',
@@ -50,13 +50,13 @@ export class CustomerDetailComponent implements OnDestroy {
   private isUpdated = false;
 
   constructor(
-    private cs: CustomerService,
-    private dialog: MatDialog,
-    private is: ItemService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private snack: MatSnackBar,
-    private title: TitleService,
+    private readonly cs: CustomerService,
+    private readonly dialog: MatDialog,
+    private readonly is: ItemService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly snack: MatSnackBar,
+    private readonly title: TitleService,
   ) {
     this.cs
       .load(this.route.snapshot.paramMap.get('id') ?? '_')

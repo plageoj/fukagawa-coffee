@@ -13,35 +13,35 @@ import { MatNavList, MatListItem } from '@angular/material/list';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions } from '@angular/material/card';
 
 @Component({
-    selector: 'app-order-detail',
-    templateUrl: './order-detail.component.html',
-    styleUrls: ['./order-detail.component.scss'],
-    standalone: true,
-    imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardSubtitle,
-        MatCardContent,
-        MatNavList,
-        NgFor,
-        MatListItem,
-        RouterLink,
-        NgIf,
-        MatCardActions,
-        MatButton,
-        MatIcon,
-        DatePipe,
-    ],
+  selector: 'app-order-detail',
+  templateUrl: './order-detail.component.html',
+  styleUrls: ['./order-detail.component.scss'],
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardContent,
+    MatNavList,
+    NgFor,
+    MatListItem,
+    RouterLink,
+    NgIf,
+    MatCardActions,
+    MatButton,
+    MatIcon,
+    DatePipe,
+  ],
 })
 export class OrderDetailComponent {
   order: Order | undefined;
   itemList: { [key: string]: Item | undefined } = {};
 
   constructor(
-    private os: OrderService,
-    private is: ItemService,
-    private route: ActivatedRoute,
-    private router: Router
+    private readonly os: OrderService,
+    private readonly is: ItemService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
   ) {
     this.os
       .load(this.route.snapshot.paramMap.get('id') ?? '_')

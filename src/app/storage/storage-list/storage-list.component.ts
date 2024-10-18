@@ -1,13 +1,13 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListItem } from '@angular/material/list';
+import { MatTooltip } from '@angular/material/tooltip';
 import { StorageService } from 'src/app/services/storage.service';
 import { Storage } from 'src/models/storage.model';
 import { AddStorageComponent } from '../add-storage/add-storage.component';
-import { MatTooltip } from '@angular/material/tooltip';
-import { MatIconButton, MatFabButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { MatList, MatListItem } from '@angular/material/list';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-storage-list',
@@ -30,8 +30,8 @@ export class StorageListComponent {
   storages;
 
   constructor(
-    private ss: StorageService,
-    private dialog: MatDialog,
+    private readonly ss: StorageService,
+    private readonly dialog: MatDialog,
   ) {
     this.storages = this.ss.list();
   }
