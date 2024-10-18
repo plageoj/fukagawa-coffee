@@ -8,5 +8,6 @@
   "sonarlint.connectedMode.project": {
     "connectionId": "plageoj",
     "projectKey": "plageoj_fukagawa-coffee"
-  }
+  },
+  "simplecov-vscode.enabled": false
 }
