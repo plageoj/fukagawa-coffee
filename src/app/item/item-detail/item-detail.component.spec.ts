@@ -1,8 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ItemDetailComponent } from './item-detail.component';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+  provideRouter,
+} from '@angular/router';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
-import { provideRouter } from '@angular/router';
+import { ItemDetailComponent } from './item-detail.component';
 
 describe('ItemDetailComponent', () => {
   let component: ItemDetailComponent;
@@ -11,7 +15,13 @@ describe('ItemDetailComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FirebaseTestingModule, ItemDetailComponent],
-      providers: [provideRouter([])],
+      providers: [
+        provideRouter([]),
+        {
+          provides: ActivatedRoute,
+          useValue: convertToParamMap({ id: 'test' }),
+        },
+      ],
     }).compileComponents();
   });
 
