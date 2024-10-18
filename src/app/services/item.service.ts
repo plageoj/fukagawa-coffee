@@ -17,17 +17,20 @@ import { FirestoreBase } from './firestoreBase';
   providedIn: 'root',
 })
 export class ItemService extends FirestoreBase<Item> {
-  constructor(db: Firestore, private auth: Auth) {
+  constructor(
+    db: Firestore,
+    private readonly auth: Auth,
+  ) {
     super(db, 'items');
   }
 
   async store(item: WithFieldValue<ItemWithoutTimestamp> & { id: Item['id'] }) {
     const history = collection(
       this.db,
-      'histories'
+      'histories',
     ) as CollectionReference<History>;
     await addDoc<History, DocumentData>(history, {
-      uid: this.auth.currentUser?.uid || '',
+      uid: this.auth.currentUser?.uid ?? '',
       date: serverTimestamp(),
       itemId: item.id,
       item: { ...item, updatedAt: serverTimestamp() },

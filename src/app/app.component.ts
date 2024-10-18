@@ -10,29 +10,32 @@ import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: true,
-    imports: [
-        MatToolbar,
-        MatIcon,
-        NgIf,
-        MatIconButton,
-        MatSidenavContainer,
-        MatSidenav,
-        MatNavList,
-        MatListItem,
-        RouterLink,
-        MatSidenavContent,
-        RouterOutlet,
-    ],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    MatToolbar,
+    MatIcon,
+    NgIf,
+    MatIconButton,
+    MatSidenavContainer,
+    MatSidenav,
+    MatNavList,
+    MatListItem,
+    RouterLink,
+    MatSidenavContent,
+    RouterOutlet,
+  ],
 })
 export class AppComponent {
   user: User | null = null;
   siteName = environment.siteName;
 
-  constructor(private auth: Auth, private router: Router) {
+  constructor(
+    private readonly auth: Auth,
+    private readonly router: Router,
+  ) {
     onAuthStateChanged(this.auth, (user) => {
       this.user = user;
     });

@@ -18,13 +18,19 @@ import {
 import { Observable } from 'rxjs';
 
 export class FirestoreBase<T> {
-  constructor(protected db: Firestore, protected path: string) {}
+  constructor(
+    protected db: Firestore,
+    protected path: string,
+  ) {}
 
-  private col = collection(this.db, this.path) as CollectionReference<T>;
+  private readonly col = collection(
+    this.db,
+    this.path,
+  ) as CollectionReference<T>;
 
   list(where?: QueryConstraint): Observable<T[]> {
     return collectionData<T>(
-      where ? query<T, DocumentData>(this.col, where) : this.col
+      where ? query<T, DocumentData>(this.col, where) : this.col,
     );
   }
 

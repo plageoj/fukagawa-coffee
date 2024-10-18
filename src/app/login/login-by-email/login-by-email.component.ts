@@ -30,10 +30,10 @@ export class LoginByEmailComponent {
   credentials;
 
   constructor(
-    private fb: UntypedFormBuilder,
-    private snack: MatSnackBar,
-    private router: Router,
-    private loginSv: LoginService,
+    private readonly fb: UntypedFormBuilder,
+    private readonly snack: MatSnackBar,
+    private readonly router: Router,
+    private readonly loginSv: LoginService,
   ) {
     this.credentials = this.fb.group({
       email: [''],

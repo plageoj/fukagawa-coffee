@@ -16,7 +16,7 @@ import {
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(private auth: Auth) {}
+  constructor(private readonly auth: Auth) {}
 
   async createAccountByEmail(
     email: string,

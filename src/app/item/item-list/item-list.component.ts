@@ -10,22 +10,17 @@ import { MatFabButton } from '@angular/material/button';
 import { ItemSelectorComponent } from '../../components/item-selector/item-selector.component';
 
 @Component({
-    selector: 'app-item-list',
-    templateUrl: './item-list.component.html',
-    styleUrls: ['./item-list.component.scss'],
-    standalone: true,
-    imports: [
-        ItemSelectorComponent,
-        MatFabButton,
-        MatTooltip,
-        MatIcon,
-    ],
+  selector: 'app-item-list',
+  templateUrl: './item-list.component.html',
+  styleUrls: ['./item-list.component.scss'],
+  standalone: true,
+  imports: [ItemSelectorComponent, MatFabButton, MatTooltip, MatIcon],
 })
 export class ItemListComponent {
   constructor(
-    private dialog: MatDialog,
-    private router: Router,
-    private is: ItemService
+    private readonly dialog: MatDialog,
+    private readonly router: Router,
+    private readonly is: ItemService,
   ) {}
 
   addItem() {

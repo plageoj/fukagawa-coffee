@@ -34,8 +34,8 @@ export class LoginByPhoneComponent {
   private authResult?: ConfirmationResult;
 
   constructor(
-    private login: LoginService,
-    private sb: MatSnackBar,
+    private readonly login: LoginService,
+    private readonly sb: MatSnackBar,
   ) {}
 
   async sendConfirmation() {
