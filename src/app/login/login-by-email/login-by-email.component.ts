@@ -56,22 +56,9 @@ export class LoginByEmailComponent {
         this.snack.open('アカウントの作成に失敗しました');
         return;
       }
-      switch (e.code) {
-        case AuthErrorCodes.EMAIL_EXISTS:
-          this.snack.open('メールアドレスはすでに使用されています');
-          break;
-        case AuthErrorCodes.WEAK_PASSWORD:
-          this.snack.open('パスワードは6文字以上である必要があります');
-          break;
-        case AuthErrorCodes.INVALID_EMAIL:
-          this.snack.open('メールアドレスが不正です');
-          break;
-        case AuthErrorCodes.INTERNAL_ERROR:
-          this.snack.open('送信中にエラーが発生しました');
-          break;
-        default:
-          this.snack.open('アカウントの作成に失敗しました');
-      }
+      this.snack.open(
+        this.mapErrorCodeToMessage(e.code, 'アカウントの作成に失敗しました'),
+      );
     }
   }
 
@@ -87,30 +74,35 @@ export class LoginByEmailComponent {
         this.snack.open('ログインできませんでした');
         return;
       }
-      switch (e.code) {
-        case AuthErrorCodes.INVALID_PASSWORD:
-        case AuthErrorCodes.USER_MISMATCH:
-        case AuthErrorCodes.USER_DELETED:
-          this.snack.open('メールアドレスまたはパスワードが間違っています');
-          break;
-        case AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER:
-          this.snack.open(
-            'ログインが制限されています。しばらく待ってから再度行ってください',
-          );
-          break;
-        case AuthErrorCodes.USER_DISABLED:
-          this.snack.open('アカウントは凍結されています');
-          break;
-        case AuthErrorCodes.INTERNAL_ERROR:
-          this.snack.open('送信中にエラーが発生しました');
-          break;
-        case AuthErrorCodes.INVALID_EMAIL:
-          this.snack.open('メールアドレスが不正です');
-          break;
-        default:
-          this.snack.open('ログインできませんでした');
-          break;
-      }
+      this.snack.open(
+        this.mapErrorCodeToMessage(e.code, 'ログインできませんでした'),
+      );
+    }
+  }
+
+  private mapErrorCodeToMessage(
+    code: string,
+    defaultMessage = 'ログインできませんでした',
+  ) {
+    switch (code) {
+      case AuthErrorCodes.INVALID_PASSWORD:
+      case AuthErrorCodes.USER_MISMATCH:
+      case AuthErrorCodes.USER_DELETED:
+        return 'メールアドレスまたはパスワードが間違っています';
+      case AuthErrorCodes.EMAIL_EXISTS:
+        return 'このメールアドレスはすでに使用されています';
+      case AuthErrorCodes.WEAK_PASSWORD:
+        return 'パスワードは6文字以上である必要があります';
+      case AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER:
+        return 'しばらく待ってから再度実行してください';
+      case AuthErrorCodes.USER_DISABLED:
+        return 'アカウントは凍結されています';
+      case AuthErrorCodes.INTERNAL_ERROR:
+        return '送信中にエラーが発生しました';
+      case AuthErrorCodes.INVALID_EMAIL:
+        return 'メールアドレスが不正です';
+      default:
+        return defaultMessage;
     }
   }
 
