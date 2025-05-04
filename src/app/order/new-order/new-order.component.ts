@@ -30,30 +30,29 @@ import { Item } from 'src/models/item.model';
 import { Order } from 'src/models/order.model';
 
 @Component({
-  selector: 'app-new-order',
-  templateUrl: './new-order.component.html',
-  styleUrls: ['./new-order.component.scss'],
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardTitle,
-    MatCardSubtitle,
-    MatCardContent,
-    MatList,
-    NgFor,
-    MatListItem,
-    NgIf,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    ReactiveFormsModule,
-    FormsModule,
-    MatTooltip,
-    MatDivider,
-    MatButton,
-    MatIcon,
-    MatCardActions,
-  ],
+    selector: 'app-new-order',
+    templateUrl: './new-order.component.html',
+    styleUrls: ['./new-order.component.scss'],
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardSubtitle,
+        MatCardContent,
+        MatList,
+        NgFor,
+        MatListItem,
+        NgIf,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ReactiveFormsModule,
+        FormsModule,
+        MatTooltip,
+        MatDivider,
+        MatButton,
+        MatIcon,
+        MatCardActions,
+    ]
 })
 export class NewOrderComponent {
   customer: Customer | undefined;

@@ -10,23 +10,22 @@ import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [
-    MatToolbar,
-    MatIcon,
-    NgIf,
-    MatIconButton,
-    MatSidenavContainer,
-    MatSidenav,
-    MatNavList,
-    MatListItem,
-    RouterLink,
-    MatSidenavContent,
-    RouterOutlet,
-  ],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    imports: [
+        MatToolbar,
+        MatIcon,
+        NgIf,
+        MatIconButton,
+        MatSidenavContainer,
+        MatSidenav,
+        MatNavList,
+        MatListItem,
+        RouterLink,
+        MatSidenavContent,
+        RouterOutlet,
+    ]
 })
 export class AppComponent {
   user: User | null = null;

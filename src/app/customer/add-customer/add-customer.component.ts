@@ -15,22 +15,21 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerDialogData } from 'src/models/customer.model';
 
 @Component({
-  selector: 'app-add-customer',
-  templateUrl: './add-customer.component.html',
-  styleUrls: ['./add-customer.component.scss'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    MatDialogContent,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    FormsModule,
-    MatDialogActions,
-    MatButton,
-    MatDialogClose,
-    MatIcon,
-  ],
+    selector: 'app-add-customer',
+    templateUrl: './add-customer.component.html',
+    styleUrls: ['./add-customer.component.scss'],
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        FormsModule,
+        MatDialogActions,
+        MatButton,
+        MatDialogClose,
+        MatIcon,
+    ]
 })
 export class AddCustomerComponent {
   constructor(

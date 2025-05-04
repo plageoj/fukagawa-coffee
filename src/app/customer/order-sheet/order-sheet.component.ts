@@ -19,24 +19,23 @@ import { Customer } from 'src/models/customer.model';
 import { Item } from 'src/models/item.model';
 
 @Component({
-  selector: 'app-order-sheet',
-  templateUrl: './order-sheet.component.html',
-  styleUrls: ['./order-sheet.component.scss'],
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardTitle,
-    MatCardContent,
-    MatCardActions,
-    MatAnchor,
-    RouterLink,
-    MatIcon,
-    MatButton,
-    NgFor,
-    ReactiveFormsModule,
-    FormsModule,
-    CurrencyPipe,
-  ],
+    selector: 'app-order-sheet',
+    templateUrl: './order-sheet.component.html',
+    styleUrls: ['./order-sheet.component.scss'],
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardContent,
+        MatCardActions,
+        MatAnchor,
+        RouterLink,
+        MatIcon,
+        MatButton,
+        NgFor,
+        ReactiveFormsModule,
+        FormsModule,
+        CurrencyPipe,
+    ]
 })
 export class OrderSheetComponent implements OnInit {
   customer: Customer | undefined;

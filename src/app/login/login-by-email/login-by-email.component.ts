@@ -11,19 +11,18 @@ import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
 
 @Component({
-  selector: 'app-login-by-email',
-  templateUrl: './login-by-email.component.html',
-  styleUrls: ['./login-by-email.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    ReactiveFormsModule,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatButton,
-    MatIcon,
-  ],
+    selector: 'app-login-by-email',
+    templateUrl: './login-by-email.component.html',
+    styleUrls: ['./login-by-email.component.scss'],
+    imports: [
+        NgIf,
+        ReactiveFormsModule,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatButton,
+        MatIcon,
+    ]
 })
 export class LoginByEmailComponent {
   mode: 'register' | 'login' | 'reset-password' = 'login';

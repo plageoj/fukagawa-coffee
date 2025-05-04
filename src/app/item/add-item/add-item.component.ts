@@ -16,23 +16,22 @@ import { ItemService } from 'src/app/services/item.service';
 import { ItemDialogData } from 'src/models/item.model';
 
 @Component({
-  selector: 'app-add-item',
-  templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.scss'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    ReactiveFormsModule,
-    CdkScrollable,
-    MatDialogContent,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatDialogActions,
-    MatButton,
-    MatDialogClose,
-    MatIcon,
-  ],
+    selector: 'app-add-item',
+    templateUrl: './add-item.component.html',
+    styleUrls: ['./add-item.component.scss'],
+    imports: [
+        MatDialogTitle,
+        ReactiveFormsModule,
+        CdkScrollable,
+        MatDialogContent,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatDialogActions,
+        MatButton,
+        MatDialogClose,
+        MatIcon,
+    ]
 })
 export class AddItemComponent {
   item;

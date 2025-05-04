@@ -16,23 +16,22 @@ import { MatInput } from '@angular/material/input';
 import { Storage } from 'src/models/storage.model';
 
 @Component({
-  selector: 'app-add-storage',
-  templateUrl: './add-storage.component.html',
-  styleUrls: ['./add-storage.component.scss'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    ReactiveFormsModule,
-    CdkScrollable,
-    MatDialogContent,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatDialogActions,
-    MatButton,
-    MatIcon,
-    MatDialogClose,
-  ],
+    selector: 'app-add-storage',
+    templateUrl: './add-storage.component.html',
+    styleUrls: ['./add-storage.component.scss'],
+    imports: [
+        MatDialogTitle,
+        ReactiveFormsModule,
+        CdkScrollable,
+        MatDialogContent,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatDialogActions,
+        MatButton,
+        MatIcon,
+        MatDialogClose,
+    ]
 })
 export class AddStorageComponent {
   storage;

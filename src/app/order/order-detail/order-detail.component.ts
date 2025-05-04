@@ -13,25 +13,24 @@ import { MatNavList, MatListItem } from '@angular/material/list';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions } from '@angular/material/card';
 
 @Component({
-  selector: 'app-order-detail',
-  templateUrl: './order-detail.component.html',
-  styleUrls: ['./order-detail.component.scss'],
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardTitle,
-    MatCardSubtitle,
-    MatCardContent,
-    MatNavList,
-    NgFor,
-    MatListItem,
-    RouterLink,
-    NgIf,
-    MatCardActions,
-    MatButton,
-    MatIcon,
-    DatePipe,
-  ],
+    selector: 'app-order-detail',
+    templateUrl: './order-detail.component.html',
+    styleUrls: ['./order-detail.component.scss'],
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardSubtitle,
+        MatCardContent,
+        MatNavList,
+        NgFor,
+        MatListItem,
+        RouterLink,
+        NgIf,
+        MatCardActions,
+        MatButton,
+        MatIcon,
+        DatePipe,
+    ]
 })
 export class OrderDetailComponent {
   order: Order | undefined;

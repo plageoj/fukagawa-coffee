@@ -7,11 +7,10 @@ import { ItemService } from 'src/app/services/item.service';
 import { Item } from 'src/models/item.model';
 
 @Component({
-  selector: 'app-item-selector',
-  templateUrl: './item-selector.component.html',
-  styleUrls: ['./item-selector.component.scss'],
-  standalone: true,
-  imports: [NgIf, MatGridList, NgFor, MatGridTile, NgClass, MatIcon, AsyncPipe],
+    selector: 'app-item-selector',
+    templateUrl: './item-selector.component.html',
+    styleUrls: ['./item-selector.component.scss'],
+    imports: [NgIf, MatGridList, NgFor, MatGridTile, NgClass, MatIcon, AsyncPipe]
 })
 export class ItemSelectorComponent {
   columns = Math.floor(window.innerWidth / 170).toString();
