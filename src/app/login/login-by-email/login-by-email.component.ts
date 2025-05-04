@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { UserCredential } from '@angular/fire/auth';
+import { FirebaseError } from '@angular/fire/app';
+import { AuthErrorCodes, UserCredential } from '@angular/fire/auth';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -11,18 +12,18 @@ import { Router } from '@angular/router';
 import { LoginService } from '../login.service';
 
 @Component({
-    selector: 'app-login-by-email',
-    templateUrl: './login-by-email.component.html',
-    styleUrls: ['./login-by-email.component.scss'],
-    imports: [
-        NgIf,
-        ReactiveFormsModule,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        MatButton,
-        MatIcon,
-    ]
+  selector: 'app-login-by-email',
+  templateUrl: './login-by-email.component.html',
+  styleUrls: ['./login-by-email.component.scss'],
+  imports: [
+    NgIf,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatButton,
+    MatIcon,
+  ],
 })
 export class LoginByEmailComponent {
   mode: 'register' | 'login' | 'reset-password' = 'login';
@@ -51,6 +52,26 @@ export class LoginByEmailComponent {
       this.checkResult(createResult);
     } catch (e) {
       this.credentials.enable();
+      if (!(e instanceof FirebaseError)) {
+        this.snack.open('アカウントの作成に失敗しました');
+        return;
+      }
+      switch (e.code) {
+        case AuthErrorCodes.EMAIL_EXISTS:
+          this.snack.open('メールアドレスはすでに使用されています');
+          break;
+        case AuthErrorCodes.WEAK_PASSWORD:
+          this.snack.open('パスワードは6文字以上である必要があります');
+          break;
+        case AuthErrorCodes.INVALID_EMAIL:
+          this.snack.open('メールアドレスが不正です');
+          break;
+        case AuthErrorCodes.INTERNAL_ERROR:
+          this.snack.open('送信中にエラーが発生しました');
+          break;
+        default:
+          this.snack.open('アカウントの作成に失敗しました');
+      }
     }
   }
 
@@ -62,6 +83,34 @@ export class LoginByEmailComponent {
       this.checkResult(loginResult);
     } catch (e) {
       this.credentials.enable();
+      if (!(e instanceof FirebaseError)) {
+        this.snack.open('ログインできませんでした');
+        return;
+      }
+      switch (e.code) {
+        case AuthErrorCodes.INVALID_PASSWORD:
+        case AuthErrorCodes.USER_MISMATCH:
+        case AuthErrorCodes.USER_DELETED:
+          this.snack.open('メールアドレスまたはパスワードが間違っています');
+          break;
+        case AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER:
+          this.snack.open(
+            'ログインが制限されています。しばらく待ってから再度行ってください',
+          );
+          break;
+        case AuthErrorCodes.USER_DISABLED:
+          this.snack.open('アカウントは凍結されています');
+          break;
+        case AuthErrorCodes.INTERNAL_ERROR:
+          this.snack.open('送信中にエラーが発生しました');
+          break;
+        case AuthErrorCodes.INVALID_EMAIL:
+          this.snack.open('メールアドレスが不正です');
+          break;
+        default:
+          this.snack.open('ログインできませんでした');
+          break;
+      }
     }
   }
 
