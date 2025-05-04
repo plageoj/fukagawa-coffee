@@ -13,20 +13,19 @@ import { Item } from 'src/models/item.model';
 import { ItemSelectorComponent } from '../../components/item-selector/item-selector.component';
 
 @Component({
-  selector: 'app-associate-item',
-  templateUrl: './associate-item.component.html',
-  styleUrls: ['./associate-item.component.scss'],
-  standalone: true,
-  imports: [
-    MatDialogTitle,
-    CdkScrollable,
-    MatDialogContent,
-    ItemSelectorComponent,
-    MatDialogActions,
-    MatButton,
-    MatDialogClose,
-    MatIcon,
-  ],
+    selector: 'app-associate-item',
+    templateUrl: './associate-item.component.html',
+    styleUrls: ['./associate-item.component.scss'],
+    imports: [
+        MatDialogTitle,
+        CdkScrollable,
+        MatDialogContent,
+        ItemSelectorComponent,
+        MatDialogActions,
+        MatButton,
+        MatDialogClose,
+        MatIcon,
+    ]
 })
 export class AssociateItemComponent {
   constructor(private readonly ref: MatDialogRef<AssociateItemComponent>) {}

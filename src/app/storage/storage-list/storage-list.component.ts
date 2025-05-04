@@ -10,21 +10,20 @@ import { Storage } from 'src/models/storage.model';
 import { AddStorageComponent } from '../add-storage/add-storage.component';
 
 @Component({
-  selector: 'app-storage-list',
-  templateUrl: './storage-list.component.html',
-  styleUrls: ['./storage-list.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    MatList,
-    NgFor,
-    MatListItem,
-    MatIcon,
-    MatIconButton,
-    MatTooltip,
-    MatFabButton,
-    AsyncPipe,
-  ],
+    selector: 'app-storage-list',
+    templateUrl: './storage-list.component.html',
+    styleUrls: ['./storage-list.component.scss'],
+    imports: [
+        NgIf,
+        MatList,
+        NgFor,
+        MatListItem,
+        MatIcon,
+        MatIconButton,
+        MatTooltip,
+        MatFabButton,
+        AsyncPipe,
+    ]
 })
 export class StorageListComponent {
   storages;

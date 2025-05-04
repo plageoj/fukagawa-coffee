@@ -11,20 +11,19 @@ import { LoginByEmailComponent } from './login-by-email/login-by-email.component
 import { LoginByPhoneComponent } from './login-by-phone/login-by-phone.component';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardTitle,
-    MatCardHeader,
-    MatCardContent,
-    MatTabGroup,
-    MatTab,
-    LoginByPhoneComponent,
-    LoginByEmailComponent,
-  ],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardHeader,
+        MatCardContent,
+        MatTabGroup,
+        MatTab,
+        LoginByPhoneComponent,
+        LoginByEmailComponent,
+    ]
 })
 export class LoginComponent implements AfterViewInit {
   private readonly lastLoginMethodIndexKey = 'login.lastLoginMethodIndex';

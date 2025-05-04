@@ -12,21 +12,20 @@ import { Customer, CustomerDialogData } from 'src/models/customer.model';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
 
 @Component({
-  selector: 'app-customer-list',
-  templateUrl: './customer-list.component.html',
-  styleUrls: ['./customer-list.component.scss'],
-  standalone: true,
-  imports: [
-    MatNavList,
-    NgFor,
-    MatListItem,
-    RouterLink,
-    NgIf,
-    MatIcon,
-    MatFabButton,
-    MatTooltip,
-    AsyncPipe,
-  ],
+    selector: 'app-customer-list',
+    templateUrl: './customer-list.component.html',
+    styleUrls: ['./customer-list.component.scss'],
+    imports: [
+        MatNavList,
+        NgFor,
+        MatListItem,
+        RouterLink,
+        NgIf,
+        MatIcon,
+        MatFabButton,
+        MatTooltip,
+        AsyncPipe,
+    ]
 })
 export class CustomerListComponent {
   customers: Observable<Customer[]>;

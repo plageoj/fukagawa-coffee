@@ -11,7 +11,6 @@ import { MatNavList, MatListItem, MatListItemLine } from '@angular/material/list
     selector: 'app-order-list',
     templateUrl: './order-list.component.html',
     styleUrls: ['./order-list.component.scss'],
-    standalone: true,
     imports: [
         MatNavList,
         NgFor,
@@ -21,7 +20,7 @@ import { MatNavList, MatListItem, MatListItemLine } from '@angular/material/list
         NgIf,
         AsyncPipe,
         DatePipe,
-    ],
+    ]
 })
 export class OrderListComponent {
   orders: Observable<Order[]>;

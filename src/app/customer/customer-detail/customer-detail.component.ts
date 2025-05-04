@@ -24,25 +24,24 @@ import { AddCustomerComponent } from '../add-customer/add-customer.component';
 import { AssociateItemComponent } from '../associate-item/associate-item.component';
 
 @Component({
-  selector: 'app-customer-detail',
-  templateUrl: './customer-detail.component.html',
-  styleUrls: ['./customer-detail.component.scss'],
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardTitle,
-    MatCardSubtitle,
-    MatCardActions,
-    MatButton,
-    MatIcon,
-    MatCardContent,
-    MatList,
-    NgFor,
-    MatListItem,
-    MatIconButton,
-    MatAnchor,
-    RouterLink,
-  ],
+    selector: 'app-customer-detail',
+    templateUrl: './customer-detail.component.html',
+    styleUrls: ['./customer-detail.component.scss'],
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardSubtitle,
+        MatCardActions,
+        MatButton,
+        MatIcon,
+        MatCardContent,
+        MatList,
+        NgFor,
+        MatListItem,
+        MatIconButton,
+        MatAnchor,
+        RouterLink,
+    ]
 })
 export class CustomerDetailComponent implements OnDestroy {
   customer: Customer | undefined;

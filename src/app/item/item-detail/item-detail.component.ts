@@ -23,26 +23,25 @@ import { MatButton, MatAnchor } from '@angular/material/button';
 import { MatCard, MatCardTitle, MatCardContent, MatCardActions, MatCardSubtitle } from '@angular/material/card';
 
 @Component({
-  selector: 'app-item-detail',
-  templateUrl: './item-detail.component.html',
-  styleUrls: ['./item-detail.component.scss'],
-  standalone: true,
-  imports: [
-    MatCard,
-    MatCardTitle,
-    MatCardContent,
-    MatCardActions,
-    MatButton,
-    MatIcon,
-    MatCardSubtitle,
-    ReactiveFormsModule,
-    NgFor,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    MatAnchor,
-    RouterLink,
-  ],
+    selector: 'app-item-detail',
+    templateUrl: './item-detail.component.html',
+    styleUrls: ['./item-detail.component.scss'],
+    imports: [
+        MatCard,
+        MatCardTitle,
+        MatCardContent,
+        MatCardActions,
+        MatButton,
+        MatIcon,
+        MatCardSubtitle,
+        ReactiveFormsModule,
+        NgFor,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatAnchor,
+        RouterLink,
+    ]
 })
 export class ItemDetailComponent implements OnDestroy {
   item: ItemWithoutTimestamp = {

@@ -10,20 +10,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../login.service';
 
 @Component({
-  selector: 'app-login-by-phone',
-  templateUrl: './login-by-phone.component.html',
-  styleUrls: ['./login-by-phone.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    MatFormField,
-    MatLabel,
-    MatInput,
-    ReactiveFormsModule,
-    FormsModule,
-    MatButton,
-    MatIcon,
-  ],
+    selector: 'app-login-by-phone',
+    templateUrl: './login-by-phone.component.html',
+    styleUrls: ['./login-by-phone.component.scss'],
+    imports: [
+        NgIf,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        ReactiveFormsModule,
+        FormsModule,
+        MatButton,
+        MatIcon,
+    ]
 })
 export class LoginByPhoneComponent {
   phoneNumber = '';
