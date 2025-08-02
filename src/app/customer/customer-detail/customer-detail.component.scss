@@ -1,4 +1,4 @@
-@import "../../styles/media.scss";
+@use "../../styles/media";
 
 mat-card {
   margin: 1em;
@@ -18,7 +18,7 @@ mat-card {
   }
 }
 
-@include sp {
+@include media.sp {
   #actions a[mat-stroked-button] {
     display: inline-block;
   }
