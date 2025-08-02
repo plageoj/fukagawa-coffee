@@ -4,17 +4,18 @@ import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { cold } from 'jasmine-marbles';
+import { of } from 'rxjs';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ItemService } from 'src/app/services/item.service';
 import { Customer } from 'src/models/customer.model';
 import { Item } from 'src/models/item.model';
 import { CustomerDetailComponent } from './customer-detail.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 describe('CustomerDetailComponent', () => {
   let component: CustomerDetailComponent;
@@ -27,6 +28,9 @@ describe('CustomerDetailComponent', () => {
         FirebaseTestingModule,
         CustomerDetailComponent,
         NoopAnimationsModule,
+        RouterTestingModule.withRoutes([
+          { path: 'customer', component: CustomerDetailComponent }
+        ]),
       ],
       providers: [
         {

@@ -5,15 +5,22 @@ import { FirebaseTestingModule } from '../firebase-testing.module';
 import { LoginService } from './login.service';
 
 const deleteAllUsers = async () => {
-  await fetch(
-    `${environment.firebaseEmulator.authUrl}/emulator/v1/projects/fukagawa-coffee/accounts`,
-    {
-      method: 'delete',
-      headers: {
-        authorization: 'Bearer owner',
+  try {
+    const response = await fetch(
+      `${environment.firebaseEmulator.authUrl}/emulator/v1/projects/fukagawa-coffee/accounts`,
+      {
+        method: 'delete',
+        headers: {
+          authorization: 'Bearer owner',
+        },
       },
-    },
-  );
+    );
+    if (!response.ok) {
+      console.warn('Failed to delete users:', response.status);
+    }
+  } catch (error) {
+    console.warn('Could not connect to Firebase Auth emulator:', error);
+  }
 };
 
 describe('LoginService', () => {
