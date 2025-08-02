@@ -6,10 +6,14 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 
-// First, initialize the Angular testing environment.
+// Configure the testing environment to provide Firebase services globally
+// This ensures Angular Fire functions have proper injection context during tests
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting(),
+  {
+    teardown: { destroyAfterEach: false },
+  },
 );
 
 // Increase timeout for tests that involve Firebase
