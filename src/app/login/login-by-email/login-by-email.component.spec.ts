@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { FirebaseError } from '@angular/fire/app';
+import { AuthErrorCodes } from '@angular/fire/auth';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,8 +11,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 import { LoginService } from '../login.service';
 import { LoginByEmailComponent } from './login-by-email.component';
-import { FirebaseError } from '@angular/fire/app';
-import { Auth, AuthErrorCodes } from '@angular/fire/auth';
 
 describe('LoginByEmailComponent', () => {
   let component: LoginByEmailComponent;
