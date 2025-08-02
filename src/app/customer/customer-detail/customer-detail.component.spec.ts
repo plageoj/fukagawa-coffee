@@ -6,7 +6,7 @@ import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
@@ -129,16 +129,22 @@ describe('CustomerDetailComponent', () => {
   });
 
   it('delete customer', async () => {
-    const dialogSpy = (
+    const snackBarSpy = (
       spyOn(TestBed.inject(MatSnackBar), 'open') as jasmine.Spy
     ).and.returnValue({
       afterDismissed: () => of({ dismissedByAction: false }),
     });
+    
+    // Mock router navigation to prevent hanging on route change
+    const router = TestBed.inject(Router);
+    const routerSpy = spyOn(router, 'navigateByUrl').and.returnValue(Promise.resolve(true));
+    
     const button = await loader.getHarness(
       MatButtonHarness.with({ text: /削除/ }),
     );
     await button.click();
-    expect(dialogSpy).not.toHaveBeenCalled();
+    expect(snackBarSpy).not.toHaveBeenCalled();
+    
     component.customer = {
       id: 'test-id',
       name: 'Test Customer',
@@ -148,8 +154,10 @@ describe('CustomerDetailComponent', () => {
       },
     };
     fixture.detectChanges();
+    
     await button.click();
-    expect(dialogSpy).toHaveBeenCalled();
+    expect(snackBarSpy).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalledWith('/customer');
   });
 
   it('delete item', () => {
