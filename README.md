@@ -1,7 +1,11 @@
-# Stockman
-## Stock and order manager for Fukagawa Coffee Co.,Ltd. (and others)
+# fukagawa-coffee
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2.
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=plageoj_fukagawa-coffee&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=plageoj_fukagawa-coffee)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=plageoj_fukagawa-coffee&metric=coverage)](https://sonarcloud.io/summary/new_code?id=plageoj_fukagawa-coffee)
+
+Stock and order manager for Fukagawa Coffee Co.,Ltd. (and others)
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2 and is currently running Angular 20.
 
 ## Requirements
 
@@ -9,15 +13,15 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 | package | version |
 |---|---|
-| node.js | ^12.20.2 \|\| ^14.15.5 \|\| ^16.10.0 |
-| npm | >= 6.14.11 |
+| node.js | ^20.11.1 |
+| npm | >= 9.0.0 |
 
 ### Optional npm global packages
 
 | package | version |
 |---|---|
-| @angular/cli | ^13 |
-| firebase-tools | ^10.7.1 |
+| @angular/cli | ^20 |
+| firebase-tools | latest |
 
 If you have not installed `@angular/cli` globally, you may use `npx ng` instead of `ng` commands below.
 
@@ -45,7 +49,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Coding Style
 
-Refer https://angular.io/guide/styleguide for coding style. Run `ng lint` or `npm run lint` for linting.
+Refer <https://angular.io/guide/styleguide> for coding style. Run `ng lint` or `npm run lint` for linting.
 
 ## Commit prefix
 
