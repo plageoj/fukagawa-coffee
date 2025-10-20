@@ -47,17 +47,17 @@
   <table>
     <thead>
       <tr>
-        <th>No.</th>
-        <th>摘要</th>
-        <th>単価</th>
-        <th>数量</th>
-        <th>金額</th>
+        <th scope="col">No.</th>
+        <th scope="col">摘要</th>
+        <th scope="col">単価</th>
+        <th scope="col">数量</th>
+        <th scope="col">金額</th>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let item of items; index as i">
-        <th>{{ i + 1 }}</th>
+        <th scope="row">{{ i + 1 }}</th>
         <td>
           <input
             type="text"
@@ -87,8 +87,9 @@
   <textarea class="notes" name="notes"></textarea>
 
   <p class="online-order">
-    <img id="qrcode" [src]="qrCodeAddress" alt="読み込み中"/>
-    <a [href]="orderAddress" target="_blank">オンライン発注が便利です。</a><br />
+    <img id="qrcode" [src]="qrCodeAddress" alt="読み込み中" />
+    <a [href]="orderAddress" target="_blank">オンライン発注が便利です。</a
+    ><br />
     QRコードからご利用いただけます。
   </p>
 </section>
