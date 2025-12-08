@@ -23,25 +23,27 @@
   <mat-card-subtitle> 在庫（合計 {{ item.total }}） </mat-card-subtitle>
   <form mat-card-content [formGroup]="storedCount">
     <ul>
-      <li *ngFor="let storage of storages">
-        <mat-form-field>
-          <mat-label>{{ storage.name }}</mat-label>
-          <input
-            type="number"
-            required
-            matInput
-            min="0"
-            [formControlName]="storage.id"
-            (input)="countTotal()"
-          />
-        </mat-form-field>
-        <button mat-stroked-button (click)="manipulate(storage.id, -1)">
-          <mat-icon>remove</mat-icon>
-        </button>
-        <button mat-stroked-button (click)="manipulate(storage.id, 1)">
-          <mat-icon>add</mat-icon>
-        </button>
-      </li>
+      @for (storage of storages; track storage) {
+        <li>
+          <mat-form-field>
+            <mat-label>{{ storage.name }}</mat-label>
+            <input
+              type="number"
+              required
+              matInput
+              min="0"
+              [formControlName]="storage.id"
+              (input)="countTotal()"
+              />
+          </mat-form-field>
+          <button mat-stroked-button (click)="manipulate(storage.id, -1)">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <button mat-stroked-button (click)="manipulate(storage.id, 1)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </li>
+      }
     </ul>
   </form>
 </mat-card>

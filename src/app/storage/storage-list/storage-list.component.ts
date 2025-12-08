@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,16 +14,14 @@ import { AddStorageComponent } from '../add-storage/add-storage.component';
     templateUrl: './storage-list.component.html',
     styleUrls: ['./storage-list.component.scss'],
     imports: [
-        NgIf,
-        MatList,
-        NgFor,
-        MatListItem,
-        MatIcon,
-        MatIconButton,
-        MatTooltip,
-        MatFabButton,
-        AsyncPipe,
-    ]
+    MatList,
+    MatListItem,
+    MatIcon,
+    MatIconButton,
+    MatTooltip,
+    MatFabButton,
+    AsyncPipe
+]
 })
 export class StorageListComponent {
   storages;

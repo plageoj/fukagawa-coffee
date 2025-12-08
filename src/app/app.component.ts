@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { MatNavList, MatListItem } from '@angular/material/list';
 import { MatSidenavContainer, MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { MatIconButton } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 
@@ -14,18 +14,17 @@ import { MatToolbar } from '@angular/material/toolbar';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
     imports: [
-        MatToolbar,
-        MatIcon,
-        NgIf,
-        MatIconButton,
-        MatSidenavContainer,
-        MatSidenav,
-        MatNavList,
-        MatListItem,
-        RouterLink,
-        MatSidenavContent,
-        RouterOutlet,
-    ]
+    MatToolbar,
+    MatIcon,
+    MatIconButton,
+    MatSidenavContainer,
+    MatSidenav,
+    MatNavList,
+    MatListItem,
+    RouterLink,
+    MatSidenavContent,
+    RouterOutlet
+]
 })
 export class AppComponent {
   user: User | null = null;

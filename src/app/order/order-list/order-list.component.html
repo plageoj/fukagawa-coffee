@@ -1,19 +1,22 @@
 <mat-nav-list>
-  <a
-    mat-list-item
-    routerLink="./{{ order.id }}"
-    *ngFor="let order of orders | async"
-  >
-    <p matListItemLine>
-      {{ order.customerName }}
-      ({{ order.items.length }}品目)
-    </p>
-    <date matListItemLine>
-      {{ order.orderedAt.toDate() | date: "y/M/d　h:mm" }}
-    </date>
-  </a>
+  @for (order of orders | async; track order) {
+    <a
+      mat-list-item
+      routerLink="./{{ order.id }}"
+      >
+      <p matListItemLine>
+        {{ order.customerName }}
+        ({{ order.items.length }}品目)
+      </p>
+      <date matListItemLine>
+        {{ order.orderedAt.toDate() | date: "y/M/d　h:mm" }}
+      </date>
+    </a>
+  }
 </mat-nav-list>
 
-<div id="no-orders" *ngIf="(orders | async)?.length === 0">
-  <h3>未完了の注文はありません</h3>
-</div>
+@if ((orders | async)?.length === 0) {
+  <div id="no-orders">
+    <h3>未完了の注文はありません</h3>
+  </div>
+}

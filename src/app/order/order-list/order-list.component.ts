@@ -1,4 +1,4 @@
-import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { where } from '@angular/fire/firestore';
 import {
@@ -17,14 +17,12 @@ import { Order } from 'src/models/order.model';
   styleUrls: ['./order-list.component.scss'],
   imports: [
     MatNavList,
-    NgFor,
     MatListItem,
     RouterLink,
     MatListItemLine,
-    NgIf,
     AsyncPipe,
-    DatePipe,
-  ],
+    DatePipe
+],
 })
 export class OrderListComponent {
   orders: Observable<Order[]>;

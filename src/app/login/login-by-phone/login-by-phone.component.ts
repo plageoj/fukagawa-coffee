@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ConfirmationResult } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,15 +14,14 @@ import { LoginService } from '../login.service';
     templateUrl: './login-by-phone.component.html',
     styleUrls: ['./login-by-phone.component.scss'],
     imports: [
-        NgIf,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        ReactiveFormsModule,
-        FormsModule,
-        MatButton,
-        MatIcon,
-    ]
+    MatFormField,
+    MatLabel,
+    MatInput,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButton,
+    MatIcon
+]
 })
 export class LoginByPhoneComponent {
   phoneNumber = '';

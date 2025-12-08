@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+
 import { Component } from '@angular/core';
 import {
   serverTimestamp,
@@ -34,25 +34,23 @@ import { Order } from 'src/models/order.model';
     templateUrl: './new-order.component.html',
     styleUrls: ['./new-order.component.scss'],
     imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardSubtitle,
-        MatCardContent,
-        MatList,
-        NgFor,
-        MatListItem,
-        NgIf,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        ReactiveFormsModule,
-        FormsModule,
-        MatTooltip,
-        MatDivider,
-        MatButton,
-        MatIcon,
-        MatCardActions,
-    ]
+    MatCard,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardContent,
+    MatList,
+    MatListItem,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    ReactiveFormsModule,
+    FormsModule,
+    MatTooltip,
+    MatDivider,
+    MatButton,
+    MatIcon,
+    MatCardActions
+]
 })
 export class NewOrderComponent {
   customer: Customer | undefined;

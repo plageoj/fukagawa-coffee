@@ -8,7 +8,7 @@ import { Item } from 'src/models/item.model';
 import { Order } from 'src/models/order.model';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
-import { NgFor, NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { MatNavList, MatListItem } from '@angular/material/list';
 import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions } from '@angular/material/card';
 
@@ -17,20 +17,18 @@ import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions 
     templateUrl: './order-detail.component.html',
     styleUrls: ['./order-detail.component.scss'],
     imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardSubtitle,
-        MatCardContent,
-        MatNavList,
-        NgFor,
-        MatListItem,
-        RouterLink,
-        NgIf,
-        MatCardActions,
-        MatButton,
-        MatIcon,
-        DatePipe,
-    ]
+    MatCard,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardContent,
+    MatNavList,
+    MatListItem,
+    RouterLink,
+    MatCardActions,
+    MatButton,
+    MatIcon,
+    DatePipe
+]
 })
 export class OrderDetailComponent {
   order: Order | undefined;

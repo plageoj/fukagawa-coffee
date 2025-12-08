@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+
 import { Component, OnDestroy } from '@angular/core';
 import { where } from '@angular/fire/firestore';
 import { MatAnchor, MatButton, MatIconButton } from '@angular/material/button';
@@ -28,20 +28,19 @@ import { AssociateItemComponent } from '../associate-item/associate-item.compone
     templateUrl: './customer-detail.component.html',
     styleUrls: ['./customer-detail.component.scss'],
     imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardSubtitle,
-        MatCardActions,
-        MatButton,
-        MatIcon,
-        MatCardContent,
-        MatList,
-        NgFor,
-        MatListItem,
-        MatIconButton,
-        MatAnchor,
-        RouterLink,
-    ]
+    MatCard,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatCardActions,
+    MatButton,
+    MatIcon,
+    MatCardContent,
+    MatList,
+    MatListItem,
+    MatIconButton,
+    MatAnchor,
+    RouterLink
+]
 })
 export class CustomerDetailComponent implements OnDestroy {
   customer: Customer | undefined;

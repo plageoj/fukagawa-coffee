@@ -21,12 +21,14 @@
 <mat-card>
   <mat-card-content>
     <mat-list>
-      <mat-list-item *ngFor="let item of items">
-        <p matLine>{{ item.name }} ・ {{ item.notes }}</p>
-        <button mat-icon-button color="warn" (click)="deleteItem(item.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-list-item>
+      @for (item of items; track item) {
+        <mat-list-item>
+          <p matLine>{{ item.name }} ・ {{ item.notes }}</p>
+          <button mat-icon-button color="warn" (click)="deleteItem(item.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-list-item>
+      }
     </mat-list>
   </mat-card-content>
   <mat-card-actions>
@@ -42,7 +44,7 @@
     mat-stroked-button
     [disabled]="!customer"
     routerLink="/order/{{ customer?.id }}/new"
-  >
+    >
     <mat-icon>receipt</mat-icon>
     注文入力
   </a>
