@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { where } from '@angular/fire/firestore';
+import { where } from 'firebase/firestore';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';

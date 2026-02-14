@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { where } from '@angular/fire/firestore';
+import { where } from 'firebase/firestore';
 import { MatAnchor, MatButton, MatIconButton } from '@angular/material/button';
 import {
   MatCard,

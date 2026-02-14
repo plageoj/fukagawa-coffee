@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Auth, onAuthStateChanged, signOut, User } from '@angular/fire/auth';
+import { Component, Inject } from '@angular/core';
+import { Auth, onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { MatNavList, MatListItem } from '@angular/material/list';
@@ -8,6 +8,7 @@ import { MatIconButton } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
+import { AUTH } from './services/firebase.service';
 
 @Component({
     selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppComponent {
   siteName = environment.siteName;
 
   constructor(
-    private readonly auth: Auth,
+    @Inject(AUTH) private readonly auth: Auth,
     private readonly router: Router,
   ) {
     onAuthStateChanged(this.auth, (user) => {

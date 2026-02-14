@@ -1,14 +1,13 @@
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
-import {
-  connectFirestoreEmulator,
-  getFirestore,
-  provideFirestore,
-} from '@angular/fire/firestore';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  AUTH,
+  FIRESTORE,
+  getAuthInstance,
+  getFirestoreInstance,
+} from './app/services/firebase.service';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -59,28 +58,8 @@ bootstrapApplication(AppComponent, {
       withLocalStorage(),
       withSessionStorage(),
     ),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => {
-      const fire = getFirestore();
-      if (
-        !environment.production &&
-        environment.firebaseEmulator.firestorePort
-      ) {
-        connectFirestoreEmulator(
-          fire,
-          'localhost',
-          environment.firebaseEmulator.firestorePort,
-        );
-      }
-      return fire;
-    }),
-    provideAuth(() => {
-      const auth = getAuth();
-      if (!environment.production && environment.firebaseEmulator.authUrl) {
-        connectAuthEmulator(auth, environment.firebaseEmulator.authUrl);
-      }
-      return auth;
-    }),
+    { provide: FIRESTORE, useFactory: getFirestoreInstance },
+    { provide: AUTH, useFactory: getAuthInstance },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: {

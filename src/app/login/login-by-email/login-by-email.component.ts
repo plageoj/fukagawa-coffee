@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FirebaseError } from '@angular/fire/app';
-import { AuthErrorCodes, UserCredential } from '@angular/fire/auth';
+import { FirebaseError } from 'firebase/app';
+import { AuthErrorCodes, UserCredential } from 'firebase/auth';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatFormField, MatLabel } from '@angular/material/form-field';

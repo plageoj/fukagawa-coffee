@@ -1,6 +1,6 @@
 import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { where } from '@angular/fire/firestore';
+import { where } from 'firebase/firestore';
 import {
   MatListItem,
   MatListItemLine,

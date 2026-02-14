@@ -1,10 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  serverTimestamp,
-  where,
-  WithFieldValue,
-} from '@angular/fire/firestore';
+import { serverTimestamp, where, WithFieldValue } from 'firebase/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import {

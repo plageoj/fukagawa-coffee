@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { FirebaseError } from '@angular/fire/app';
-import { AuthErrorCodes } from '@angular/fire/auth';
+import { FirebaseError } from 'firebase/app';
+import { AuthErrorCodes } from 'firebase/auth';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
