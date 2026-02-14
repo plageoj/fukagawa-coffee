@@ -23,8 +23,8 @@ Stock and order manager for Fukagawa Coffee Co.,Ltd. - an Angular 20 application
 
 - `npm test` or `ng test` - Run unit tests via Karma (ChromeHeadless)
 - Tests include code coverage enabled by default
-- `ng test --include='path/to/test.spec.ts'` - Run specific test file
-- Test utilities: `firebase-testing.module.ts` and `ngx-webstorage-testing.module.ts` for mocking Firebase and storage
+- `ng test --include='**/path/to/test.spec.ts'` - Run specific test file (glob pattern required)
+- Test utilities in src/app/: `firebase-testing.module.ts` (Firebase/Firestore mocks) and `ngx-webstorage-testing.module.ts` (storage mocks)
 
 ### Linting
 
@@ -56,7 +56,8 @@ All Firestore data access services extend `FirestoreBase<T>` (src/app/services/f
 - `delete(id)` - Delete document
 - `id` - Generate new document ID
 
-Services: ItemService, CustomerService, OrderService, StorageService, StickerService
+Data services: ItemService, CustomerService, OrderService, StorageService, StickerService
+Other services: TitleService (browser tab title management)
 
 ### Module Organization
 
@@ -81,8 +82,9 @@ Services: ItemService, CustomerService, OrderService, StorageService, StickerSer
 
 ### Routing
 
-- Lazy-loaded feature modules
-- Auth guard patterns (see src/app/app-routing.ts)
+- Lazy-loaded feature modules (see src/app/app-routing.ts)
+- Auth guard: Most routes require authentication; `/order` route is publicly accessible (for customer order submission)
+- Login route redirects authenticated users to home
 - Custom TitleStrategy for page titles (src/app/strategies/)
 
 ## Commit Conventions

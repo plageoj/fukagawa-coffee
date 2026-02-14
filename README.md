@@ -5,7 +5,7 @@
 
 Stock and order manager for Fukagawa Coffee Co.,Ltd. (and others)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.2 and is currently running Angular 20.
+This project is built with Angular 20 and Firebase.
 
 ## Requirements
 
@@ -49,7 +49,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Coding Style
 
-Refer <https://angular.io/guide/styleguide> for coding style. Run `ng lint` or `npm run lint` for linting.
+Refer <https://angular.dev/style-guide> for coding style. Run `ng lint` or `npm run lint` for linting.
 
 ## Commit prefix
 
@@ -74,12 +74,8 @@ Manual deployment is also available for approved firebase project members only, 
 
 ## Running unit tests
 
-Run `ng test` or `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` or `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `ng test` or `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
