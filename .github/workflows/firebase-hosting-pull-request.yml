@@ -5,7 +5,7 @@ jobs:
   build_and_preview:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Set up Node.js
         uses: actions/setup-node@v6
@@ -14,7 +14,7 @@ jobs:
           cache: npm
 
       - name: Cache build assets
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .angular
           key: ${{ runner.os }}-ng-${{ hashFiles('src/**') }}
