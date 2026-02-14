@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { FirebaseError } from '@angular/fire/app';
+import { Inject, Injectable } from '@angular/core';
+import { FirebaseError } from 'firebase/app';
 import {
   ApplicationVerifier,
   Auth,
@@ -10,13 +10,14 @@ import {
   signInWithEmailAndPassword,
   signInWithPhoneNumber,
   UserCredential,
-} from '@angular/fire/auth';
+} from 'firebase/auth';
+import { AUTH } from '../services/firebase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(private readonly auth: Auth) {}
+  constructor(@Inject(AUTH) private readonly auth: Auth) {}
 
   async createAccountByEmail(
     email: string,

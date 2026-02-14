@@ -1,9 +1,9 @@
+import { Routes } from '@angular/router';
 import {
-  AuthGuard,
+  authGuard,
   redirectLoggedInTo,
   redirectUnauthorizedTo,
-} from '@angular/fire/auth-guard';
-import { Routes } from '@angular/router';
+} from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -35,7 +35,7 @@ export const routes: Routes = [
           import('./member/member.module').then((m) => m.MemberModule),
       },
     ],
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     data: {
       authGuardPipe: () => redirectUnauthorizedTo('/login'),
     },
@@ -49,7 +49,7 @@ export const routes: Routes = [
     path: 'login',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
     data: {
       authGuardPipe: () => redirectLoggedInTo('/'),
     },

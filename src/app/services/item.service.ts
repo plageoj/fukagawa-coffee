@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import { Inject, Injectable } from '@angular/core';
+import { Auth } from 'firebase/auth';
 import {
   addDoc,
   collection,
   CollectionReference,
+  DocumentData,
   Firestore,
   serverTimestamp,
   WithFieldValue,
-} from '@angular/fire/firestore';
-import { DocumentData } from 'firebase/firestore';
+} from 'firebase/firestore';
 import { Item, ItemWithoutTimestamp } from 'src/models/item.model';
 import { History } from '../../models/history.model';
+import { AUTH, FIRESTORE } from './firebase.service';
 import { FirestoreBase } from './firestoreBase';
 
 @Injectable({
@@ -18,8 +19,8 @@ import { FirestoreBase } from './firestoreBase';
 })
 export class ItemService extends FirestoreBase<Item> {
   constructor(
-    db: Firestore,
-    private readonly auth: Auth,
+    @Inject(FIRESTORE) db: Firestore,
+    @Inject(AUTH) private readonly auth: Auth,
   ) {
     super(db, 'items');
   }

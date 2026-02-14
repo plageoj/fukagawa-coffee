@@ -1,14 +1,10 @@
 import {
   collection,
-  collectionData,
   deleteDoc,
   doc,
-  docData,
   Firestore,
   query,
   setDoc,
-} from '@angular/fire/firestore';
-import {
   CollectionReference,
   DocumentData,
   DocumentReference,
@@ -16,6 +12,7 @@ import {
   WithFieldValue,
 } from 'firebase/firestore';
 import { Observable } from 'rxjs';
+import { collectionData, docData } from './firestore-rxjs';
 
 export class FirestoreBase<T> {
   constructor(

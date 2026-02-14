@@ -1,6 +1,6 @@
 import { CurrencyPipe, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { where } from '@angular/fire/firestore';
+import { where } from 'firebase/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
 import {
