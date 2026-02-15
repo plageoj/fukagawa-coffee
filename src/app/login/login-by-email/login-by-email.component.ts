@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FirebaseError } from 'firebase/app';
 import { AuthErrorCodes, UserCredential } from 'firebase/auth';
@@ -16,14 +16,13 @@ import { LoginService } from '../login.service';
   templateUrl: './login-by-email.component.html',
   styleUrls: ['./login-by-email.component.scss'],
   imports: [
-    NgIf,
     ReactiveFormsModule,
     MatFormField,
     MatLabel,
     MatInput,
     MatButton,
-    MatIcon,
-  ],
+    MatIcon
+],
 })
 export class LoginByEmailComponent {
   mode: 'register' | 'login' | 'reset-password' = 'login';

@@ -1,4 +1,4 @@
-import { CurrencyPipe, NgFor } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { where } from 'firebase/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,19 +23,18 @@ import { Item } from 'src/models/item.model';
     templateUrl: './order-sheet.component.html',
     styleUrls: ['./order-sheet.component.scss'],
     imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardContent,
-        MatCardActions,
-        MatAnchor,
-        RouterLink,
-        MatIcon,
-        MatButton,
-        NgFor,
-        ReactiveFormsModule,
-        FormsModule,
-        CurrencyPipe,
-    ]
+    MatCard,
+    MatCardTitle,
+    MatCardContent,
+    MatCardActions,
+    MatAnchor,
+    RouterLink,
+    MatIcon,
+    MatButton,
+    ReactiveFormsModule,
+    FormsModule,
+    CurrencyPipe
+]
 })
 export class OrderSheetComponent implements OnInit {
   customer: Customer | undefined;

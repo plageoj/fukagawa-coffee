@@ -1,4 +1,4 @@
-import { AsyncPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { MatIcon } from '@angular/material/icon';
@@ -10,7 +10,7 @@ import { Item } from 'src/models/item.model';
     selector: 'app-item-selector',
     templateUrl: './item-selector.component.html',
     styleUrls: ['./item-selector.component.scss'],
-    imports: [NgIf, MatGridList, NgFor, MatGridTile, NgClass, MatIcon, AsyncPipe]
+    imports: [MatGridList, MatGridTile, NgClass, MatIcon, AsyncPipe]
 })
 export class ItemSelectorComponent {
   columns = Math.floor(window.innerWidth / 170).toString();

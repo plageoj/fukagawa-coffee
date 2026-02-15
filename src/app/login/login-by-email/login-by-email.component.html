@@ -1,126 +1,121 @@
-<form *ngIf="mode === 'login'" [formGroup]="credentials" (ngSubmit)="login()">
-  <mat-form-field>
-    <mat-label> メールアドレス </mat-label>
-    <input
-      type="email"
-      name="email"
-      autocomplete="email"
-      matInput
-      required
-      formControlName="email"
-    />
-  </mat-form-field>
+@if (mode === 'login') {
+  <form [formGroup]="credentials" (ngSubmit)="login()">
+    <mat-form-field>
+      <mat-label> メールアドレス </mat-label>
+      <input
+        type="email"
+        name="email"
+        autocomplete="email"
+        matInput
+        required
+        formControlName="email"
+        />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>パスワード</mat-label>
+      <input
+        type="password"
+        name="password"
+        autocomplete="current-password"
+        matInput
+        required
+        formControlName="password"
+        />
+    </mat-form-field>
+    <div class="actions">
+      <button color="primary" mat-flat-button type="submit">
+        <mat-icon>login</mat-icon>
+        ログイン
+      </button>
+      <button
+        color="primary"
+        mat-stroked-button
+        (click)="mode = 'register'"
+        type="button"
+        >
+        アカウントをお持ちでない方
+      </button>
+      <button
+        mat-stroked-button
+        color="primary"
+        type="button"
+        (click)="mode = 'reset-password'"
+        >
+        パスワードをリセットする
+      </button>
+    </div>
+  </form>
+}
 
-  <mat-form-field>
-    <mat-label>パスワード</mat-label>
-    <input
-      type="password"
-      name="password"
-      autocomplete="current-password"
-      matInput
-      required
-      formControlName="password"
-    />
-  </mat-form-field>
-
-  <div class="actions">
-    <button color="primary" mat-flat-button type="submit">
-      <mat-icon>login</mat-icon>
-      ログイン
-    </button>
-
-    <button
-      color="primary"
-      mat-stroked-button
-      (click)="mode = 'register'"
-      type="button"
+@if (mode === 'register') {
+  <form
+    [formGroup]="credentials"
+    (ngSubmit)="createAccount()"
     >
-      アカウントをお持ちでない方
-    </button>
+    <mat-form-field>
+      <mat-label> メールアドレス </mat-label>
+      <input
+        type="email"
+        name="email"
+        autocomplete="email"
+        matInput
+        required
+        formControlName="email"
+        />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>パスワード</mat-label>
+      <input
+        type="password"
+        name="password"
+        autocomplete="new-password"
+        matInput
+        required
+        formControlName="password"
+        />
+    </mat-form-field>
+    <div class="actions">
+      <button color="primary" mat-flat-button type="submit">
+        <mat-icon>how_to_reg</mat-icon>
+        新規登録
+      </button>
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="mode = 'login'"
+        type="button"
+        >
+        すでにアカウントをお持ちの方
+      </button>
+    </div>
+  </form>
+}
 
-    <button
-      mat-stroked-button
-      color="primary"
-      type="button"
-      (click)="mode = 'reset-password'"
+@if (mode === 'reset-password') {
+  <form
+    [formGroup]="credentials"
+    (ngSubmit)="resetPassword()"
     >
-      パスワードをリセットする
-    </button>
-  </div>
-</form>
-
-<form
-  *ngIf="mode === 'register'"
-  [formGroup]="credentials"
-  (ngSubmit)="createAccount()"
->
-  <mat-form-field>
-    <mat-label> メールアドレス </mat-label>
-    <input
-      type="email"
-      name="email"
-      autocomplete="email"
-      matInput
-      required
-      formControlName="email"
-    />
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>パスワード</mat-label>
-    <input
-      type="password"
-      name="password"
-      autocomplete="new-password"
-      matInput
-      required
-      formControlName="password"
-    />
-  </mat-form-field>
-
-  <div class="actions">
-    <button color="primary" mat-flat-button type="submit">
-      <mat-icon>how_to_reg</mat-icon>
-      新規登録
-    </button>
-
-    <button
-      mat-stroked-button
-      color="primary"
-      (click)="mode = 'login'"
-      type="button"
-    >
-      すでにアカウントをお持ちの方
-    </button>
-  </div>
-</form>
-
-<form
-  *ngIf="mode === 'reset-password'"
-  [formGroup]="credentials"
-  (ngSubmit)="resetPassword()"
->
-  <mat-form-field>
-    <mat-label> メールアドレス </mat-label>
-    <input
-      type="email"
-      name="email"
-      autocomplete="email"
-      matInput
-      required
-      formControlName="email"
-    />
-  </mat-form-field>
-
-  <div class="actions">
-    <button mat-flat-button color="primary" type="submit">
-      <mat-icon>send</mat-icon>
-      パスワード再設定メールを送信
-    </button>
-
-    <button mat-stroked-button type="button" (click)="mode = 'login'">
-      <mat-icon>arrow_back</mat-icon>
-      キャンセル
-    </button>
-  </div>
-</form>
+    <mat-form-field>
+      <mat-label> メールアドレス </mat-label>
+      <input
+        type="email"
+        name="email"
+        autocomplete="email"
+        matInput
+        required
+        formControlName="email"
+        />
+    </mat-form-field>
+    <div class="actions">
+      <button mat-flat-button color="primary" type="submit">
+        <mat-icon>send</mat-icon>
+        パスワード再設定メールを送信
+      </button>
+      <button mat-stroked-button type="button" (click)="mode = 'login'">
+        <mat-icon>arrow_back</mat-icon>
+        キャンセル
+      </button>
+    </div>
+  </form>
+}

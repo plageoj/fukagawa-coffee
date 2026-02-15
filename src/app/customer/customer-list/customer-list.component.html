@@ -1,17 +1,20 @@
 <mat-nav-list>
-  <a
-    mat-list-item
-    *ngFor="let customer of customers | async"
-    routerLink="/customer/{{ customer.id }}"
-  >
-    {{ customer.name }}
-  </a>
+  @for (customer of customers | async; track customer) {
+    <a
+      mat-list-item
+      routerLink="/customer/{{ customer.id }}"
+      >
+      {{ customer.name }}
+    </a>
+  }
 </mat-nav-list>
 
-<div id="no-customer" *ngIf="(customers | async)?.length === 0">
-  <h3>取引先が登録されていません</h3>
-  <p><mat-icon inline>add</mat-icon>ボタンから取引先を追加してください。</p>
-</div>
+@if ((customers | async)?.length === 0) {
+  <div id="no-customer">
+    <h3>取引先が登録されていません</h3>
+    <p><mat-icon inline>add</mat-icon>ボタンから取引先を追加してください。</p>
+  </div>
+}
 
 
 <button mat-fab matTooltip="取引先を追加" (click)="addCustomer()">
