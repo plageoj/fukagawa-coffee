@@ -42,6 +42,7 @@ describe('LoginByPhoneComponent', () => {
     });
     component.phoneNumber = '03123456789';
     await component.sendConfirmation();
+    await fixture.whenStable();
 
     expect(snackBar.open).toHaveBeenCalledWith('確認コードを送信しました。');
 

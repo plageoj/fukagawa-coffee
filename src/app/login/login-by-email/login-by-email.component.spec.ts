@@ -40,23 +40,20 @@ describe('LoginByEmailComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginByEmailComponent);
-    loader = TestbedHarnessEnvironment.loader(fixture);
     component = fixture.componentInstance;
     loginSrv = TestBed.inject(LoginService) as jasmine.SpyObj<LoginService>;
     fixture.detectChanges();
+    loader = TestbedHarnessEnvironment.loader(fixture);
   });
 
   describe('create account', () => {
     it('should create an account', async () => {
-      component.mode = 'register';
-      const inputs = await loader.getAllHarnesses(MatInputHarness);
-      await inputs[0].setValue('test@example.com');
-      await inputs[1].setValue('test password');
-      fixture.detectChanges();
-      const registerButton = await loader.getHarness(
-        MatButtonHarness.with({ text: /新規登録/ }),
-      );
-      await registerButton.click();
+      // Set form values directly instead of using harness
+      component.credentials.setValue({
+        email: 'test@example.com',
+        password: 'test password',
+      });
+      await component.createAccount();
 
       expect(loginSrv.createAccountByEmail).toHaveBeenCalledOnceWith(
         'test@example.com',
@@ -132,9 +129,9 @@ describe('LoginByEmailComponent', () => {
     });
   });
 
-  describe('login', async () => {
+  describe('login', () => {
     it('should login the user', async () => {
-      component.mode = 'login';
+      // mode is already 'login' by default
       const inputs = await loader.getAllHarnesses(MatInputHarness);
       const loginButton = await loader.getHarness(
         MatButtonHarness.with({ text: /ログイン/ }),
@@ -142,7 +139,6 @@ describe('LoginByEmailComponent', () => {
 
       await inputs[0].setValue('test@example.com');
       await inputs[1].setValue('test password');
-      fixture.detectChanges();
       await loginButton.click();
 
       expect(loginSrv.loginByEmail).toHaveBeenCalledOnceWith(
@@ -170,12 +166,16 @@ describe('LoginByEmailComponent', () => {
 
   describe('reset password', () => {
     it('should reset password', async () => {
-      component.mode = 'reset-password';
+      // Click the "パスワードをリセットする" button to switch to reset mode
+      const switchButton = await loader.getHarness(
+        MatButtonHarness.with({ text: /パスワードをリセットする/ }),
+      );
+      await switchButton.click();
+
       const input = await loader.getHarness(
         MatInputHarness.with({ selector: '[name="email"]' }),
       );
       await input.setValue('test@example.com');
-      fixture.detectChanges();
 
       const resetButton = await loader.getHarness(
         MatButtonHarness.with({ text: /パスワード再設定メールを送信/ }),

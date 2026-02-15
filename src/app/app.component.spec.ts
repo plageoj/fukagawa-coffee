@@ -29,9 +29,14 @@ describe('AppComponent', () => {
 
   it('should render title', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const loader = TestbedHarnessEnvironment.loader(fixture);
+    // Call detectChanges multiple times to allow Angular to settle after
+    // onAuthStateChanged callback updates user state
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
     fixture.detectChanges();
 
+    const loader = TestbedHarnessEnvironment.loader(fixture);
     const toolbar = await loader.getHarness(MatToolbarHarness);
     expect((await toolbar.getRowsAsText())[0]).toMatch(/深川珈琲 在庫管理/);
   });
