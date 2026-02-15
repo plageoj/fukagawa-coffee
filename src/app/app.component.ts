@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, NgZone } from '@angular/core';
 import { Auth, onAuthStateChanged, signOut, User } from 'firebase/auth';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -34,9 +34,12 @@ export class AppComponent {
   constructor(
     @Inject(AUTH) private readonly auth: Auth,
     private readonly router: Router,
+    private readonly zone: NgZone,
   ) {
     onAuthStateChanged(this.auth, (user) => {
-      this.user = user;
+      this.zone.run(() => {
+        this.user = user;
+      });
     });
   }
 

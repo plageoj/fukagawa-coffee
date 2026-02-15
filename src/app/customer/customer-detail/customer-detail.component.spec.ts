@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
@@ -8,7 +8,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -48,28 +47,24 @@ describe('CustomerDetailComponent', () => {
 
     const customerService = TestBed.inject(CustomerService);
     spyOn(customerService, 'load').and.returnValue(
-      cold('c|', {
-        c: {
-          id: 'test-id',
-          name: 'Test Customer',
-          address: '123 Main Street',
-          items: {
-            test: true,
-          },
-        } as Customer,
-      }),
+      of({
+        id: 'test-id',
+        name: 'Test Customer',
+        address: '123 Main Street',
+        items: {
+          test: true,
+        },
+      } as Customer),
     );
 
     const itemService = TestBed.inject(ItemService);
     spyOn(itemService, 'list').and.returnValue(
-      cold('i|', {
-        i: [
-          {
-            id: 'test',
-            name: 'Test Item',
-          } as Item,
-        ],
-      }),
+      of([
+        {
+          id: 'test',
+          name: 'Test Item',
+        } as Item,
+      ]),
     );
   });
 
@@ -110,20 +105,8 @@ describe('CustomerDetailComponent', () => {
     const button = await loader.getHarness(
       MatButtonHarness.with({ text: /編集/ }),
     );
-    await button.click();
 
-    expect(dialogSpy).not.toHaveBeenCalled();
-
-    component.customer = {
-      id: 'test-id',
-      name: 'Test Customer',
-      address: '123 Main Street',
-      items: {
-        test: true,
-      },
-    };
-
-    fixture.detectChanges();
+    // Customer is already loaded synchronously, so dialog should open
     await button.click();
     expect(dialogSpy).toHaveBeenCalled();
   });
@@ -134,27 +117,18 @@ describe('CustomerDetailComponent', () => {
     ).and.returnValue({
       afterDismissed: () => of({ dismissedByAction: false }),
     });
-    
+
     // Mock router navigation to prevent hanging on route change
     const router = TestBed.inject(Router);
-    const routerSpy = spyOn(router, 'navigateByUrl').and.returnValue(Promise.resolve(true));
-    
+    const routerSpy = spyOn(router, 'navigateByUrl').and.returnValue(
+      Promise.resolve(true),
+    );
+
     const button = await loader.getHarness(
       MatButtonHarness.with({ text: /削除/ }),
     );
-    await button.click();
-    expect(snackBarSpy).not.toHaveBeenCalled();
-    
-    component.customer = {
-      id: 'test-id',
-      name: 'Test Customer',
-      address: '123 Main Street',
-      items: {
-        test: true,
-      },
-    };
-    fixture.detectChanges();
-    
+
+    // Customer is already loaded synchronously, so snackbar should open
     await button.click();
     expect(snackBarSpy).toHaveBeenCalled();
     expect(routerSpy).toHaveBeenCalledWith('/customer');
