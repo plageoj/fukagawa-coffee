@@ -17,7 +17,7 @@ import { Storage } from 'src/models/storage.model';
 import { AddItemComponent } from '../add-item/add-item.component';
 import { MatInput } from '@angular/material/input';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { NgFor } from '@angular/common';
+
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatAnchor } from '@angular/material/button';
 import { MatCard, MatCardTitle, MatCardContent, MatCardActions, MatCardSubtitle } from '@angular/material/card';
@@ -27,21 +27,20 @@ import { MatCard, MatCardTitle, MatCardContent, MatCardActions, MatCardSubtitle 
     templateUrl: './item-detail.component.html',
     styleUrls: ['./item-detail.component.scss'],
     imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardContent,
-        MatCardActions,
-        MatButton,
-        MatIcon,
-        MatCardSubtitle,
-        ReactiveFormsModule,
-        NgFor,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        MatAnchor,
-        RouterLink,
-    ]
+    MatCard,
+    MatCardTitle,
+    MatCardContent,
+    MatCardActions,
+    MatButton,
+    MatIcon,
+    MatCardSubtitle,
+    ReactiveFormsModule,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatAnchor,
+    RouterLink
+]
 })
 export class ItemDetailComponent implements OnDestroy {
   item: ItemWithoutTimestamp = {

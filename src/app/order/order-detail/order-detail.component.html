@@ -11,18 +11,23 @@
       {{ order?.notes }}
     </p>
     <mat-nav-list>
-      <a
-        mat-list-item
-        *ngFor="let item of order?.items"
-        routerLink="/item/{{ item.id }}"
-      >
-        <p matLine>{{ item.name }} × {{ item.orderedCount }}</p>
-        <p matLine *ngIf="item.id">
-          {{ itemList[item.id]?.notes }}
-          残り{{ itemList[item.id]?.total }}
-        </p>
-        <p matLine *ngIf="!item.id">品目リストにありません</p>
-      </a>
+      @for (item of order?.items; track item) {
+        <a
+          mat-list-item
+          routerLink="/item/{{ item.id }}"
+          >
+          <p matLine>{{ item.name }} × {{ item.orderedCount }}</p>
+          @if (item.id) {
+            <p matLine>
+              {{ itemList[item.id]?.notes }}
+              残り{{ itemList[item.id]?.total }}
+            </p>
+          }
+          @if (!item.id) {
+            <p matLine>品目リストにありません</p>
+          }
+        </a>
+      }
     </mat-nav-list>
   </mat-card-content>
 

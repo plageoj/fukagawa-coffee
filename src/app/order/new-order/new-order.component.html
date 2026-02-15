@@ -5,42 +5,44 @@
 
   <mat-card-content>
     <mat-list>
-      <mat-list-item *ngFor="let item of items; index as i">
-        <div class="item-line" matLine>
-          <span *ngIf="item.id">
-            {{ item.name }}
-          </span>
-
-          <mat-form-field *ngIf="!item.id">
-            <mat-label> 品名 </mat-label>
-            <input
-              type="text"
-              matInput
-              name="name-{{ i }}"
-              [(ngModel)]="item.name"
-              [disabled]="sending"
-            />
-          </mat-form-field>
-
-          <span></span>
-
-          <mat-form-field>
-            <mat-label> 数量 </mat-label>
-            <input
-              type="number"
-              name="num-{{ item.id || i }}"
-              min="0"
-              value="0"
-              matInput
-              [(ngModel)]="item.orderedCount"
-              matTooltip="0にすると発注しません"
-              [disabled]="sending"
-            />
-          </mat-form-field>
-        </div>
-
-        <mat-divider matLine></mat-divider>
-      </mat-list-item>
+      @for (item of items; track item; let i = $index) {
+        <mat-list-item>
+          <div class="item-line" matLine>
+            @if (item.id) {
+              <span>
+                {{ item.name }}
+              </span>
+            }
+            @if (!item.id) {
+              <mat-form-field>
+                <mat-label> 品名 </mat-label>
+                <input
+                  type="text"
+                  matInput
+                  name="name-{{ i }}"
+                  [(ngModel)]="item.name"
+                  [disabled]="sending"
+                  />
+              </mat-form-field>
+            }
+            <span></span>
+            <mat-form-field>
+              <mat-label> 数量 </mat-label>
+              <input
+                type="number"
+                name="num-{{ item.id || i }}"
+                min="0"
+                value="0"
+                matInput
+                [(ngModel)]="item.orderedCount"
+                matTooltip="0にすると発注しません"
+                [disabled]="sending"
+                />
+            </mat-form-field>
+          </div>
+          <mat-divider matLine></mat-divider>
+        </mat-list-item>
+      }
 
       <mat-list-item>
         <button mat-stroked-button (click)="addItem()" [disabled]="sending">
@@ -67,7 +69,7 @@
       color="primary"
       (click)="sendOrder()"
       [disabled]="sending"
-    >
+      >
       <mat-icon>send</mat-icon>
       送信
     </button>

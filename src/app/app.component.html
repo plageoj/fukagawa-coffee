@@ -1,9 +1,11 @@
 <mat-toolbar color="primary">
   <mat-icon>coffee</mat-icon>
   <span>{{ siteName }}</span>
-  <button *ngIf="!!user" mat-icon-button title="ログアウト" (click)="logout()">
-    <mat-icon>logout</mat-icon>
-  </button>
+  @if (!!user) {
+    <button mat-icon-button title="ログアウト" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+  }
 </mat-toolbar>
 
 <mat-sidenav-container>

@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatFabButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,16 +16,14 @@ import { AddCustomerComponent } from '../add-customer/add-customer.component';
     templateUrl: './customer-list.component.html',
     styleUrls: ['./customer-list.component.scss'],
     imports: [
-        MatNavList,
-        NgFor,
-        MatListItem,
-        RouterLink,
-        NgIf,
-        MatIcon,
-        MatFabButton,
-        MatTooltip,
-        AsyncPipe,
-    ]
+    MatNavList,
+    MatListItem,
+    RouterLink,
+    MatIcon,
+    MatFabButton,
+    MatTooltip,
+    AsyncPipe
+]
 })
 export class CustomerListComponent {
   customers: Observable<Customer[]>;
