@@ -7,7 +7,7 @@ import {
   Firestore,
 } from 'firebase/firestore';
 import { take, firstValueFrom } from 'rxjs';
-import { FirebaseTestingModule } from '../firebase-testing.module';
+import { FirebaseTestingModule, initializeTestFirebase } from '../firebase-testing.module';
 import { getFirestoreInstance } from './firebase.service';
 import { FirestoreBase } from './firestoreBase';
 
@@ -22,6 +22,10 @@ describe('FirestoreBase', () => {
   let db: Firestore;
   let service: FirestoreBase<TestModel>;
   const testPath = 'test-firestore-base';
+
+  beforeAll(async () => {
+    await initializeTestFirebase();
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -86,24 +90,27 @@ describe('FirestoreBase', () => {
     it('リアルタイムで変更を検知する', (done) => {
       // Setup: 初期ドキュメントを作成
       service.store({ id: 'initial', name: 'Initial' }).then(() => {
-        let emitCount = 0;
+        // Allow async operation to stabilize in zoneless environment
+        setTimeout(() => {
+          let emitCount = 0;
 
-        // Execute: list を購読
-        const subscription = service.list().subscribe((items) => {
-          emitCount++;
+          // Execute: list を購読
+          const subscription = service.list().subscribe((items) => {
+            emitCount++;
 
-          if (emitCount === 1) {
-            // 最初の emit: 1つのアイテム
-            expect(items.length).toBe(1);
-            // 新しいドキュメントを追加
-            service.store({ id: 'added', name: 'Added' });
-          } else if (emitCount === 2) {
-            // 2回目の emit: 2つのアイテム
-            expect(items.length).toBe(2);
-            subscription.unsubscribe();
-            done();
-          }
-        });
+            if (emitCount === 1) {
+              // 最初の emit: 1つのアイテム
+              expect(items.length).toBe(1);
+              // 新しいドキュメントを追加
+              service.store({ id: 'added', name: 'Added' });
+            } else if (emitCount === 2) {
+              // 2回目の emit: 2つのアイテム
+              expect(items.length).toBe(2);
+              subscription.unsubscribe();
+              done();
+            }
+          });
+        }, 50);
       });
     });
   });
@@ -135,24 +142,27 @@ describe('FirestoreBase', () => {
     it('リアルタイムで更新を検知する', (done) => {
       // Setup
       service.store({ id: 'update-test', name: 'Original', value: 1 }).then(() => {
-        let emitCount = 0;
+        // Allow async operation to stabilize in zoneless environment
+        setTimeout(() => {
+          let emitCount = 0;
 
-        // Execute: load を購読
-        const subscription = service.load('update-test').subscribe((item) => {
-          emitCount++;
+          // Execute: load を購読
+          const subscription = service.load('update-test').subscribe((item) => {
+            emitCount++;
 
-          if (emitCount === 1) {
-            // 最初の emit: 元の値
-            expect(item?.value).toBe(1);
-            // ドキュメントを更新
-            service.store({ id: 'update-test', name: 'Updated', value: 2 });
-          } else if (emitCount === 2) {
-            // 2回目の emit: 更新後の値
-            expect(item?.value).toBe(2);
-            subscription.unsubscribe();
-            done();
-          }
-        });
+            if (emitCount === 1) {
+              // 最初の emit: 元の値
+              expect(item?.value).toBe(1);
+              // ドキュメントを更新
+              service.store({ id: 'update-test', name: 'Updated', value: 2 });
+            } else if (emitCount === 2) {
+              // 2回目の emit: 更新後の値
+              expect(item?.value).toBe(2);
+              subscription.unsubscribe();
+              done();
+            }
+          });
+        }, 50);
       });
     });
   });

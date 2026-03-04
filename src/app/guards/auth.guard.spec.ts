@@ -3,7 +3,7 @@ import { Router, ActivatedRouteSnapshot, UrlTree } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { signInAnonymously, signOut } from 'firebase/auth';
 import { firstValueFrom } from 'rxjs';
-import { FirebaseTestingModule } from '../firebase-testing.module';
+import { FirebaseTestingModule, initializeTestFirebase } from '../firebase-testing.module';
 import { getAuthInstance } from '../services/firebase.service';
 import {
   authGuard,
@@ -13,6 +13,10 @@ import {
 
 describe('authGuard', () => {
   let router: Router;
+
+  beforeAll(async () => {
+    await initializeTestFirebase();
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -178,6 +182,10 @@ describe('authGuard', () => {
 describe('redirectUnauthorizedTo', () => {
   let router: Router;
 
+  beforeAll(async () => {
+    await initializeTestFirebase();
+  });
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FirebaseTestingModule],
@@ -236,6 +244,10 @@ describe('redirectUnauthorizedTo', () => {
 
 describe('redirectLoggedInTo', () => {
   let router: Router;
+
+  beforeAll(async () => {
+    await initializeTestFirebase();
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({

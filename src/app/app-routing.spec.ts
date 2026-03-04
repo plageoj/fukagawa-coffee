@@ -2,12 +2,17 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { routes } from './app-routing';
-import { FirebaseTestingModule } from './firebase-testing.module';
+import { FirebaseTestingModule, initializeTestFirebase } from './firebase-testing.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxWebstorageTestingModule } from './ngx-webstorage-testing.module';
 
 describe('app-routing', () => {
   let harness: RouterTestingHarness;
+
+  beforeAll(async () => {
+    await initializeTestFirebase();
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [provideRouter(routes)],
