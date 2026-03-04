@@ -10,13 +10,17 @@ import {
   Firestore,
 } from 'firebase/firestore';
 import { take } from 'rxjs';
-import { FirebaseTestingModule } from '../firebase-testing.module';
+import { FirebaseTestingModule, initializeTestFirebase } from '../firebase-testing.module';
 import { getFirestoreInstance } from './firebase.service';
 import { docData, collectionData } from './firestore-rxjs';
 
 describe('firestore-rxjs', () => {
   let db: Firestore;
   const testCollection = 'test-firestore-rxjs';
+
+  beforeAll(async () => {
+    await initializeTestFirebase();
+  });
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -69,24 +73,27 @@ describe('firestore-rxjs', () => {
       // Setup: テストドキュメントを作成
       const ref = doc(db, testCollection, 'update-test-doc');
       setDoc(ref, { value: 1 }).then(() => {
-        let emitCount = 0;
+        // Allow async operation to stabilize in zoneless environment
+        setTimeout(() => {
+          let emitCount = 0;
 
-        // Execute: docData を購読
-        const subscription = docData(ref).subscribe((data) => {
-          emitCount++;
+          // Execute: docData を購読
+          const subscription = docData(ref).subscribe((data) => {
+            emitCount++;
 
-          if (emitCount === 1) {
-            // 最初の emit: 初期値
-            expect(data?.value).toBe(1);
-            // ドキュメントを更新
-            setDoc(ref, { value: 2 });
-          } else if (emitCount === 2) {
-            // 2回目の emit: 更新後の値
-            expect(data?.value).toBe(2);
-            subscription.unsubscribe();
-            done();
-          }
-        });
+            if (emitCount === 1) {
+              // 最初の emit: 初期値
+              expect(data?.value).toBe(1);
+              // ドキュメントを更新
+              setDoc(ref, { value: 2 });
+            } else if (emitCount === 2) {
+              // 2回目の emit: 更新後の値
+              expect(data?.value).toBe(2);
+              subscription.unsubscribe();
+              done();
+            }
+          });
+        }, 50);
       });
     });
 

@@ -15,15 +15,14 @@ import { Observable } from 'rxjs';
 import { collectionData, docData } from './firestore-rxjs';
 
 export class FirestoreBase<T> {
+  private readonly col: CollectionReference<T>;
+
   constructor(
     protected db: Firestore,
     protected path: string,
-  ) {}
-
-  private readonly col = collection(
-    this.db,
-    this.path,
-  ) as CollectionReference<T>;
+  ) {
+    this.col = collection(this.db, this.path) as CollectionReference<T>;
+  }
 
   list(where?: QueryConstraint): Observable<T[]> {
     return collectionData<T>(

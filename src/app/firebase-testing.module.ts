@@ -68,3 +68,12 @@ function getTestAuth(): Auth {
   imports: [CommonModule],
 })
 export class FirebaseTestingModule {}
+
+export async function initializeTestFirebase(): Promise<void> {
+  // Trigger emulator connections
+  getTestFirestore();
+  getTestAuth();
+
+  // Allow connection to stabilize in zoneless environment
+  await new Promise(resolve => setTimeout(resolve, 100));
+}
