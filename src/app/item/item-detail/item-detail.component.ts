@@ -95,6 +95,7 @@ export class ItemDetailComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (!this.item.id) return;
     this.countTotal();
     this.is.store(this.item);
   }
