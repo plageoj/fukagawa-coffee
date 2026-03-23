@@ -1,5 +1,5 @@
 
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, signal } from '@angular/core';
 import { where } from 'firebase/firestore';
 import { MatAnchor, MatButton, MatIconButton } from '@angular/material/button';
 import {
@@ -43,8 +43,8 @@ import { AssociateItemComponent } from '../associate-item/associate-item.compone
 ]
 })
 export class CustomerDetailComponent implements OnDestroy {
-  customer: Customer | undefined;
-  items: Item[] = [];
+  customer = signal<Customer | undefined>(undefined);
+  items = signal<Item[]>([]);
   private isUpdated = false;
 
   constructor(
@@ -61,21 +61,22 @@ export class CustomerDetailComponent implements OnDestroy {
       .pipe(take(1))
       .subscribe((customer) => {
         if (!customer) return;
-        this.customer = customer;
+        this.customer.set(customer);
         this.title.setTitle(customer.name, '取引先');
 
         const items = Object.keys(customer?.items ?? {});
         if (customer && items.length) {
           this.is.list(where('id', 'in', items)).subscribe((items) => {
-            this.items = items;
+            this.items.set(items);
           });
         }
       });
   }
 
   ngOnDestroy(): void {
-    if (!this.customer || !this.isUpdated) return;
-    this.cs.overwrite(this.customer);
+    const customer = this.customer();
+    if (!customer || !this.isUpdated) return;
+    this.cs.overwrite(customer);
   }
 
   associateItem() {
@@ -85,23 +86,25 @@ export class CustomerDetailComponent implements OnDestroy {
       })
       .afterClosed()
       .subscribe((item) => {
-        if (item && !this.customer?.items[item?.id || '']) {
-          if (this.customer) this.customer.items[item.id] = true;
-          this.items.unshift(item);
+        const customer = this.customer();
+        if (item && !customer?.items[item?.id || '']) {
+          if (customer) customer.items[item.id] = true;
+          this.items.update((items) => [item, ...items]);
           this.isUpdated = true;
         }
       });
   }
 
   editCustomer() {
-    if (!this.customer) return;
+    const customer = this.customer();
+    if (!customer) return;
     this.dialog
       .open<AddCustomerComponent, CustomerDialogData, Customer>(
         AddCustomerComponent,
         {
           data: {
             type: '編集',
-            customer: this.customer,
+            customer,
           },
         },
       )
@@ -112,22 +115,24 @@ export class CustomerDetailComponent implements OnDestroy {
   }
 
   deleteCustomer() {
-    if (!this.customer) return;
+    const customer = this.customer();
+    if (!customer) return;
     this.isUpdated = false;
     this.snack
-      .open(`${this.customer.name}を削除しました`, '取り消し')
+      .open(`${customer.name}を削除しました`, '取り消し')
       .afterDismissed()
       .subscribe(({ dismissedByAction }) => {
-        if (!dismissedByAction && this.customer) {
-          this.cs.delete(this.customer.id);
+        if (!dismissedByAction) {
+          this.cs.delete(customer.id);
         }
       });
     this.router.navigateByUrl('/customer');
   }
 
   deleteItem(id: Item['id']) {
-    if (this.customer) delete this.customer.items[id];
-    this.items = this.items.filter((item) => item.id !== id);
+    const customer = this.customer();
+    if (customer) delete customer.items[id];
+    this.items.update((items) => items.filter((item) => item.id !== id));
     this.isUpdated = true;
   }
 }

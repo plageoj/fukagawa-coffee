@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, signal } from "@angular/core";
 import { MatIconButton } from "@angular/material/button";
 import { MatListItem, MatNavList } from "@angular/material/list";
 import {
@@ -32,7 +32,7 @@ import { AUTH } from "./services/firebase.service";
   ],
 })
 export class AppComponent {
-  user: User | null = null;
+  user = signal<User | null>(null);
   siteName = environment.siteName;
 
   constructor(
@@ -40,7 +40,7 @@ export class AppComponent {
     private readonly router: Router,
   ) {
     onAuthStateChanged(this.auth, (user) => {
-      this.user = user;
+      this.user.set(user);
     });
   }
 

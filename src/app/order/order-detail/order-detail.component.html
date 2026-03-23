@@ -1,17 +1,17 @@
 <mat-card>
   <mat-card-title>
-    {{ order?.customerName }}
+    {{ order()?.customerName }}
   </mat-card-title>
   <mat-card-subtitle>
-    {{ order?.orderedAt?.toDate() | date: "y/M/d　h:mm" }}
+    {{ order()?.orderedAt?.toDate() | date: "y/M/d　h:mm" }}
   </mat-card-subtitle>
 
   <mat-card-content>
     <p>
-      {{ order?.notes }}
+      {{ order()?.notes }}
     </p>
     <mat-nav-list>
-      @for (item of order?.items; track item) {
+      @for (item of order()?.items; track item) {
         <a
           mat-list-item
           routerLink="/item/{{ item.id }}"
@@ -19,8 +19,8 @@
           <p matLine>{{ item.name }} × {{ item.orderedCount }}</p>
           @if (item.id) {
             <p matLine>
-              {{ itemList[item.id]?.notes }}
-              残り{{ itemList[item.id]?.total }}
+              {{ itemList()[item.id]?.notes }}
+              残り{{ itemList()[item.id]?.total }}
             </p>
           }
           @if (!item.id) {

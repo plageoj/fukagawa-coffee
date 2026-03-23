@@ -1,4 +1,4 @@
-@if (!codeReady) {
+@if (!codeReady()) {
   <form (ngSubmit)="sendConfirmation()">
     <mat-form-field>
       <mat-label> 電話番号 </mat-label>
@@ -15,7 +15,7 @@
         mat-flat-button
         color="primary"
         id="send-confirmation"
-        [disabled]="isSent"
+        [disabled]="isSent()"
         >
         <mat-icon>textsms</mat-icon>
         確認コードを送信
@@ -24,7 +24,7 @@
   </form>
 }
 
-@if (codeReady) {
+@if (codeReady()) {
   <form (ngSubmit)="confirmCode()">
     <mat-form-field>
       <mat-label> 確認コード </mat-label>
@@ -37,10 +37,10 @@
         />
     </mat-form-field>
     <div class="actions">
-      <button mat-stroked-button color="primary" (click)="codeReady = false">
+      <button mat-stroked-button color="primary" (click)="codeReady.set(false)">
         キャンセル
       </button>
-      <button mat-flat-button color="primary" [disabled]="isSent">
+      <button mat-flat-button color="primary" [disabled]="isSent()">
         <mat-icon>login</mat-icon>
         ログイン
       </button>

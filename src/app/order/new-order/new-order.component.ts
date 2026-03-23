@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { serverTimestamp, where, WithFieldValue } from 'firebase/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
@@ -49,8 +49,8 @@ import { Order } from 'src/models/order.model';
 ]
 })
 export class NewOrderComponent {
-  customer: Customer | undefined;
-  items: Partial<Item & { orderedCount: number }>[] = [];
+  customer = signal<Customer | undefined>(undefined);
+  items = signal<Partial<Item & { orderedCount: number }>[]>([]);
   order: WithFieldValue<Omit<Order, 'id'>> = {
     orderedAt: serverTimestamp(),
     customerId: '',
@@ -59,7 +59,7 @@ export class NewOrderComponent {
     notes: '',
     isDone: false,
   };
-  sending = false;
+  sending = signal(false);
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -71,7 +71,7 @@ export class NewOrderComponent {
     this.cs
       .load(this.route.snapshot.paramMap.get('id') ?? '_')
       .subscribe((customer) => {
-        this.customer = customer;
+        this.customer.set(customer);
 
         if (!customer) return;
         this.order.customerId = customer.id;
@@ -79,23 +79,20 @@ export class NewOrderComponent {
         const items = Object.keys(customer.items || {});
         if (items.length) {
           this.is.list(where('id', 'in', items)).subscribe((items) => {
-            this.items = items;
+            this.items.set(items);
           });
         }
       });
   }
 
   addItem() {
-    this.items.push({
-      orderedCount: 1,
-      name: '',
-    });
+    this.items.update((items) => [...items, { orderedCount: 1, name: '' }]);
   }
 
   sendOrder() {
-    this.sending = true;
+    this.sending.set(true);
     this.order.orderedAt = serverTimestamp();
-    this.order.items = this.items
+    this.order.items = this.items()
       .map((item) => ({
         id: item.id ?? '',
         name: item.name ?? '',
@@ -107,7 +104,7 @@ export class NewOrderComponent {
         this.sb.open('注文を送信しました');
       },
       () => {
-        this.sending = false;
+        this.sending.set(false);
       },
     );
   }

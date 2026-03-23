@@ -1,11 +1,11 @@
 <mat-card>
-  <mat-card-title> {{ customer?.name }}さま </mat-card-title>
+  <mat-card-title> {{ customer()?.name }}さま </mat-card-title>
 
   <mat-card-subtitle> オンライン注文書 </mat-card-subtitle>
 
   <mat-card-content>
     <mat-list>
-      @for (item of items; track item; let i = $index) {
+      @for (item of items(); track item; let i = $index) {
         <mat-list-item>
           <div class="item-line" matLine>
             @if (item.id) {
@@ -21,7 +21,7 @@
                   matInput
                   name="name-{{ i }}"
                   [(ngModel)]="item.name"
-                  [disabled]="sending"
+                  [disabled]="sending()"
                   />
               </mat-form-field>
             }
@@ -36,7 +36,7 @@
                 matInput
                 [(ngModel)]="item.orderedCount"
                 matTooltip="0にすると発注しません"
-                [disabled]="sending"
+                [disabled]="sending()"
                 />
             </mat-form-field>
           </div>
@@ -45,7 +45,7 @@
       }
 
       <mat-list-item>
-        <button mat-stroked-button (click)="addItem()" [disabled]="sending">
+        <button mat-stroked-button (click)="addItem()" [disabled]="sending()">
           <mat-icon>add</mat-icon>
           その他の品目を追加
         </button>
@@ -58,7 +58,7 @@
         name="notes"
         [(ngModel)]="order.notes"
         matInput
-        [disabled]="sending"
+        [disabled]="sending()"
       ></textarea>
     </mat-form-field>
   </mat-card-content>
@@ -68,7 +68,7 @@
       mat-raised-button
       color="primary"
       (click)="sendOrder()"
-      [disabled]="sending"
+      [disabled]="sending()"
       >
       <mat-icon>send</mat-icon>
       送信

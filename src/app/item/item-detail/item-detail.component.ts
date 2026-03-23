@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, signal } from '@angular/core';
 import { Timestamp } from 'firebase/firestore';
 import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -43,7 +43,7 @@ import { MatCard, MatCardTitle, MatCardContent, MatCardActions, MatCardSubtitle 
 ]
 })
 export class ItemDetailComponent implements OnDestroy {
-  item: ItemWithoutTimestamp = {
+  item = signal<ItemWithoutTimestamp>({
     id: '',
     name: '読み込み中',
     total: 0,
@@ -51,10 +51,10 @@ export class ItemDetailComponent implements OnDestroy {
     notifyCount: 0,
     notes: '',
     createdAt: Timestamp.fromDate(new Date()),
-  };
+  });
 
   storedCount = new UntypedFormGroup({});
-  storages: Storage[] = [];
+  storages = signal<Storage[]>([]);
 
   constructor(
     private readonly dialog: MatDialog,
@@ -72,15 +72,15 @@ export class ItemDetailComponent implements OnDestroy {
       .pipe(take(1))
       .subscribe((item) => {
         if (!item) return;
-        this.item = item;
-        this.title.setTitle(this.item.name, '品目');
+        this.item.set(item);
+        this.title.setTitle(item.name, '品目');
 
         this.ss
           .list()
           .pipe(take(1))
           .subscribe((storages) => {
             if (!storages) return;
-            this.storages = storages;
+            this.storages.set(storages);
             this.storedCount = this.fb.group(
               Object.fromEntries(
                 storages.map((s) => [s.id, [item.storedCount[s.id] || 0]]),
@@ -91,25 +91,27 @@ export class ItemDetailComponent implements OnDestroy {
   }
 
   storageName(id: Storage['id']) {
-    return this.storages.find((s) => s.id === id)?.name ?? '';
+    return this.storages().find((s) => s.id === id)?.name ?? '';
   }
 
   ngOnDestroy(): void {
-    if (!this.item.id) return;
+    const item = this.item();
+    if (!item.id) return;
     this.countTotal();
-    this.is.store(this.item);
+    this.is.store(this.item());
   }
 
   manipulate(id: Storage['id'], diff: number) {
     const control = this.storedCount.controls[id];
     if (control.value < 0) return;
-    this.item.total += diff;
+    this.item().total += diff;
     control.setValue(control.value + diff);
   }
 
   countTotal() {
-    this.item.storedCount = this.storedCount.value;
-    this.item.total = Object.values(this.item.storedCount).reduce(
+    const item = this.item();
+    item.storedCount = this.storedCount.value;
+    item.total = Object.values(item.storedCount).reduce(
       (acc, cur) => acc + cur,
       0,
     );
@@ -120,13 +122,13 @@ export class ItemDetailComponent implements OnDestroy {
       .open<AddItemComponent, ItemDialogData, Item>(AddItemComponent, {
         data: {
           type: '編集',
-          item: this.item,
+          item: this.item(),
         },
       })
       .afterClosed()
       .subscribe((item) => {
         if (item) {
-          this.item = item;
+          this.item.set(item);
         }
       });
   }
@@ -137,7 +139,7 @@ export class ItemDetailComponent implements OnDestroy {
       .afterDismissed()
       .subscribe(({ dismissedByAction }) => {
         if (!dismissedByAction) {
-          this.is.delete(this.item.id);
+          this.is.delete(this.item().id);
         }
       });
     this.router.navigateByUrl('/');
