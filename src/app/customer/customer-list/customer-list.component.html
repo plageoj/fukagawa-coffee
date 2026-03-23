@@ -1,19 +1,21 @@
-<mat-nav-list>
-  @for (customer of customers | async; track customer) {
-    <a
-      mat-list-item
-      routerLink="/customer/{{ customer.id }}"
-      >
-      {{ customer.name }}
-    </a>
-  }
-</mat-nav-list>
+@if (customers | async; as customerList) {
+  <mat-nav-list>
+    @for (customer of customerList; track customer) {
+      <a
+        mat-list-item
+        routerLink="/customer/{{ customer.id }}"
+        >
+        {{ customer.name }}
+      </a>
+    }
+  </mat-nav-list>
 
-@if ((customers | async)?.length === 0) {
-  <div id="no-customer">
-    <h3>取引先が登録されていません</h3>
-    <p><mat-icon inline>add</mat-icon>ボタンから取引先を追加してください。</p>
-  </div>
+  @if (customerList.length === 0) {
+    <div id="no-customer">
+      <h3>取引先が登録されていません</h3>
+      <p><mat-icon inline>add</mat-icon>ボタンから取引先を追加してください。</p>
+    </div>
+  }
 }
 
 
