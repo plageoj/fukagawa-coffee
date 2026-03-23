@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { where } from 'firebase/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
@@ -37,13 +37,13 @@ import { Item } from 'src/models/item.model';
 ]
 })
 export class OrderSheetComponent implements OnInit {
-  customer: Customer | undefined;
-  items: Partial<Item & { price: string }>[] = [];
+  customer = signal<Customer | undefined>(undefined);
+  items = signal<Partial<Item & { price: string }>[]>([]);
 
-  orderAddress = '';
+  orderAddress = signal('');
 
-  qrCodeAddress = '';
-  isNotReady = true;
+  qrCodeAddress = signal('');
+  isNotReady = signal(true);
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -56,18 +56,19 @@ export class OrderSheetComponent implements OnInit {
       .pipe(take(1))
       .subscribe((customer) => {
         if (!customer) return;
-        this.customer = customer;
+        this.customer.set(customer);
         this.title.setTitle(customer.name, '発注書');
 
         const items = Object.keys(customer?.items || {});
         if (customer && items.length) {
-          this.orderAddress = `${location.origin}/order/${customer.id}/new`;
-          this.qrCodeAddress =
+          const orderAddress = `${location.origin}/order/${customer.id}/new`;
+          this.orderAddress.set(orderAddress);
+          this.qrCodeAddress.set(
             'https://api.qrserver.com/v1/create-qr-code/?format=svg&qzone=1&data=' +
-            encodeURIComponent(this.orderAddress);
+            encodeURIComponent(orderAddress),
+          );
           this.is.list(where('id', 'in', items)).subscribe((items) => {
-            this.items = items;
-            this.items.push(...Array(10 - items.length).fill({}));
+            this.items.set([...items, ...Array(10 - items.length).fill({})]);
           });
         }
       });
@@ -75,7 +76,7 @@ export class OrderSheetComponent implements OnInit {
 
   ngOnInit(): void {
     document.getElementById('qrcode')?.addEventListener('load', () => {
-      this.isNotReady = false;
+      this.isNotReady.set(false);
     });
   }
 

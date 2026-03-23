@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ConfirmationResult } from 'firebase/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
@@ -26,8 +26,8 @@ import { LoginService } from '../login.service';
 export class LoginByPhoneComponent {
   phoneNumber = '';
   confirmationCode = '';
-  isSent = false;
-  codeReady = false;
+  isSent = signal(false);
+  codeReady = signal(false);
 
   private authResult?: ConfirmationResult;
 
@@ -37,23 +37,23 @@ export class LoginByPhoneComponent {
   ) {}
 
   async sendConfirmation() {
-    this.isSent = true;
+    this.isSent.set(true);
     const verifier = this.login.createVerifier();
 
     try {
       const result = await this.login.loginByPhone(this.phoneNumber, verifier);
-      this.codeReady = true;
+      this.codeReady.set(true);
 
       this.sb
         .open('確認コードを送信しました。')
         .afterDismissed()
         .subscribe(() => {
-          this.isSent = false;
+          this.isSent.set(false);
         });
 
       this.authResult = result;
     } catch (error) {
-      this.isSent = false;
+      this.isSent.set(false);
       verifier.clear();
       if (typeof error === 'string') this.sb.open(error);
       else {
@@ -66,13 +66,13 @@ export class LoginByPhoneComponent {
   async confirmCode() {
     if (!this.authResult) return;
 
-    this.isSent = true;
+    this.isSent.set(true);
     try {
       await this.authResult.confirm(this.confirmationCode);
       location.reload();
     } catch (error) {
-      this.isSent = false;
-      this.codeReady = false;
+      this.isSent.set(false);
+      this.codeReady.set(false);
       this.sb.open('ログインに失敗しました。');
       throw error;
     }

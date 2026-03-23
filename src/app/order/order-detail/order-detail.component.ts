@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { where } from 'firebase/firestore';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
@@ -31,8 +31,8 @@ import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions 
 ]
 })
 export class OrderDetailComponent {
-  order: Order | undefined;
-  itemList: { [key: string]: Item | undefined } = {};
+  order = signal<Order | undefined>(undefined);
+  itemList = signal<{ [key: string]: Item | undefined }>({});
 
   constructor(
     private readonly os: OrderService,
@@ -44,23 +44,26 @@ export class OrderDetailComponent {
       .load(this.route.snapshot.paramMap.get('id') ?? '_')
       .pipe(take(1))
       .subscribe((order) => {
-        this.order = order;
+        this.order.set(order);
 
         this.is
           .list(where('id', 'in', order?.items.map((item) => item.id) ?? []))
           .pipe(take(1))
           .subscribe((items) => {
+            const list: { [key: string]: Item | undefined } = {};
             for (const item of items) {
-              this.itemList[item.id] = item;
+              list[item.id] = item;
             }
+            this.itemList.set(list);
           });
       });
   }
 
   markAsDone() {
-    if (!this.order) return;
-    this.order.isDone = true;
-    this.os.store(this.order);
+    const order = this.order();
+    if (!order) return;
+    order.isDone = true;
+    this.os.store(order);
     this.router.navigateByUrl('/order');
   }
 }
