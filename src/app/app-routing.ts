@@ -37,7 +37,7 @@ export const routes: Routes = [
     ],
     canActivate: [authGuard],
     data: {
-      authGuardPipe: () => redirectUnauthorizedTo('/login'),
+      authGuardPipe: redirectUnauthorizedTo('/login'),
     },
   },
   {
@@ -51,7 +51,7 @@ export const routes: Routes = [
       import('./login/login.module').then((m) => m.LoginModule),
     canActivate: [authGuard],
     data: {
-      authGuardPipe: () => redirectLoggedInTo('/'),
+      authGuardPipe: redirectLoggedInTo('/'),
     },
   },
 ];

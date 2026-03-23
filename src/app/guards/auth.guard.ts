@@ -1,27 +1,31 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router, UrlTree } from '@angular/router';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { Observable } from 'rxjs';
-import { getAuthInstance } from '../services/firebase.service';
+import { inject } from "@angular/core";
+import { CanActivateFn, Router, UrlTree } from "@angular/router";
+import { onAuthStateChanged, User } from "firebase/auth";
+import { Observable } from "rxjs";
+import { AUTH } from "../services/firebase.service";
 
-export type AuthPipeGenerator = () => (user: User | null) => UrlTree | boolean;
+export type AuthPipeFn = (
+  router: Router,
+) => (user: User | null) => UrlTree | boolean;
 
 /**
  * Custom auth guard replacing @angular/fire's AuthGuard
  */
 export const authGuard: CanActivateFn = (route) => {
+  const auth = inject(AUTH);
   const router = inject(Router);
 
-  return new Observable<boolean | UrlTree>((subscriber) => {
-    const auth = getAuthInstance();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      const authGuardPipe = route.data['authGuardPipe'] as
-        | AuthPipeGenerator
-        | undefined;
+  const authGuardPipe = route.data["authGuardPipe"] as AuthPipeFn | undefined;
+  const pipeFn = authGuardPipe?.(router);
 
-      if (authGuardPipe) {
-        const result = authGuardPipe()(user);
-        subscriber.next(result);
+  return new Observable<boolean | UrlTree>((subscriber) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      // Ensure the ID token is ready for Firestore before allowing navigation
+      if (user) {
+        await user.getIdToken();
+      }
+      if (pipeFn) {
+        subscriber.next(pipeFn(user));
       } else {
         subscriber.next(!!user);
       }
@@ -35,12 +39,9 @@ export const authGuard: CanActivateFn = (route) => {
  * Helper to create redirect for unauthorized users
  * Replaces @angular/fire's redirectUnauthorizedTo
  */
-export function redirectUnauthorizedTo(
-  redirectPath: string,
-): AuthPipeGenerator {
-  return () => (user) => {
+export function redirectUnauthorizedTo(redirectPath: string): AuthPipeFn {
+  return (router) => (user) => {
     if (user) return true;
-    const router = inject(Router);
     return router.createUrlTree([redirectPath]);
   };
 }
@@ -49,10 +50,9 @@ export function redirectUnauthorizedTo(
  * Helper to redirect logged-in users
  * Replaces @angular/fire's redirectLoggedInTo
  */
-export function redirectLoggedInTo(redirectPath: string): AuthPipeGenerator {
-  return () => (user) => {
+export function redirectLoggedInTo(redirectPath: string): AuthPipeFn {
+  return (router) => (user) => {
     if (!user) return true;
-    const router = inject(Router);
     return router.createUrlTree([redirectPath]);
   };
 }

@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { Router, ActivatedRouteSnapshot, UrlTree } from '@angular/router';
 import { provideRouter } from '@angular/router';
-import { signInAnonymously, signOut } from 'firebase/auth';
+import { Auth, signInAnonymously, signOut } from 'firebase/auth';
 import { firstValueFrom } from 'rxjs';
 import { FirebaseTestingModule, initializeTestFirebase } from '../firebase-testing.module';
-import { getAuthInstance } from '../services/firebase.service';
+import { AUTH } from '../services/firebase.service';
 import {
   authGuard,
   redirectUnauthorizedTo,
@@ -13,6 +13,7 @@ import {
 
 describe('authGuard', () => {
   let router: Router;
+  let auth: Auth;
 
   beforeAll(async () => {
     await initializeTestFirebase();
@@ -24,17 +25,16 @@ describe('authGuard', () => {
       providers: [provideRouter([])],
     });
     router = TestBed.inject(Router);
+    auth = TestBed.inject(AUTH);
   });
 
   afterEach(async () => {
-    const auth = getAuthInstance();
     await signOut(auth);
   });
 
   describe('default behavior (no authGuardPipe)', () => {
     it('認証済みユーザーは true を返す', async () => {
       // Setup: ユーザーをサインイン
-      const auth = getAuthInstance();
       await signInAnonymously(auth);
 
       // Execute: authGuard を呼び出し
@@ -50,7 +50,6 @@ describe('authGuard', () => {
 
     it('未認証ユーザーは false を返す', async () => {
       // Setup: ユーザーをサインアウト（初期状態）
-      const auth = getAuthInstance();
       await signOut(auth);
 
       // Execute: authGuard を呼び出し
@@ -68,12 +67,11 @@ describe('authGuard', () => {
   describe('with authGuardPipe', () => {
     it('authGuardPipe が指定された場合はカスタムロジックが実行される（認証済み）', async () => {
       // Setup: カスタム authGuardPipe を作成
-      const customPipe = () => (user: any) => {
+      const customPipe = (_router: any) => (user: any) => {
         return user ? true : false;
       };
 
       // ユーザーをサインイン
-      const auth = getAuthInstance();
       await signInAnonymously(auth);
 
       // Execute: authGuard を呼び出し
@@ -91,12 +89,11 @@ describe('authGuard', () => {
 
     it('authGuardPipe が指定された場合はカスタムロジックが実行される（未認証）', async () => {
       // Setup: カスタム authGuardPipe を作成
-      const customPipe = () => (user: any) => {
+      const customPipe = (_router: any) => (user: any) => {
         return user ? true : false;
       };
 
       // ユーザーをサインアウト
-      const auth = getAuthInstance();
       await signOut(auth);
 
       // Execute: authGuard を呼び出し
@@ -114,13 +111,12 @@ describe('authGuard', () => {
 
     it('authGuardPipe が UrlTree を返す場合は正しく処理される', async () => {
       // Setup: UrlTree を返す authGuardPipe を作成
-      const customPipe = () => (user: any) => {
+      const customPipe = (r: Router) => (user: any) => {
         if (user) return true;
-        return router.createUrlTree(['/custom-redirect']);
+        return r.createUrlTree(['/custom-redirect']);
       };
 
       // ユーザーをサインアウト
-      const auth = getAuthInstance();
       await signOut(auth);
 
       // Execute: authGuard を呼び出し
@@ -141,7 +137,6 @@ describe('authGuard', () => {
   describe('Observable behavior', () => {
     it('Observable は complete される', (done) => {
       // Setup
-      const auth = getAuthInstance();
       signOut(auth).then(() => {
         TestBed.runInInjectionContext(() => {
           const route = { data: {} } as unknown as ActivatedRouteSnapshot;
@@ -161,7 +156,6 @@ describe('authGuard', () => {
 
     it('unsubscribe しても問題なく動作する', async () => {
       // Setup
-      const auth = getAuthInstance();
       await signOut(auth);
 
       TestBed.runInInjectionContext(() => {
@@ -201,7 +195,7 @@ describe('redirectUnauthorizedTo', () => {
     // Execute: redirectUnauthorizedTo を呼び出し
     const result = TestBed.runInInjectionContext(() => {
       const pipeGenerator = redirectUnauthorizedTo('/login');
-      const pipe = pipeGenerator();
+      const pipe = pipeGenerator(router);
       return pipe(mockUser);
     });
 
@@ -216,7 +210,7 @@ describe('redirectUnauthorizedTo', () => {
     // Execute: redirectUnauthorizedTo を呼び出し
     const result = TestBed.runInInjectionContext(() => {
       const pipeGenerator = redirectUnauthorizedTo('/login');
-      const pipe = pipeGenerator();
+      const pipe = pipeGenerator(router);
       return pipe(mockUser);
     });
 
@@ -232,7 +226,7 @@ describe('redirectUnauthorizedTo', () => {
     // Execute: カスタムパスを指定
     const result = TestBed.runInInjectionContext(() => {
       const pipeGenerator = redirectUnauthorizedTo('/custom-login');
-      const pipe = pipeGenerator();
+      const pipe = pipeGenerator(router);
       return pipe(mockUser);
     });
 
@@ -264,7 +258,7 @@ describe('redirectLoggedInTo', () => {
     // Execute: redirectLoggedInTo を呼び出し
     const result = TestBed.runInInjectionContext(() => {
       const pipeGenerator = redirectLoggedInTo('/');
-      const pipe = pipeGenerator();
+      const pipe = pipeGenerator(router);
       return pipe(mockUser);
     });
 
@@ -279,7 +273,7 @@ describe('redirectLoggedInTo', () => {
     // Execute: redirectLoggedInTo を呼び出し
     const result = TestBed.runInInjectionContext(() => {
       const pipeGenerator = redirectLoggedInTo('/');
-      const pipe = pipeGenerator();
+      const pipe = pipeGenerator(router);
       return pipe(mockUser);
     });
 
@@ -295,7 +289,7 @@ describe('redirectLoggedInTo', () => {
     // Execute: カスタムパスを指定
     const result = TestBed.runInInjectionContext(() => {
       const pipeGenerator = redirectLoggedInTo('/dashboard');
-      const pipe = pipeGenerator();
+      const pipe = pipeGenerator(router);
       return pipe(mockUser);
     });
 
