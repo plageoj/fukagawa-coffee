@@ -1,22 +1,24 @@
-<mat-nav-list>
-  @for (order of orders | async; track order) {
-    <a
-      mat-list-item
-      routerLink="./{{ order.id }}"
-      >
-      <p matListItemLine>
-        {{ order.customerName }}
-        ({{ order.items.length }}品目)
-      </p>
-      <date matListItemLine>
-        {{ order.orderedAt.toDate() | date: "y/M/d　h:mm" }}
-      </date>
-    </a>
-  }
-</mat-nav-list>
+@if (orders | async; as orderList) {
+  <mat-nav-list>
+    @for (order of orderList; track order) {
+      <a
+        mat-list-item
+        routerLink="./{{ order.id }}"
+        >
+        <p matListItemLine>
+          {{ order.customerName }}
+          ({{ order.items.length }}品目)
+        </p>
+        <date matListItemLine>
+          {{ order.orderedAt.toDate() | date: "y/M/d　h:mm" }}
+        </date>
+      </a>
+    }
+  </mat-nav-list>
 
-@if ((orders | async)?.length === 0) {
-  <div id="no-orders">
-    <h3>未完了の注文はありません</h3>
-  </div>
+  @if (orderList.length === 0) {
+    <div id="no-orders">
+      <h3>未完了の注文はありません</h3>
+    </div>
+  }
 }
