@@ -10,23 +10,19 @@ import {
   Firestore,
 } from 'firebase/firestore';
 import { take } from 'rxjs';
-import { FirebaseTestingModule, initializeTestFirebase } from '../firebase-testing.module';
-import { getFirestoreInstance } from './firebase.service';
+import { FirebaseTestingModule } from '../firebase-testing.module';
+import { FIRESTORE } from './firebase.service';
 import { docData, collectionData } from './firestore-rxjs';
 
 describe('firestore-rxjs', () => {
   let db: Firestore;
-  const testCollection = 'test-firestore-rxjs';
-
-  beforeAll(async () => {
-    await initializeTestFirebase();
-  });
+  const testCollection = 'items';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FirebaseTestingModule],
     });
-    db = getFirestoreInstance();
+    db = TestBed.inject(FIRESTORE);
   });
 
   afterEach(async () => {
@@ -139,7 +135,7 @@ describe('firestore-rxjs', () => {
 
     it('空のコレクションには空配列を emit する', (done) => {
       // Setup: 空のコレクション
-      const col = collection(db, testCollection + '-empty');
+      const col = collection(db, 'stickers');
 
       // Execute: collectionData を購読
       collectionData(col)

@@ -56,6 +56,8 @@ describe('CustomerDetailComponent', () => {
         },
       } as Customer),
     );
+    spyOn(customerService, 'overwrite').and.resolveTo();
+    spyOn(customerService, 'delete').and.resolveTo();
 
     const itemService = TestBed.inject(ItemService);
     spyOn(itemService, 'list').and.returnValue(
@@ -135,15 +137,15 @@ describe('CustomerDetailComponent', () => {
   });
 
   it('delete item', () => {
-    component.customer = {
+    component.customer.set({
       id: 'test-id',
       name: 'Test Customer',
       address: '123 Main Street',
       items: {
         test: true,
       },
-    };
+    });
     component.deleteItem('test');
-    expect(component.customer?.items).toEqual({});
+    expect(component.customer()?.items).toEqual({});
   });
 });

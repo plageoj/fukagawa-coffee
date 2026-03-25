@@ -35,11 +35,11 @@ describe('NewOrderComponent', () => {
 
   it('add item', () => {
     component.addItem();
-    expect(component.items.length).toBe(1);
+    expect(component.items().length).toBe(1);
   });
 
   it('send order', async () => {
-    component.items = [{ name: 'test' }];
+    component.items.set([{ name: 'test' }]);
     const store = spyOn(TestBed.inject(OrderService), 'store').and.resolveTo();
     component.sendOrder();
     expect(store).toHaveBeenCalled();
