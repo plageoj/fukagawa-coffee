@@ -4,8 +4,10 @@ import {
   ActivatedRoute,
   convertToParamMap,
   provideRouter,
+  Router,
 } from '@angular/router';
 import { Timestamp } from 'firebase/firestore';
+import { of } from 'rxjs';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 import { ItemService } from 'src/app/services/item.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -16,12 +18,39 @@ import { OrderDetailComponent } from './order-detail.component';
 describe('OrderDetailComponent', () => {
   let component: OrderDetailComponent;
   let fixture: ComponentFixture<OrderDetailComponent>;
-  let orderService: OrderService;
-  let itemService: ItemService;
-  let testOrderId: string;
-  let testItemId: string;
+  let orderService: jasmine.SpyObj<OrderService>;
+
+  const testItemId = 'test-item-id';
+  const testOrderId = 'test-order-id';
+
+  const testItem: Item = {
+    id: testItemId,
+    name: 'Test Item',
+    total: 100,
+    storedCount: {},
+    notifyCount: 10,
+    notes: '',
+    createdAt: Timestamp.now(),
+    updatedAt: Timestamp.now(),
+  };
+
+  const testOrder: Order = {
+    id: testOrderId,
+    customerId: 'test-customer-id',
+    customerName: 'Test Customer',
+    orderedAt: Timestamp.now(),
+    items: [{ id: testItemId, name: 'Test Item', orderedCount: 2 }],
+    notes: 'Test order',
+    isDone: false,
+  };
 
   beforeEach(async () => {
+    const orderSpy = jasmine.createSpyObj('OrderService', ['load', 'store']);
+    const itemSpy = jasmine.createSpyObj('ItemService', ['list']);
+
+    orderSpy.load.and.returnValue(of(testOrder));
+    itemSpy.list.and.returnValue(of([testItem]));
+
     await TestBed.configureTestingModule({
       imports: [FirebaseTestingModule, OrderDetailComponent],
       providers: [
@@ -29,53 +58,15 @@ describe('OrderDetailComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            snapshot: { paramMap: convertToParamMap({ id: 'test-order-id' }) },
+            snapshot: { paramMap: convertToParamMap({ id: testOrderId }) },
           },
         },
+        { provide: OrderService, useValue: orderSpy },
+        { provide: ItemService, useValue: itemSpy },
       ],
     }).compileComponents();
 
-    orderService = TestBed.inject(OrderService);
-    itemService = TestBed.inject(ItemService);
-
-    // Create test item first
-    testItemId = 'test-item-id';
-    const testItem: Item = {
-      id: testItemId,
-      name: 'Test Item',
-      total: 100,
-      storedCount: {},
-      notifyCount: 10,
-      notes: 'Test item notes',
-      createdAt: Timestamp.now(),
-      updatedAt: Timestamp.now(),
-    };
-    await itemService.store(testItem);
-
-    // Create test order that references the item
-    testOrderId = 'test-order-id';
-    const testOrder: Order = {
-      id: testOrderId,
-      customerId: 'test-customer-id',
-      customerName: 'Test Customer',
-      orderedAt: Timestamp.now(),
-      items: [
-        {
-          id: testItemId,
-          name: 'Test Item',
-          orderedCount: 2,
-        },
-      ],
-      notes: 'Test order notes',
-      isDone: false,
-    };
-    await orderService.store(testOrder);
-
-    // Update the ActivatedRoute mock with the real order ID
-    const activatedRoute = TestBed.inject(ActivatedRoute);
-    (activatedRoute.snapshot.paramMap as any) = convertToParamMap({
-      id: testOrderId,
-    });
+    orderService = TestBed.inject(OrderService) as jasmine.SpyObj<OrderService>;
   });
 
   beforeEach(() => {
@@ -84,17 +75,27 @@ describe('OrderDetailComponent', () => {
     fixture.detectChanges();
   });
 
-  afterEach(async () => {
-    // Clean up test data from Firebase emulator
-    if (testOrderId) {
-      await orderService.delete(testOrderId);
-    }
-    if (testItemId) {
-      await itemService.delete(testItemId);
-    }
-  });
-
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should load order and item list', () => {
+    expect(component.order()?.customerName).toBe('Test Customer');
+    expect(component.itemList()[testItemId]?.name).toBe('Test Item');
+  });
+
+  it('markAsDone should store order and navigate', () => {
+    const router = TestBed.inject(Router);
+    spyOn(router, 'navigateByUrl');
+    component.markAsDone();
+    expect(orderService.store).toHaveBeenCalled();
+    expect(component.order()?.isDone).toBeTrue();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/order');
+  });
+
+  it('markAsDone should do nothing when order is undefined', () => {
+    component.order.set(undefined);
+    component.markAsDone();
+    expect(orderService.store).not.toHaveBeenCalled();
   });
 });
