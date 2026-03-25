@@ -1,5 +1,6 @@
 
-import { Component, OnDestroy, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { where } from 'firebase/firestore';
 import { MatAnchor, MatButton, MatIconButton } from '@angular/material/button';
 import {
@@ -43,6 +44,7 @@ import { AssociateItemComponent } from '../associate-item/associate-item.compone
 ]
 })
 export class CustomerDetailComponent implements OnDestroy {
+  private readonly destroyRef = inject(DestroyRef);
   customer = signal<Customer | undefined>(undefined);
   items = signal<Item[]>([]);
   private isUpdated = false;
@@ -66,7 +68,7 @@ export class CustomerDetailComponent implements OnDestroy {
 
         const items = Object.keys(customer?.items ?? {});
         if (customer && items.length) {
-          this.is.list(where('id', 'in', items)).subscribe((items) => {
+          this.is.list(where('id', 'in', items)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((items) => {
             this.items.set(items);
           });
         }
