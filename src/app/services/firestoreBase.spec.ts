@@ -7,8 +7,8 @@ import {
   Firestore,
 } from 'firebase/firestore';
 import { take, firstValueFrom } from 'rxjs';
-import { FirebaseTestingModule, initializeTestFirebase } from '../firebase-testing.module';
-import { getFirestoreInstance } from './firebase.service';
+import { FirebaseTestingModule } from '../firebase-testing.module';
+import { FIRESTORE } from './firebase.service';
 import { FirestoreBase } from './firestoreBase';
 
 interface TestModel {
@@ -21,17 +21,13 @@ interface TestModel {
 describe('FirestoreBase', () => {
   let db: Firestore;
   let service: FirestoreBase<TestModel>;
-  const testPath = 'test-firestore-base';
-
-  beforeAll(async () => {
-    await initializeTestFirebase();
-  });
+  const testPath = 'items';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [FirebaseTestingModule],
     });
-    db = getFirestoreInstance();
+    db = TestBed.inject(FIRESTORE);
     service = new FirestoreBase<TestModel>(db, testPath);
   });
 
