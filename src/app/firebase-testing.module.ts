@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { initializeApp, FirebaseApp } from 'firebase/app';
-import { connectAuthEmulator, getAuth, Auth } from 'firebase/auth';
+import { connectAuthEmulator, getAuth, Auth, signInAnonymously, signOut } from 'firebase/auth';
 import {
   connectFirestoreEmulator,
   getFirestore,
@@ -76,4 +76,18 @@ export async function initializeTestFirebase(): Promise<void> {
 
   // Allow connection to stabilize in zoneless environment
   await new Promise(resolve => setTimeout(resolve, 100));
+}
+
+export async function signInForTest(): Promise<void> {
+  const auth = getTestAuth();
+  if (!auth.currentUser) {
+    await signInAnonymously(auth);
+  }
+}
+
+export async function signOutForTest(): Promise<void> {
+  const auth = getTestAuth();
+  if (auth.currentUser) {
+    await signOut(auth);
+  }
 }
