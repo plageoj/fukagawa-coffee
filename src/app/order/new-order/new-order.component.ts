@@ -1,5 +1,6 @@
 
-import { Component, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { serverTimestamp, where, WithFieldValue } from 'firebase/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
@@ -49,6 +50,7 @@ import { Order } from 'src/models/order.model';
 ]
 })
 export class NewOrderComponent {
+  private readonly destroyRef = inject(DestroyRef);
   customer = signal<Customer | undefined>(undefined);
   items = signal<Partial<Item & { orderedCount: number }>[]>([]);
   order: WithFieldValue<Omit<Order, 'id'>> = {
@@ -70,6 +72,7 @@ export class NewOrderComponent {
   ) {
     this.cs
       .load(this.route.snapshot.paramMap.get('id') ?? '_')
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((customer) => {
         this.customer.set(customer);
 
@@ -78,7 +81,7 @@ export class NewOrderComponent {
         this.order.customerName = customer.name;
         const items = Object.keys(customer.items || {});
         if (items.length) {
-          this.is.list(where('id', 'in', items)).subscribe((items) => {
+          this.is.list(where('id', 'in', items)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((items) => {
             this.items.set(items);
           });
         }

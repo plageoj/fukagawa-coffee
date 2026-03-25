@@ -1,5 +1,6 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { where } from 'firebase/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
@@ -37,6 +38,7 @@ import { Item } from 'src/models/item.model';
 ]
 })
 export class OrderSheetComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
   customer = signal<Customer | undefined>(undefined);
   items = signal<Partial<Item & { price: string }>[]>([]);
 
@@ -67,7 +69,7 @@ export class OrderSheetComponent implements OnInit {
             'https://api.qrserver.com/v1/create-qr-code/?format=svg&qzone=1&data=' +
             encodeURIComponent(orderAddress),
           );
-          this.is.list(where('id', 'in', items)).subscribe((items) => {
+          this.is.list(where('id', 'in', items)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((items) => {
             this.items.set([...items, ...Array(10 - items.length).fill({})]);
           });
         }
