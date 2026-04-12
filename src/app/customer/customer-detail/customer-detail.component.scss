@@ -4,17 +4,16 @@ mat-card {
   margin: 1em;
 }
 
-[mat-button] {
+[matButton] {
   width: 100%;
 }
 
 #actions {
   margin: 0 0 0 1rem;
+  padding-right: 1rem;
 
-  a[mat-raised-button],
-  a[mat-stroked-button] {
-    margin: 0 1rem 1rem 0;
-    display: block;
+  a[matButton] {
+    margin: 0 0 1rem 0;
   }
 }
 

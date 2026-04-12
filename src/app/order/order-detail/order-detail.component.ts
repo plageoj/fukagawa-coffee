@@ -9,26 +9,41 @@ import { Order } from 'src/models/order.model';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { DatePipe } from '@angular/common';
-import { MatNavList, MatListItem } from '@angular/material/list';
-import { MatCard, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions } from '@angular/material/card';
+import {
+  MatNavList,
+  MatListItem,
+  MatListItemLine,
+  MatListItemTitle,
+} from '@angular/material/list';
+import {
+  MatCard,
+  MatCardTitle,
+  MatCardSubtitle,
+  MatCardContent,
+  MatCardActions,
+  MatCardHeader,
+} from '@angular/material/card';
 
 @Component({
-    selector: 'app-order-detail',
-    templateUrl: './order-detail.component.html',
-    styleUrls: ['./order-detail.component.scss'],
-    imports: [
+  selector: 'app-order-detail',
+  templateUrl: './order-detail.component.html',
+  styleUrls: ['./order-detail.component.scss'],
+  imports: [
     MatCard,
+    MatCardHeader,
     MatCardTitle,
     MatCardSubtitle,
     MatCardContent,
     MatNavList,
     MatListItem,
+    MatListItemTitle,
+    MatListItemLine,
     RouterLink,
     MatCardActions,
     MatButton,
     MatIcon,
-    DatePipe
-]
+    DatePipe,
+  ],
 })
 export class OrderDetailComponent {
   order = signal<Order | undefined>(undefined);

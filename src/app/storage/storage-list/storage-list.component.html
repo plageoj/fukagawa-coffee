@@ -3,25 +3,26 @@
     <mat-list>
       @for (storage of storageList; track storage) {
         <mat-list-item>
-          <mat-icon mat-list-icon>storage</mat-icon>
-          <h4 mat-line>{{ storage.name }}</h4>
-          <p mat-line>{{ storage.description }}</p>
-          <button
-            mat-icon-button
-            color="primary"
-            matTooltip="編集"
-            (click)="editStorage(storage)"
+          <span matListItemTitle>{{ storage.name }}</span>
+          <span matListItemLine>{{ storage.description }}</span>
+          <span matListItemMeta>
+            <button
+              matIconButton
+              color="primary"
+              matTooltip="編集"
+              (click)="editStorage(storage)"
             >
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            color="warn"
-            matTooltip="削除"
-            (click)="deleteStorage(storage)"
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              matIconButton
+              color="warn"
+              matTooltip="削除"
+              (click)="deleteStorage(storage)"
             >
-            <mat-icon>delete</mat-icon>
-          </button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </span>
         </mat-list-item>
       }
     </mat-list>
@@ -36,6 +37,6 @@
   }
 }
 
-<button mat-fab matTooltip="倉庫を追加" (click)="editStorage()">
+<button matFab matTooltip="倉庫を追加" (click)="editStorage()">
   <mat-icon>add</mat-icon>
 </button>

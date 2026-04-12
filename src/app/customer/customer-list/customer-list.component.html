@@ -1,10 +1,7 @@
 @if (customers | async; as customerList) {
   <mat-nav-list>
     @for (customer of customerList; track customer) {
-      <a
-        mat-list-item
-        routerLink="/customer/{{ customer.id }}"
-        >
+      <a mat-list-item routerLink="/customer/{{ customer.id }}">
         {{ customer.name }}
       </a>
     }
@@ -18,7 +15,6 @@
   }
 }
 
-
-<button mat-fab matTooltip="取引先を追加" (click)="addCustomer()">
+<button matFab matTooltip="取引先を追加" (click)="addCustomer()">
   <mat-icon>add</mat-icon>
 </button>

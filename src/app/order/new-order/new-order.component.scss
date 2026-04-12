@@ -2,12 +2,10 @@ mat-card {
   margin: 2em;
 }
 
-mat-list-item {
-  margin-top: 1em;
-}
-
-.mat-line.item-line {
+.item-line {
   display: flex;
+  align-items: center;
+  margin: 0 1em;
   span {
     flex-grow: 2;
   }

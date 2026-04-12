@@ -1,11 +1,8 @@
 @if (orders | async; as orderList) {
   <mat-nav-list>
     @for (order of orderList; track order) {
-      <a
-        mat-list-item
-        routerLink="./{{ order.id }}"
-        >
-        <p matListItemLine>
+      <a mat-list-item routerLink="./{{ order.id }}">
+        <p matListItemTitle>
           {{ order.customerName }}
           ({{ order.items.length }}品目)
         </p>
