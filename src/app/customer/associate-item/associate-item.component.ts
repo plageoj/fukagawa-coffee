@@ -15,7 +15,7 @@ import { ItemSelectorComponent } from '../../components/item-selector/item-selec
 @Component({
     selector: 'app-associate-item',
     templateUrl: './associate-item.component.html',
-    styleUrls: ['./associate-item.component.scss'],
+    styles: [],
     imports: [
         MatDialogTitle,
         CdkScrollable,

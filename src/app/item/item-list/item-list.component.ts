@@ -12,7 +12,7 @@ import { ItemSelectorComponent } from '../../components/item-selector/item-selec
 @Component({
     selector: 'app-item-list',
     templateUrl: './item-list.component.html',
-    styleUrls: ['./item-list.component.scss'],
+    styles: [],
     imports: [ItemSelectorComponent, MatFabButton, MatTooltip, MatIcon]
 })
 export class ItemListComponent {

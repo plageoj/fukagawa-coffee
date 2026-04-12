@@ -36,7 +36,7 @@ export class AddCustomerComponent {
     @Inject(MAT_DIALOG_DATA) public data: CustomerDialogData,
     private readonly cs: CustomerService,
   ) {
-    if (typeof data.customer.id === 'undefined') {
+    if (data.customer.id === undefined) {
       data.customer = {
         id: this.cs.id,
         name: '',

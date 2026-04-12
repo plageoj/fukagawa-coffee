@@ -76,7 +76,7 @@ export class OrderSheetComponent implements OnInit {
           .subscribe((items) => {
             this.items.set([
               ...items,
-              ...Array(10 - items.length)
+              ...new Array(10 - items.length)
                 .fill(1)
                 .map((_, i) => ({
                   id: i.toString(),
@@ -95,6 +95,6 @@ export class OrderSheetComponent implements OnInit {
   }
 
   print() {
-    window.print();
+    globalThis.print();
   }
 }
