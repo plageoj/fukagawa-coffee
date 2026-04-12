@@ -20,7 +20,6 @@ describe('ItemDetailComponent', () => {
   let component: ItemDetailComponent;
   let fixture: ComponentFixture<ItemDetailComponent>;
   let itemService: jasmine.SpyObj<ItemService>;
-  let storageService: jasmine.SpyObj<StorageService>;
 
   const testStorageId = 'storage-1';
   const testItemId = 'test-item-id';
@@ -63,7 +62,6 @@ describe('ItemDetailComponent', () => {
     }).compileComponents();
 
     itemService = TestBed.inject(ItemService) as jasmine.SpyObj<ItemService>;
-    storageService = TestBed.inject(StorageService) as jasmine.SpyObj<StorageService>;
   });
 
   beforeEach(() => {

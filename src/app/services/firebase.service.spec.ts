@@ -101,15 +101,15 @@ describe('firebase.service', () => {
       const instance = getFirestoreInstance();
 
       // TypeScript の型チェックが通ることを確認
-      const _: Firestore = instance;
-      expect(instance).toBeTruthy();
+      const _fs: Firestore = instance;
+      expect(_fs).toBeTruthy();
     });
 
     it('getAuthInstance は Auth 型を返す', () => {
       const instance = getAuthInstance();
 
       // TypeScript の型チェックが通ることを確認
-      const _: Auth = instance;
+      const _auth: Auth = instance;
       expect(instance).toBeTruthy();
     });
   });

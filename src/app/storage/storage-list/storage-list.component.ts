@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -34,12 +34,12 @@ import { AddStorageComponent } from '../add-storage/add-storage.component';
   ],
 })
 export class StorageListComponent {
+  private readonly ss = inject(StorageService);
+  private readonly dialog = inject(MatDialog);
+
   storages;
 
-  constructor(
-    private readonly ss: StorageService,
-    private readonly dialog: MatDialog,
-  ) {
+  constructor() {
     this.storages = this.ss.list();
   }
 

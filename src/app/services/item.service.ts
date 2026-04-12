@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Auth } from 'firebase/auth';
 import {
   addDoc,
@@ -18,10 +18,11 @@ import { FirestoreBase } from './firestoreBase';
   providedIn: 'root',
 })
 export class ItemService extends FirestoreBase<Item> {
-  constructor(
-    @Inject(FIRESTORE) db: Firestore,
-    @Inject(AUTH) private readonly auth: Auth,
-  ) {
+  private readonly auth = inject<Auth>(AUTH);
+
+  constructor() {
+    const db = inject<Firestore>(FIRESTORE);
+
     super(db, 'items');
   }
 

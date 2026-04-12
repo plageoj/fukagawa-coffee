@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import {
@@ -15,27 +15,29 @@ import { CustomerService } from 'src/app/services/customer.service';
 import { CustomerDialogData } from 'src/models/customer.model';
 
 @Component({
-    selector: 'app-add-customer',
-    templateUrl: './add-customer.component.html',
-    styleUrls: ['./add-customer.component.scss'],
-    imports: [
-        MatDialogTitle,
-        MatDialogContent,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        FormsModule,
-        MatDialogActions,
-        MatButton,
-        MatDialogClose,
-        MatIcon,
-    ]
+  selector: 'app-add-customer',
+  templateUrl: './add-customer.component.html',
+  styleUrls: ['./add-customer.component.scss'],
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    FormsModule,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
+    MatIcon,
+  ],
 })
 export class AddCustomerComponent {
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CustomerDialogData,
-    private readonly cs: CustomerService,
-  ) {
+  data = inject<CustomerDialogData>(MAT_DIALOG_DATA);
+  private readonly cs = inject(CustomerService);
+
+  constructor() {
+    const data = this.data;
+
     if (data.customer.id === undefined) {
       data.customer = {
         id: this.cs.id,

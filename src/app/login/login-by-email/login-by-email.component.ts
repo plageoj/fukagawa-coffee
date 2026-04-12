@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FirebaseError } from 'firebase/app';
 import { AuthErrorCodes, UserCredential } from 'firebase/auth';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
@@ -21,19 +20,19 @@ import { LoginService } from '../login.service';
     MatLabel,
     MatInput,
     MatButton,
-    MatIcon
-],
+    MatIcon,
+  ],
 })
 export class LoginByEmailComponent {
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly snack = inject(MatSnackBar);
+  private readonly router = inject(Router);
+  private readonly loginSv = inject(LoginService);
+
   mode: 'register' | 'login' | 'reset-password' = 'login';
   credentials;
 
-  constructor(
-    private readonly fb: UntypedFormBuilder,
-    private readonly snack: MatSnackBar,
-    private readonly router: Router,
-    private readonly loginSv: LoginService,
-  ) {
+  constructor() {
     this.credentials = this.fb.group({
       email: [''],
       password: [''],

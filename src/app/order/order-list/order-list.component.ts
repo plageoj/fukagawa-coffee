@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   MatListItem,
   MatListItemLine,
@@ -27,9 +27,11 @@ import { Order } from 'src/models/order.model';
   ],
 })
 export class OrderListComponent {
+  private readonly os = inject(OrderService);
+
   orders: Observable<Order[]>;
 
-  constructor(private readonly os: OrderService) {
+  constructor() {
     this.orders = this.os.list(where('isDone', '==', false));
   }
 }

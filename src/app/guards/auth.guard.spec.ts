@@ -12,7 +12,6 @@ import {
 } from './auth.guard';
 
 describe('authGuard', () => {
-  let router: Router;
   let auth: Auth;
 
   beforeAll(async () => {
@@ -24,7 +23,6 @@ describe('authGuard', () => {
       imports: [FirebaseTestingModule],
       providers: [provideRouter([])],
     });
-    router = TestBed.inject(Router);
     auth = TestBed.inject(AUTH);
   });
 

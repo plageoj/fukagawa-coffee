@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FirebaseError } from 'firebase/app';
 import {
   ApplicationVerifier,
@@ -17,7 +17,7 @@ import { AUTH } from '../services/firebase.service';
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(@Inject(AUTH) private readonly auth: Auth) {}
+  private readonly auth = inject<Auth>(AUTH);
 
   async createAccountByEmail(
     email: string,

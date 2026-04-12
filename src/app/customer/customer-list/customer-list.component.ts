@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatFabButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -12,26 +12,26 @@ import { Customer, CustomerDialogData } from 'src/models/customer.model';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
 
 @Component({
-    selector: 'app-customer-list',
-    templateUrl: './customer-list.component.html',
-    styleUrls: ['./customer-list.component.scss'],
-    imports: [
+  selector: 'app-customer-list',
+  templateUrl: './customer-list.component.html',
+  styleUrls: ['./customer-list.component.scss'],
+  imports: [
     MatNavList,
     MatListItem,
     RouterLink,
     MatIcon,
     MatFabButton,
     MatTooltip,
-    AsyncPipe
-]
+    AsyncPipe,
+  ],
 })
 export class CustomerListComponent {
+  private readonly cs = inject(CustomerService);
+  private readonly dialog = inject(MatDialog);
+
   customers: Observable<Customer[]>;
 
-  constructor(
-    private readonly cs: CustomerService,
-    private readonly dialog: MatDialog,
-  ) {
+  constructor() {
     this.customers = this.cs.list();
   }
 

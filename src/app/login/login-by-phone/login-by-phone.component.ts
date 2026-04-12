@@ -1,5 +1,4 @@
-
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { ConfirmationResult } from 'firebase/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
@@ -10,31 +9,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../login.service';
 
 @Component({
-    selector: 'app-login-by-phone',
-    templateUrl: './login-by-phone.component.html',
-    styleUrls: ['./login-by-phone.component.scss'],
-    imports: [
+  selector: 'app-login-by-phone',
+  templateUrl: './login-by-phone.component.html',
+  styleUrls: ['./login-by-phone.component.scss'],
+  imports: [
     MatFormField,
     MatLabel,
     MatInput,
     ReactiveFormsModule,
     FormsModule,
     MatButton,
-    MatIcon
-]
+    MatIcon,
+  ],
 })
 export class LoginByPhoneComponent {
+  private readonly login = inject(LoginService);
+  private readonly sb = inject(MatSnackBar);
+
   phoneNumber = '';
   confirmationCode = '';
   isSent = signal(false);
   codeReady = signal(false);
 
   private authResult?: ConfirmationResult;
-
-  constructor(
-    private readonly login: LoginService,
-    private readonly sb: MatSnackBar,
-  ) {}
 
   async sendConfirmation() {
     this.isSent.set(true);
