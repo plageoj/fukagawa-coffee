@@ -6,6 +6,9 @@
           [ngClass]="{ low: item.total < item.notifyCount }"
           (click)="selectItem(item)"
           (keydown.enter)="selectItem(item)"
+          (keydown.space)="selectItem(item); $event.preventDefault()"
+          tabindex="0"
+          role="button"
           >
           <p>
             <strong class="item-name"> {{ item.name }} </strong>
