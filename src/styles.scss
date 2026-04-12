@@ -1,3 +1,11 @@
+@use "@angular/material" as mat;
+
+$theme: mat.define-theme();
+
+html {
+  @include mat.color-variants-backwards-compatibility($theme);
+}
+
 html,
 body {
   height: 100%;
@@ -12,7 +20,7 @@ mat-icon {
   vertical-align: text-bottom;
 }
 
-[mat-fab].mat-fab {
+button[matFab] {
   position: fixed;
   bottom: 2em;
   right: 2em;
@@ -25,6 +33,6 @@ mat-icon {
   }
 
   mat-sidenav-content {
-    margin-right: 0 !important;
+    margin-left: 0 !important;
   }
 }

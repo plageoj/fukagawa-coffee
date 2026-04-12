@@ -1,13 +1,11 @@
-import { enableProdMode, importProvidersFrom, provideZonelessChangeDetection } from '@angular/core';
+import {
+  enableProdMode,
+  importProvidersFrom,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 
 import { MatButtonModule } from '@angular/material/button';
-import {
-  AUTH,
-  FIRESTORE,
-  getAuthInstance,
-  getFirestoreInstance,
-} from './app/services/firebase.service';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -29,6 +27,12 @@ import {
 } from 'ngx-webstorage';
 import { routes } from './app/app-routing';
 import { AppComponent } from './app/app.component';
+import {
+  AUTH,
+  FIRESTORE,
+  getAuthInstance,
+  getFirestoreInstance,
+} from './app/services/firebase.service';
 import { PageTitleStrategy } from './app/strategies/title-strategy';
 import { environment } from './environments/environment';
 

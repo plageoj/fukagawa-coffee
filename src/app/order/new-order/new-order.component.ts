@@ -1,13 +1,12 @@
-
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { serverTimestamp, where, WithFieldValue } from 'firebase/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import {
   MatCard,
   MatCardActions,
   MatCardContent,
+  MatCardHeader,
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
@@ -15,10 +14,11 @@ import { MatDivider } from '@angular/material/divider';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { MatList, MatListItem } from '@angular/material/list';
+import { MatList, MatListItem, MatListItemLine } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
+import { serverTimestamp, where, WithFieldValue } from 'firebase/firestore';
 import { CustomerService } from 'src/app/services/customer.service';
 import { ItemService } from 'src/app/services/item.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -27,27 +27,25 @@ import { Item } from 'src/models/item.model';
 import { Order } from 'src/models/order.model';
 
 @Component({
-    selector: 'app-new-order',
-    templateUrl: './new-order.component.html',
-    styleUrls: ['./new-order.component.scss'],
-    imports: [
+  selector: 'app-new-order',
+  templateUrl: './new-order.component.html',
+  styleUrls: ['./new-order.component.scss'],
+  imports: [
     MatCard,
+    MatCardHeader,
     MatCardTitle,
     MatCardSubtitle,
     MatCardContent,
-    MatList,
-    MatListItem,
     MatFormField,
     MatLabel,
     MatInput,
     ReactiveFormsModule,
     FormsModule,
     MatTooltip,
-    MatDivider,
     MatButton,
     MatIcon,
-    MatCardActions
-]
+    MatCardActions,
+  ],
 })
 export class NewOrderComponent {
   private readonly destroyRef = inject(DestroyRef);
@@ -81,9 +79,12 @@ export class NewOrderComponent {
         this.order.customerName = customer.name;
         const items = Object.keys(customer.items || {});
         if (items.length) {
-          this.is.list(where('id', 'in', items)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((items) => {
-            this.items.set(items);
-          });
+          this.is
+            .list(where('id', 'in', items))
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((items) => {
+              this.items.set(items);
+            });
         }
       });
   }

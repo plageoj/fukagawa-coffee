@@ -3,25 +3,35 @@ import { Component } from '@angular/core';
 import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { MatList, MatListItem } from '@angular/material/list';
+import {
+  MatList,
+  MatListItem,
+  MatListItemLine,
+  MatListItemMeta,
+  MatListItemTitle,
+} from '@angular/material/list';
 import { MatTooltip } from '@angular/material/tooltip';
 import { StorageService } from 'src/app/services/storage.service';
 import { Storage } from 'src/models/storage.model';
 import { AddStorageComponent } from '../add-storage/add-storage.component';
 
 @Component({
-    selector: 'app-storage-list',
-    templateUrl: './storage-list.component.html',
-    styleUrls: ['./storage-list.component.scss'],
-    imports: [
+  selector: 'app-storage-list',
+  templateUrl: './storage-list.component.html',
+  styleUrls: ['./storage-list.component.scss'],
+  imports: [
     MatList,
     MatListItem,
     MatIcon,
     MatIconButton,
     MatTooltip,
     MatFabButton,
-    AsyncPipe
-]
+    AsyncPipe,
+    MatListItemLine,
+    MatListItemTitle,
+    MatListItemMeta,
+    MatFabButton,
+  ],
 })
 export class StorageListComponent {
   storages;

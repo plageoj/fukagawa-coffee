@@ -1,9 +1,15 @@
 import { Component, OnDestroy, signal } from '@angular/core';
-import { Timestamp } from 'firebase/firestore';
-import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Timestamp } from 'firebase/firestore';
 import { take } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -15,23 +21,32 @@ import {
 } from 'src/models/item.model';
 import { Storage } from 'src/models/storage.model';
 import { AddItemComponent } from '../add-item/add-item.component';
-import { MatInput } from '@angular/material/input';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
 
+import {
+  MatAnchor,
+  MatButton,
+  MatMiniFabButton,
+} from '@angular/material/button';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardSubtitle,
+  MatCardTitle,
+} from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton, MatAnchor } from '@angular/material/button';
-import { MatCard, MatCardTitle, MatCardContent, MatCardActions, MatCardSubtitle } from '@angular/material/card';
 
 @Component({
-    selector: 'app-item-detail',
-    templateUrl: './item-detail.component.html',
-    styleUrls: ['./item-detail.component.scss'],
-    imports: [
+  selector: 'app-item-detail',
+  templateUrl: './item-detail.component.html',
+  styleUrls: ['./item-detail.component.scss'],
+  imports: [
     MatCard,
     MatCardTitle,
     MatCardContent,
     MatCardActions,
     MatButton,
+    MatMiniFabButton,
     MatIcon,
     MatCardSubtitle,
     ReactiveFormsModule,
@@ -39,8 +54,8 @@ import { MatCard, MatCardTitle, MatCardContent, MatCardActions, MatCardSubtitle 
     MatLabel,
     MatInput,
     MatAnchor,
-    RouterLink
-]
+    RouterLink,
+  ],
 })
 export class ItemDetailComponent implements OnDestroy {
   item = signal<ItemWithoutTimestamp>({
@@ -103,7 +118,7 @@ export class ItemDetailComponent implements OnDestroy {
 
   manipulate(id: Storage['id'], diff: number) {
     const control = this.storedCount.controls[id];
-    if (control.value < 0) return;
+    if (control.value + diff < 0) return;
     this.item().total += diff;
     control.setValue(control.value + diff);
   }

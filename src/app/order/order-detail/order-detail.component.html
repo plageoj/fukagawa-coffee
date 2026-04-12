@@ -1,10 +1,12 @@
 <mat-card>
-  <mat-card-title>
-    {{ order()?.customerName }}
-  </mat-card-title>
-  <mat-card-subtitle>
-    {{ order()?.orderedAt?.toDate() | date: "y/M/d　h:mm" }}
-  </mat-card-subtitle>
+  <mat-card-header>
+    <mat-card-title>
+      {{ order()?.customerName }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ order()?.orderedAt?.toDate() | date: "y/M/d　h:mm" }}
+    </mat-card-subtitle>
+  </mat-card-header>
 
   <mat-card-content>
     <p>
@@ -12,19 +14,18 @@
     </p>
     <mat-nav-list>
       @for (item of order()?.items; track item) {
-        <a
-          mat-list-item
-          routerLink="/item/{{ item.id }}"
-          >
-          <p matLine>{{ item.name }} × {{ item.orderedCount }}</p>
+        <a mat-list-item routerLink="/item/{{ item.id }}">
+          <span matListItemTitle>
+            {{ item.name }} × {{ item.orderedCount }}
+          </span>
           @if (item.id) {
-            <p matLine>
+            <span matListItemLine>
               {{ itemList()[item.id]?.notes }}
               残り{{ itemList()[item.id]?.total }}
-            </p>
+            </span>
           }
           @if (!item.id) {
-            <p matLine>品目リストにありません</p>
+            <span matListItemLine>品目リストにありません</span>
           }
         </a>
       }

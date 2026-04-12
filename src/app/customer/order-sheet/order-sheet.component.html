@@ -2,22 +2,24 @@
   <h1>注文書</h1>
 
   <mat-card>
-    <mat-card-title>注文書を発行</mat-card-title>
+    <mat-card-header>
+      <mat-card-title>注文書を発行</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
       連絡先情報、品目、単価、備考の編集ができます。<br />
       準備ができたら印刷ボタンを押してください。
     </mat-card-content>
     <mat-card-actions>
-      <a routerLink="../" mat-stroked-button>
+      <a routerLink="../" matButton="tonal">
         <mat-icon>arrow_back</mat-icon>
         戻る
       </a>
       <button
-        mat-raised-button
+        matButton="filled"
         color="primary"
         [disabled]="isNotReady()"
         (click)="print()"
-        >
+      >
         <mat-icon>print</mat-icon>
         印刷
       </button>
@@ -56,7 +58,7 @@
     </thead>
 
     <tbody>
-      @for (item of items(); track item; let i = $index) {
+      @for (item of items(); track item.id; let i = $index) {
         <tr>
           <th scope="row">{{ i + 1 }}</th>
           <td>
@@ -64,7 +66,7 @@
               type="text"
               name="name-{{ item.id }}"
               [(ngModel)]="item.name"
-              />
+            />
             <span class="print">
               {{ item?.name }}
             </span>
@@ -75,7 +77,7 @@
               min="0"
               name="price-{{ item.id }}"
               [(ngModel)]="item.price"
-              />
+            />
             <span class="print"> {{ item.price | currency: "JPY" }}- </span>
           </td>
           <td></td>
@@ -91,7 +93,7 @@
   <p class="online-order">
     <img id="qrcode" [src]="qrCodeAddress()" alt="読み込み中" />
     <a [href]="orderAddress()" target="_blank">オンライン発注が便利です。</a
-      ><br />
-      QRコードからご利用いただけます。
-    </p>
-  </section>
+    ><br />
+    QRコードからご利用いただけます。
+  </p>
+</section>

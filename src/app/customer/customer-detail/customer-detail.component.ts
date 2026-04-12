@@ -1,5 +1,10 @@
-
-import { Component, DestroyRef, inject, OnDestroy, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { where } from 'firebase/firestore';
 import { MatAnchor, MatButton, MatIconButton } from '@angular/material/button';
@@ -7,12 +12,19 @@ import {
   MatCard,
   MatCardActions,
   MatCardContent,
+  MatCardHeader,
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
-import { MatList, MatListItem } from '@angular/material/list';
+import {
+  MatList,
+  MatListItem,
+  MatListItemLine,
+  MatListItemMeta,
+  MatListItemTitle,
+} from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
@@ -25,23 +37,28 @@ import { AddCustomerComponent } from '../add-customer/add-customer.component';
 import { AssociateItemComponent } from '../associate-item/associate-item.component';
 
 @Component({
-    selector: 'app-customer-detail',
-    templateUrl: './customer-detail.component.html',
-    styleUrls: ['./customer-detail.component.scss'],
-    imports: [
+  selector: 'app-customer-detail',
+  templateUrl: './customer-detail.component.html',
+  styleUrls: ['./customer-detail.component.scss'],
+  imports: [
     MatCard,
+    MatCardHeader,
     MatCardTitle,
     MatCardSubtitle,
     MatCardActions,
     MatButton,
+    MatIconButton,
     MatIcon,
     MatCardContent,
     MatList,
     MatListItem,
+    MatListItemTitle,
+    MatListItemLine,
+    MatListItemMeta,
     MatIconButton,
     MatAnchor,
-    RouterLink
-]
+    RouterLink,
+  ],
 })
 export class CustomerDetailComponent implements OnDestroy {
   private readonly destroyRef = inject(DestroyRef);
@@ -68,9 +85,12 @@ export class CustomerDetailComponent implements OnDestroy {
 
         const items = Object.keys(customer?.items ?? {});
         if (customer && items.length) {
-          this.is.list(where('id', 'in', items)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((items) => {
-            this.items.set(items);
-          });
+          this.is
+            .list(where('id', 'in', items))
+            .pipe(takeUntilDestroyed(this.destroyRef))
+            .subscribe((items) => {
+              this.items.set(items);
+            });
         }
       });
   }

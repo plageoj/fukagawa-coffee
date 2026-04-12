@@ -14,12 +14,18 @@ li {
   align-items: center;
 }
 
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1em;
+}
+
 mat-form-field {
   flex-grow: 1;
   min-width: 0;
 }
 
-p a[mat-raised-button] {
+p a[matButton] {
   margin: 1em;
   width: calc(100% - 2em);
 }

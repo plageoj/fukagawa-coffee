@@ -8,6 +8,7 @@ import {
   MatCard,
   MatCardActions,
   MatCardContent,
+  MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
@@ -20,11 +21,12 @@ import { Customer } from 'src/models/customer.model';
 import { Item } from 'src/models/item.model';
 
 @Component({
-    selector: 'app-order-sheet',
-    templateUrl: './order-sheet.component.html',
-    styleUrls: ['./order-sheet.component.scss'],
-    imports: [
+  selector: 'app-order-sheet',
+  templateUrl: './order-sheet.component.html',
+  styleUrls: ['./order-sheet.component.scss'],
+  imports: [
     MatCard,
+    MatCardHeader,
     MatCardTitle,
     MatCardContent,
     MatCardActions,
@@ -34,8 +36,8 @@ import { Item } from 'src/models/item.model';
     MatButton,
     ReactiveFormsModule,
     FormsModule,
-    CurrencyPipe
-]
+    CurrencyPipe,
+  ],
 })
 export class OrderSheetComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
@@ -62,17 +64,27 @@ export class OrderSheetComponent implements OnInit {
         this.title.setTitle(customer.name, '発注書');
 
         const items = Object.keys(customer?.items || {});
-        if (customer && items.length) {
-          const orderAddress = `${location.origin}/order/${customer.id}/new`;
-          this.orderAddress.set(orderAddress);
-          this.qrCodeAddress.set(
-            'https://api.qrserver.com/v1/create-qr-code/?format=svg&qzone=1&data=' +
+        const orderAddress = `${location.origin}/order/${customer.id}/new`;
+        this.orderAddress.set(orderAddress);
+        this.qrCodeAddress.set(
+          'https://api.qrserver.com/v1/create-qr-code/?format=svg&qzone=1&data=' +
             encodeURIComponent(orderAddress),
-          );
-          this.is.list(where('id', 'in', items)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((items) => {
-            this.items.set([...items, ...Array(10 - items.length).fill({})]);
+        );
+        this.is
+          .list(where('id', 'in', items))
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe((items) => {
+            this.items.set([
+              ...items,
+              ...Array(10 - items.length)
+                .fill(1)
+                .map(() => ({
+                  id: Math.random().toString(36).substring(2, 9),
+                  name: '',
+                  price: '',
+                })),
+            ]);
           });
-        }
       });
   }
 

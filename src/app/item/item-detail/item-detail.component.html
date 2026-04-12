@@ -8,11 +8,11 @@
   </mat-card-content>
 
   <mat-card-actions>
-    <button mat-stroked-button (click)="editItem()">
+    <button matButton="tonal" color="primary" (click)="editItem()">
       <mat-icon>edit</mat-icon>
       編集
     </button>
-    <button mat-stroked-button color="warn" (click)="deleteItem()">
+    <button matButton="filled" color="warn" (click)="deleteItem()">
       <mat-icon>delete</mat-icon>
       削除
     </button>
@@ -34,12 +34,12 @@
               min="0"
               [formControlName]="storage.id"
               (input)="countTotal()"
-              />
+            />
           </mat-form-field>
-          <button mat-stroked-button (click)="manipulate(storage.id, -1)">
+          <button matMiniFab (click)="manipulate(storage.id, -1)">
             <mat-icon>remove</mat-icon>
           </button>
-          <button mat-stroked-button (click)="manipulate(storage.id, 1)">
+          <button matMiniFab (click)="manipulate(storage.id, 1)">
             <mat-icon>add</mat-icon>
           </button>
         </li>
@@ -49,7 +49,7 @@
 </mat-card>
 
 <p>
-  <a mat-raised-button color="primary" routerLink="/">
+  <a matButton="filled" color="primary" routerLink="/">
     <mat-icon>arrow_back</mat-icon>
     保存して戻る
   </a>
