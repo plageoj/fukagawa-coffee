@@ -21,7 +21,7 @@ Stock and order manager for Fukagawa Coffee Co.,Ltd. - an Angular 20 application
 
 ### Testing
 
-- `npm test:ci` or `ng test --no-watch` - Run unit tests via Karma (ChromeHeadless)
+- `npm run test:ci` or `ng test --no-watch` - Run unit tests via Karma (ChromeHeadless)
 - Tests include code coverage enabled by default
 - `ng test --no-watch --include='**/path/to/test.spec.ts'` - Run specific test file (glob pattern required)
 - Test utilities in src/app/: `firebase-testing.module.ts` (Firebase/Firestore mocks) and `ngx-webstorage-testing.module.ts` (storage mocks)
