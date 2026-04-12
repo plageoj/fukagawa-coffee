@@ -11,10 +11,10 @@ export class PageTitleStrategy extends TitleStrategy {
 
   override updateTitle(routerState: RouterStateSnapshot) {
     const title = this.buildTitle(routerState);
-    if (title !== undefined) {
-      this.title.setTitle(`${title} - ${environment.siteName}`);
-    } else {
+    if (title === undefined) {
       this.title.setTitle(environment.siteName);
+    } else {
+      this.title.setTitle(`${title} - ${environment.siteName}`);
     }
   }
 }

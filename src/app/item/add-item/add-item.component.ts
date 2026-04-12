@@ -50,7 +50,7 @@ export class AddItemComponent {
       notes: [''],
     });
 
-    if (typeof data.item.id !== 'undefined') {
+    if (data.item.id !== undefined) {
       this.item.patchValue(data.item);
     }
   }

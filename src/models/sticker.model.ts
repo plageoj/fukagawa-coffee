@@ -21,8 +21,8 @@ export type Sticker = {
   setAt?: Timestamp;
   storedAt?: Timestamp;
   storageId?: string;
-  setBy?: string; // TODO: User["id"] に変更する
-  storedBy?: string; // TODO: User["id"] に変更する
+  setBy?: string;
+  storedBy?: string;
   status: StickerStatus;
   groupId: string;
 };

@@ -48,6 +48,8 @@
     "@angular/cli": "^21.2.7",
     "@angular/compiler-cli": "^21.2.8",
     "@types/jasmine": "~5.1.4",
+    "@typescript-eslint/eslint-plugin": "^8.58.1",
+    "@typescript-eslint/parser": "^8.58.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "inquirer-autocomplete-prompt": "^3.0.1",

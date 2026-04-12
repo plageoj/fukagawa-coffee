@@ -5,6 +5,7 @@
         <mat-grid-tile
           [ngClass]="{ low: item.total < item.notifyCount }"
           (click)="selectItem(item)"
+          (keydown.enter)="selectItem(item)"
           >
           <p>
             <strong class="item-name"> {{ item.name }} </strong>
