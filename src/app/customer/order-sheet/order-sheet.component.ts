@@ -76,7 +76,9 @@ export class OrderSheetComponent implements OnInit {
           .subscribe((items) => {
             this.items.set([
               ...items,
-              ...new Array(10 - items.length).fill(1).map((_, i) => ({
+              ...new Array(Math.max(0, 10 - items.length))
+                .fill(1)
+                .map((_, i) => ({
                 id: i.toString(),
                 name: '',
                 price: '',
