@@ -10,11 +10,9 @@ import {
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
-import { MatDivider } from '@angular/material/divider';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
-import { MatList, MatListItem, MatListItemLine } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute } from '@angular/router';
@@ -48,6 +46,12 @@ import { Order } from 'src/models/order.model';
   ],
 })
 export class NewOrderComponent {
+  private readonly route = inject(ActivatedRoute);
+  private readonly cs = inject(CustomerService);
+  private readonly is = inject(ItemService);
+  private readonly os = inject(OrderService);
+  private readonly sb = inject(MatSnackBar);
+
   private readonly destroyRef = inject(DestroyRef);
   customer = signal<Customer | undefined>(undefined);
   items = signal<Partial<Item & { orderedCount: number }>[]>([]);
@@ -61,13 +65,7 @@ export class NewOrderComponent {
   };
   sending = signal(false);
 
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly cs: CustomerService,
-    private readonly is: ItemService,
-    private readonly os: OrderService,
-    private readonly sb: MatSnackBar,
-  ) {
+  constructor() {
     this.cs
       .load(this.route.snapshot.paramMap.get('id') ?? '_')
       .pipe(takeUntilDestroyed(this.destroyRef))

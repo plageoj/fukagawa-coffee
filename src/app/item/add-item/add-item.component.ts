@@ -1,5 +1,5 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import {
@@ -16,31 +16,33 @@ import { ItemService } from 'src/app/services/item.service';
 import { ItemDialogData } from 'src/models/item.model';
 
 @Component({
-    selector: 'app-add-item',
-    templateUrl: './add-item.component.html',
-    styleUrls: ['./add-item.component.scss'],
-    imports: [
-        MatDialogTitle,
-        ReactiveFormsModule,
-        CdkScrollable,
-        MatDialogContent,
-        MatFormField,
-        MatLabel,
-        MatInput,
-        MatDialogActions,
-        MatButton,
-        MatDialogClose,
-        MatIcon,
-    ]
+  selector: 'app-add-item',
+  templateUrl: './add-item.component.html',
+  styleUrls: ['./add-item.component.scss'],
+  imports: [
+    MatDialogTitle,
+    ReactiveFormsModule,
+    CdkScrollable,
+    MatDialogContent,
+    MatFormField,
+    MatLabel,
+    MatInput,
+    MatDialogActions,
+    MatButton,
+    MatDialogClose,
+    MatIcon,
+  ],
 })
 export class AddItemComponent {
+  data = inject<ItemDialogData>(MAT_DIALOG_DATA);
+  private readonly is = inject(ItemService);
+  private readonly fb = inject(UntypedFormBuilder);
+
   item;
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ItemDialogData,
-    private readonly is: ItemService,
-    private readonly fb: UntypedFormBuilder,
-  ) {
+  constructor() {
+    const data = this.data;
+
     this.item = this.fb.group({
       id: [this.is.id],
       name: [''],

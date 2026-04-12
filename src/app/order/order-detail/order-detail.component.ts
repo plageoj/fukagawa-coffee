@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import {
   MatCard,
@@ -46,15 +46,15 @@ import { Order } from 'src/models/order.model';
   ],
 })
 export class OrderDetailComponent {
+  private readonly os = inject(OrderService);
+  private readonly is = inject(ItemService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+
   order = signal<Order | undefined>(undefined);
   itemList = signal<{ [key: string]: Item | undefined }>({});
 
-  constructor(
-    private readonly os: OrderService,
-    private readonly is: ItemService,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-  ) {
+  constructor() {
     this.os
       .load(this.route.snapshot.paramMap.get('id') ?? '_')
       .pipe(take(1))

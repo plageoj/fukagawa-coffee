@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
@@ -10,17 +10,15 @@ import { MatFabButton } from '@angular/material/button';
 import { ItemSelectorComponent } from '../../components/item-selector/item-selector.component';
 
 @Component({
-    selector: 'app-item-list',
-    templateUrl: './item-list.component.html',
-    styles: [],
-    imports: [ItemSelectorComponent, MatFabButton, MatTooltip, MatIcon]
+  selector: 'app-item-list',
+  templateUrl: './item-list.component.html',
+  styles: [],
+  imports: [ItemSelectorComponent, MatFabButton, MatTooltip, MatIcon],
 })
 export class ItemListComponent {
-  constructor(
-    private readonly dialog: MatDialog,
-    private readonly router: Router,
-    private readonly is: ItemService,
-  ) {}
+  private readonly dialog = inject(MatDialog);
+  private readonly router = inject(Router);
+  private readonly is = inject(ItemService);
 
   addItem() {
     this.dialog

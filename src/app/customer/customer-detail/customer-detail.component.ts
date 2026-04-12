@@ -61,20 +61,20 @@ import { AssociateItemComponent } from '../associate-item/associate-item.compone
   ],
 })
 export class CustomerDetailComponent implements OnDestroy {
+  private readonly cs = inject(CustomerService);
+  private readonly dialog = inject(MatDialog);
+  private readonly is = inject(ItemService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly snack = inject(MatSnackBar);
+  private readonly title = inject(TitleService);
+
   private readonly destroyRef = inject(DestroyRef);
   customer = signal<Customer | undefined>(undefined);
   items = signal<Item[]>([]);
   private isUpdated = false;
 
-  constructor(
-    private readonly cs: CustomerService,
-    private readonly dialog: MatDialog,
-    private readonly is: ItemService,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    private readonly snack: MatSnackBar,
-    private readonly title: TitleService,
-  ) {
+  constructor() {
     this.cs
       .load(this.route.snapshot.paramMap.get('id') ?? '_')
       .pipe(take(1))

@@ -1,5 +1,5 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import {
@@ -34,13 +34,16 @@ import { Storage } from 'src/models/storage.model';
   ],
 })
 export class AddStorageComponent {
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly ref =
+    inject<MatDialogRef<AddStorageComponent>>(MatDialogRef);
+  data? = inject<Storage>(MAT_DIALOG_DATA);
+
   storage;
 
-  constructor(
-    private readonly fb: UntypedFormBuilder,
-    private readonly ref: MatDialogRef<AddStorageComponent>,
-    @Inject(MAT_DIALOG_DATA) public data?: Storage,
-  ) {
+  constructor() {
+    const data = this.data;
+
     this.storage = this.fb.group({
       id: [data?.id],
       name: [data?.name ?? ''],

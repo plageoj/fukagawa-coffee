@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import {
   MatCard,
   MatCardContent,
@@ -11,25 +11,25 @@ import { LoginByEmailComponent } from './login-by-email/login-by-email.component
 import { LoginByPhoneComponent } from './login-by-phone/login-by-phone.component';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    imports: [
-        MatCard,
-        MatCardTitle,
-        MatCardHeader,
-        MatCardContent,
-        MatTabGroup,
-        MatTab,
-        LoginByPhoneComponent,
-        LoginByEmailComponent,
-    ]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  imports: [
+    MatCard,
+    MatCardTitle,
+    MatCardHeader,
+    MatCardContent,
+    MatTabGroup,
+    MatTab,
+    LoginByPhoneComponent,
+    LoginByEmailComponent,
+  ],
 })
 export class LoginComponent implements AfterViewInit {
+  private readonly storage = inject(LocalStorageService);
+
   private readonly lastLoginMethodIndexKey = 'login.lastLoginMethodIndex';
   @ViewChild('tabGroup') tabGroup?: MatTabGroup;
-
-  constructor(private readonly storage: LocalStorageService) {}
 
   ngAfterViewInit(): void {
     if (!this.tabGroup) return;

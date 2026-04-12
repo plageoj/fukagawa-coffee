@@ -1,4 +1,4 @@
-import { Component, OnDestroy, signal } from '@angular/core';
+import { Component, OnDestroy, signal, inject } from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormBuilder,
@@ -58,6 +58,15 @@ import { MatIcon } from '@angular/material/icon';
   ],
 })
 export class ItemDetailComponent implements OnDestroy {
+  private readonly dialog = inject(MatDialog);
+  private readonly fb = inject(UntypedFormBuilder);
+  private readonly is = inject(ItemService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly sb = inject(MatSnackBar);
+  private readonly ss = inject(StorageService);
+  private readonly title = inject(TitleService);
+
   item = signal<ItemWithoutTimestamp>({
     id: '',
     name: '読み込み中',
@@ -71,16 +80,7 @@ export class ItemDetailComponent implements OnDestroy {
   storedCount = new UntypedFormGroup({});
   storages = signal<Storage[]>([]);
 
-  constructor(
-    private readonly dialog: MatDialog,
-    private readonly fb: UntypedFormBuilder,
-    private readonly is: ItemService,
-    private readonly route: ActivatedRoute,
-    private readonly router: Router,
-    private readonly sb: MatSnackBar,
-    private readonly ss: StorageService,
-    private readonly title: TitleService,
-  ) {
+  constructor() {
     const id = this.route.snapshot.paramMap.get('id') ?? '_';
     this.is
       .load(id)

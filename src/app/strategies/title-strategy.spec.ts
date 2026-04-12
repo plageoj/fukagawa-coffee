@@ -1,14 +1,24 @@
+import { TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { PageTitleStrategy } from './title-strategy';
 import { RouterStateSnapshot } from '@angular/router';
 
 describe('TitleStrategy', () => {
-  let title: Title;
+  let title: jasmine.SpyObj<Title>;
   let strategy: PageTitleStrategy;
 
   beforeEach(() => {
-    title = jasmine.createSpyObj<Title>('Title', ['setTitle']);
-    strategy = new PageTitleStrategy(title);
+    const titleSpy = jasmine.createSpyObj<Title>('Title', ['setTitle']);
+
+    TestBed.configureTestingModule({
+      providers: [
+        PageTitleStrategy,
+        { provide: Title, useValue: titleSpy },
+      ],
+    });
+
+    strategy = TestBed.inject(PageTitleStrategy);
+    title = TestBed.inject(Title) as jasmine.SpyObj<Title>;
   });
 
   it('should create an instance', () => {
