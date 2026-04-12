@@ -103,11 +103,12 @@ describe('ItemDetailComponent', () => {
     expect(component.storedCount.controls[testStorageId].value).toBe(controlBefore + 1);
   });
 
-  it('manipulate should not change when control value is negative', () => {
-    component.storedCount.controls[testStorageId].setValue(-1);
+  it('manipulate should not change when result would be negative', () => {
+    component.storedCount.controls[testStorageId].setValue(0);
     const totalBefore = component.item().total;
-    component.manipulate(testStorageId, 1);
+    component.manipulate(testStorageId, -1);
     expect(component.item().total).toBe(totalBefore);
+    expect(component.storedCount.controls[testStorageId].value).toBe(0);
   });
 
   it('countTotal should recalculate total from storedCount', () => {

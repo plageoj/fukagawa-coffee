@@ -1,28 +1,28 @@
+import { DatePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { where } from 'firebase/firestore';
+import { MatButton } from '@angular/material/button';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardHeader,
+  MatCardSubtitle,
+  MatCardTitle,
+} from '@angular/material/card';
+import { MatIcon } from '@angular/material/icon';
+import {
+  MatListItem,
+  MatListItemLine,
+  MatListItemTitle,
+  MatNavList,
+} from '@angular/material/list';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { where } from 'firebase/firestore';
 import { take } from 'rxjs';
 import { ItemService } from 'src/app/services/item.service';
 import { OrderService } from 'src/app/services/order.service';
 import { Item } from 'src/models/item.model';
 import { Order } from 'src/models/order.model';
-import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
-import { DatePipe } from '@angular/common';
-import {
-  MatNavList,
-  MatListItem,
-  MatListItemLine,
-  MatListItemTitle,
-} from '@angular/material/list';
-import {
-  MatCard,
-  MatCardTitle,
-  MatCardSubtitle,
-  MatCardContent,
-  MatCardActions,
-  MatCardHeader,
-} from '@angular/material/card';
 
 @Component({
   selector: 'app-order-detail',
