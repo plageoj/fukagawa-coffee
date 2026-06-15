@@ -1,4 +1,10 @@
-import { Component, OnDestroy, signal, inject } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  signal,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   ReactiveFormsModule,
   UntypedFormBuilder,
@@ -40,6 +46,7 @@ import { MatIcon } from '@angular/material/icon';
   selector: 'app-item-detail',
   templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatCard,
     MatCardTitle,

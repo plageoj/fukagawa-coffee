@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatFabButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIcon } from '@angular/material/icon';
@@ -19,6 +19,7 @@ import { AddStorageComponent } from '../add-storage/add-storage.component';
   selector: 'app-storage-list',
   templateUrl: './storage-list.component.html',
   styleUrls: ['./storage-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatList,
     MatListItem,

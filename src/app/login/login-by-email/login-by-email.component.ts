@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FirebaseError } from 'firebase/app';
 import { AuthErrorCodes, UserCredential } from 'firebase/auth';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
@@ -14,6 +14,7 @@ import { LoginService } from '../login.service';
   selector: 'app-login-by-email',
   templateUrl: './login-by-email.component.html',
   styleUrls: ['./login-by-email.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     ReactiveFormsModule,
     MatFormField,

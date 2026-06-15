@@ -4,6 +4,7 @@ import {
   inject,
   OnDestroy,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { where } from 'firebase/firestore';
@@ -40,6 +41,7 @@ import { AssociateItemComponent } from '../associate-item/associate-item.compone
   selector: 'app-customer-detail',
   templateUrl: './customer-detail.component.html',
   styleUrls: ['./customer-detail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatCard,
     MatCardHeader,
