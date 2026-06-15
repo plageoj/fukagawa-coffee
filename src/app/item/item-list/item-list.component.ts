@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ItemService } from 'src/app/services/item.service';
@@ -13,6 +13,7 @@ import { ItemSelectorComponent } from '../../components/item-selector/item-selec
   selector: 'app-item-list',
   templateUrl: './item-list.component.html',
   styles: [],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [ItemSelectorComponent, MatFabButton, MatTooltip, MatIcon],
 })
 export class ItemListComponent {

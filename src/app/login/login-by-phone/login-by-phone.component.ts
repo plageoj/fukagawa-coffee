@@ -1,4 +1,9 @@
-import { Component, signal, inject } from '@angular/core';
+import {
+  Component,
+  signal,
+  inject,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ConfirmationResult } from 'firebase/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
@@ -12,6 +17,7 @@ import { LoginService } from '../login.service';
   selector: 'app-login-by-phone',
   templateUrl: './login-by-phone.component.html',
   styleUrls: ['./login-by-phone.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatFormField,
     MatLabel,

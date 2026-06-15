@@ -1,5 +1,5 @@
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import {
@@ -19,6 +19,7 @@ import { Storage } from 'src/models/storage.model';
   selector: 'app-add-storage',
   templateUrl: './add-storage.component.html',
   styleUrls: ['./add-storage.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatDialogTitle,
     ReactiveFormsModule,

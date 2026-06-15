@@ -1,5 +1,12 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAnchor, MatButton } from '@angular/material/button';
@@ -24,6 +31,7 @@ import { Item } from 'src/models/item.model';
   selector: 'app-order-sheet',
   templateUrl: './order-sheet.component.html',
   styleUrls: ['./order-sheet.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     MatCard,
     MatCardHeader,
@@ -79,10 +87,10 @@ export class OrderSheetComponent implements OnInit {
               ...new Array(Math.max(0, 10 - items.length))
                 .fill(1)
                 .map((_, i) => ({
-                id: i.toString(),
-                name: '',
-                price: '',
-              })),
+                  id: i.toString(),
+                  name: '',
+                  price: '',
+                })),
             ]);
           });
       });
