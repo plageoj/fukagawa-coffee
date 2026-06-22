@@ -5,7 +5,6 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
@@ -26,7 +25,6 @@ describe('CustomerDetailComponent', () => {
       imports: [
         FirebaseTestingModule,
         CustomerDetailComponent,
-        NoopAnimationsModule,
         RouterTestingModule.withRoutes([
           { path: 'customer', component: CustomerDetailComponent }
         ]),

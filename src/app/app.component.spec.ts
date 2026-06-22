@@ -1,7 +1,6 @@
 import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
 import { TestBed } from "@angular/core/testing";
 import { MatToolbarHarness } from "@angular/material/toolbar/testing";
-import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { provideRouter } from "@angular/router";
 import { routes } from "./app-routing";
 import { AppComponent } from "./app.component";
@@ -10,7 +9,7 @@ import { FirebaseTestingModule } from "./firebase-testing.module";
 describe("AppComponent", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FirebaseTestingModule, AppComponent, NoopAnimationsModule],
+      imports: [FirebaseTestingModule, AppComponent],
       providers: [provideRouter(routes)],
     }).compileComponents();
   });

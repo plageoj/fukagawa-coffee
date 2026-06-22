@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
 import { FirebaseTestingModule } from '../firebase-testing.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -10,7 +9,7 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginComponent, FirebaseTestingModule, NoopAnimationsModule],
+      imports: [LoginComponent, FirebaseTestingModule],
     }).compileComponents();
   });
 

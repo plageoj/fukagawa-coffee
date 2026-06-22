@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 import { LoginByPhoneComponent } from './login-by-phone.component';
@@ -17,7 +16,6 @@ describe('LoginByPhoneComponent', () => {
       imports: [
         LoginByPhoneComponent,
         FirebaseTestingModule,
-        NoopAnimationsModule,
       ],
       providers: [{ provide: MatSnackBar, useValue: snackBar }],
     }).compileComponents();

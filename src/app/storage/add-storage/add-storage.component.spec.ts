@@ -6,7 +6,6 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AddStorageComponent', () => {
   let component: AddStorageComponent;
@@ -14,7 +13,7 @@ describe('AddStorageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddStorageComponent, MatDialogModule, NoopAnimationsModule],
+      imports: [AddStorageComponent, MatDialogModule],
       providers: [
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} },

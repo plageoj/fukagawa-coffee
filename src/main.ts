@@ -12,7 +12,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideRouter,
   TitleStrategy,
@@ -66,7 +65,6 @@ bootstrapApplication(AppComponent, {
       provide: TitleStrategy,
       useClass: PageTitleStrategy,
     },
-    provideAnimations(),
     provideRouter(routes, withComponentInputBinding()),
   ],
 }).catch((err) => console.error(err));

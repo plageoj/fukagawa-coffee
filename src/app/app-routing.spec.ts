@@ -3,7 +3,6 @@ import { provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { routes } from './app-routing';
 import { FirebaseTestingModule, initializeTestFirebase } from './firebase-testing.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('app-routing', () => {
   let harness: RouterTestingHarness;
@@ -15,7 +14,7 @@ describe('app-routing', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [provideRouter(routes)],
-      imports: [FirebaseTestingModule, NoopAnimationsModule],
+      imports: [FirebaseTestingModule],
     }).compileComponents();
 
     harness = await RouterTestingHarness.create();

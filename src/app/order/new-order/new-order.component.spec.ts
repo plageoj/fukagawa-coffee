@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 import { OrderService } from 'src/app/services/order.service';
@@ -14,7 +13,7 @@ describe('NewOrderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewOrderComponent, FirebaseTestingModule, NoopAnimationsModule],
+      imports: [NewOrderComponent, FirebaseTestingModule],
       providers: [provideRouter([])],
     }).compileComponents();
 
