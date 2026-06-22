@@ -19,12 +19,6 @@ import {
   withComponentInputBinding,
 } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import {
-  provideNgxWebstorage,
-  withLocalStorage,
-  withNgxWebstorageConfig,
-  withSessionStorage,
-} from 'ngx-webstorage';
 import { routes } from './app/app-routing';
 import { AppComponent } from './app/app.component';
 import {
@@ -53,15 +47,6 @@ bootstrapApplication(AppComponent, {
       MatListModule,
       MatSidenavModule,
       MatToolbarModule,
-    ),
-    provideNgxWebstorage(
-      withNgxWebstorageConfig({
-        prefix: 'fukagawa-coffee',
-        separator: '.',
-        caseSensitive: true,
-      }),
-      withLocalStorage(),
-      withSessionStorage(),
     ),
     { provide: FIRESTORE, useFactory: getFirestoreInstance },
     { provide: AUTH, useFactory: getAuthInstance },

@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   ViewChild,
-  inject,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import {
@@ -12,7 +11,6 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { LocalStorageService } from 'ngx-webstorage';
 import { LoginByEmailComponent } from './login-by-email/login-by-email.component';
 import { LoginByPhoneComponent } from './login-by-phone/login-by-phone.component';
 
@@ -33,21 +31,20 @@ import { LoginByPhoneComponent } from './login-by-phone/login-by-phone.component
   ],
 })
 export class LoginComponent implements AfterViewInit {
-  private readonly storage = inject(LocalStorageService);
-
-  private readonly lastLoginMethodIndexKey = 'login.lastLoginMethodIndex';
+  private readonly lastLoginMethodIndexKey =
+    'fukagawa-coffee.login.lastLoginMethodIndex';
   @ViewChild('tabGroup') tabGroup?: MatTabGroup;
 
   ngAfterViewInit(): void {
     if (!this.tabGroup) return;
 
     const index = Number(
-      this.storage.retrieve(this.lastLoginMethodIndexKey) ?? 0,
+      localStorage.getItem(this.lastLoginMethodIndexKey) ?? 0,
     );
     this.tabGroup.selectedIndex = index;
   }
 
   setLastLoginMethodIndex(index: number) {
-    this.storage.store(this.lastLoginMethodIndexKey, index);
+    localStorage.setItem(this.lastLoginMethodIndexKey, String(index));
   }
 }
