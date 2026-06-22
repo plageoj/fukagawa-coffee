@@ -7,7 +7,6 @@ import { AuthErrorCodes } from 'firebase/auth';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatInputHarness } from '@angular/material/input/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 import { LoginService } from '../login.service';
 import { LoginByEmailComponent } from './login-by-email.component';
@@ -31,7 +30,6 @@ describe('LoginByEmailComponent', () => {
       imports: [
         FirebaseTestingModule,
         LoginByEmailComponent,
-        NoopAnimationsModule,
       ],
       providers: [
         { provide: LoginService, useValue: login },

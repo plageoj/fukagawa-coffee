@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddCustomerComponent } from './add-customer.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('AddCustomerComponent', () => {
   let component: AddCustomerComponent;
@@ -14,7 +13,6 @@ describe('AddCustomerComponent', () => {
       imports: [
         AddCustomerComponent,
         FirebaseTestingModule,
-        NoopAnimationsModule,
       ],
       providers: [
         {

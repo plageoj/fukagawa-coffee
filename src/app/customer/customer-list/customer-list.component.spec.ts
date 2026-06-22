@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CustomerListComponent } from './customer-list.component';
 import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
@@ -14,7 +13,6 @@ describe('CustomerListComponent', () => {
       imports: [
         CustomerListComponent,
         FirebaseTestingModule,
-        NoopAnimationsModule,
       ],
       providers: [provideRouter([])],
     }).compileComponents();
