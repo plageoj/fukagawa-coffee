@@ -27,10 +27,7 @@ describe('LoginByEmailComponent', () => {
     snack = jasmine.createSpyObj('MatSnackBar', ['open']);
 
     await TestBed.configureTestingModule({
-      imports: [
-        FirebaseTestingModule,
-        LoginByEmailComponent,
-      ],
+      imports: [FirebaseTestingModule, LoginByEmailComponent],
       providers: [
         { provide: LoginService, useValue: login },
         { provide: MatSnackBar, useValue: snack },
@@ -119,7 +116,11 @@ describe('LoginByEmailComponent', () => {
     ];
 
     params.forEach(({ error, message }) => {
-      it(`should show error message "${message}" if ${error} error when creating user`, async () => {
+      const label =
+        error instanceof FirebaseError
+          ? `FirebaseError(${error.code})`
+          : `"${error}"`;
+      it(`should show error message "${message}" if ${label} error when creating user`, async () => {
         loginSrv.createAccountByEmail.and.throwError(error);
         await component.createAccount();
         expect(snack.open).toHaveBeenCalledWith(message);
