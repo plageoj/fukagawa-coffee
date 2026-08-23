@@ -5,7 +5,7 @@
 
 Stock and order manager for Fukagawa Coffee Co.,Ltd. (and others)
 
-This project is built with Angular 20 and Firebase.
+This project is built with Angular and Firebase.
 
 ## Requirements
 
@@ -13,14 +13,14 @@ This project is built with Angular 20 and Firebase.
 
 | package | version |
 |---|---|
-| node.js | ^20.11.1 |
-| npm | >= 9.0.0 |
+| node.js | active LTS (exact range: `engines.node` in `package.json`) |
+| npm | see `engines.npm` in `package.json` |
 
 ### Optional npm global packages
 
 | package | version |
 |---|---|
-| @angular/cli | ^20 |
+| @angular/cli | same major as `@angular/cli` in `package.json` |
 | firebase-tools | latest |
 
 If you have not installed `@angular/cli` globally, you may use `npx ng` instead of `ng` commands below.
