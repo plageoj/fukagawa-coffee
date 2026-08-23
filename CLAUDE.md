@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Stock and order manager for Fukagawa Coffee Co.,Ltd. - an Angular 20 application with Firebase backend (Firestore database and Firebase Authentication). Uses Angular Material for UI components and SCSS for styling.
+Stock and order manager for Fukagawa Coffee Co.,Ltd. - an Angular application with Firebase backend (Firestore database and Firebase Authentication). Uses Angular Material for UI components and SCSS for styling.
 
 ## Development Commands
 
@@ -24,7 +24,7 @@ Stock and order manager for Fukagawa Coffee Co.,Ltd. - an Angular 20 application
 - `npm run test:ci` or `ng test --no-watch` - Run unit tests via Karma (ChromeHeadless)
 - Tests include code coverage enabled by default
 - `ng test --no-watch --include='**/path/to/test.spec.ts'` - Run specific test file (glob pattern required)
-- Test utilities in src/app/: `firebase-testing.module.ts` (Firebase/Firestore mocks) and `ngx-webstorage-testing.module.ts` (storage mocks)
+- Test utilities in src/app/: `firebase-testing.module.ts` (Firebase/Firestore mocks)
 
 ### Linting
 
@@ -74,7 +74,7 @@ Other services: TitleService (browser tab title management)
 
 ### Firebase Integration
 
-- Uses @angular/fire v20
+- Uses the Firebase JS SDK (`firebase`) directly; @angular/fire has been removed in favor of thin wrappers in `src/app/services/firestore-rxjs.ts` and `src/app/guards/auth.guard.ts`
 - Environment-based configuration (src/environments/)
 - Production build replaces environment.ts with environment.prod.ts
 - Authentication via Firebase Auth with signOut and onAuthStateChanged
@@ -100,9 +100,10 @@ Optional but recommended prefixes:
 
 ## Requirements
 
-- Node.js ^20.11.1
-- npm >= 9.0.0
-- Optional: @angular/cli ^20, firebase-tools (for deployment)
+- Node.js: an active LTS release. The authoritative range is `engines.node` in package.json; see
+  [Angular version compatibility](https://angular.dev/reference/versions) for why it moves.
+- npm: see `engines.npm` in package.json
+- Optional: @angular/cli (match the `@angular/cli` version in package.json), firebase-tools (for deployment)
 - VSCode users: Install angular.ng-template extension for template type-hinting
 
 ## SonarQube Integration
