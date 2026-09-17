@@ -118,8 +118,8 @@ describe('LoginByEmailComponent', () => {
       },
     ];
 
-    params.forEach(({ error, message }) => {
-      it(`should show error message "${message}" if ${error} error when creating user`, async () => {
+    params.forEach(({ error, message }, index) => {
+      it(`should show error message "${message}" if ${error} error when creating user (#${index})`, async () => {
         loginSrv.createAccountByEmail.and.throwError(error);
         await component.createAccount();
         expect(snack.open).toHaveBeenCalledWith(message);
